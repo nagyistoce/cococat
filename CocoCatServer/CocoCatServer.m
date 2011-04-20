@@ -18,7 +18,7 @@
 - init
 {
     adminServletManager = [[HttpServletManager alloc] init];
-    [adminServletManager registerServlet:[[AdminServlet alloc] init] forUrlPattern:@".*"];
+    [adminServletManager registerServlet:[[[AdminServlet alloc] init] autorelease] forUrlPattern:@".*"];
     
     servletManager = [[HttpServletManager alloc] init];
     
@@ -42,7 +42,6 @@
 {
     [ajpServer listen:ajpPort];
     [adminServer listen:adminPort];
-
 }
 
 @end

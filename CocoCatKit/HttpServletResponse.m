@@ -69,7 +69,10 @@
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
-	[responseMessage sendHeaderWithStatusCode:error message:message header:header];
+    //we close the connection in error case
+    [self setHeaderValue:@"close" forName:@"Connection"];
+
+    [responseMessage sendHeaderWithStatusCode:error message:message header:header];
 }
 
 - (void)writeData:(NSData *)data
