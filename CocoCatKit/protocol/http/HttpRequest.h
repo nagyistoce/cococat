@@ -13,6 +13,9 @@
 
 }
 
+- initWithData:(NSData *)someData;
+- (void)dealloc;
+
 - (NSString *)method;
 - (NSString *)requestUri;
 - (NSDictionary *)headers;

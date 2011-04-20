@@ -11,7 +11,6 @@
 #import "AJP13ForwardRequest.h"
 #import "AJP13Response.h"
 #import "ServletRequestDispatcher.h"
-
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 
 @implementation AJP13Connection
@@ -66,33 +65,38 @@
 			break;
 		}
 		default:
-			NSLog(@"did read %@", data);
+			NSLog(@"Unknown data [%@] read", data);
 	}
 }
 
 //processing ajp request
 - (void)processForwardRequest:(AJP13ForwardRequest *)request
 {	
-	AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
+	BOOL keepAlive = NO;
+    AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager keepAlive:keepAlive];	
+    
+    if(keepAlive == NO) {
+        [self close];
+    }
 }
 
 //ajp response messaging
-- (void)sendHeadersWithStatusCode:(unsigned int)status statusMessage:(NSString *)message headers:(NSDictionary *)headers
+- (void)sendHeaderWithStatusCode:(unsigned int)status statusMessage:(NSString *)message header:(NSDictionary *)header
 {
 	NSMutableData	*data = [NSMutableData data];
 	unsigned char prefixCode = AJP_SEND_HEADER;
 	[data appendBytes:&prefixCode length:1];
 	[self _addInteger:status data:data];
 	[self _addString:message data:data];
-	[self _addInteger:[headers count] data:data];
+	[self _addInteger:[header count] data:data];
 	
-	NSEnumerator	*enumerator = [headers keyEnumerator];
+	NSEnumerator	*enumerator = [header keyEnumerator];
 	NSString		*key;
 	
 	while ((key = [enumerator nextObject]) != nil) {
-		NSString	*value = [headers objectForKey:key];
+		NSString	*value = [header objectForKey:key];
 		NSNumber	*number = [self _codeValueForHeaderName:key];
 		if(number != nil) {
 			[self _addInteger:[number intValue] data:data];

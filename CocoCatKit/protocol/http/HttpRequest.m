@@ -12,6 +12,17 @@
 
 @implementation HttpRequest
 
+
+- initWithData:(NSData *)someData
+{
+    return self;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
 - (NSString *)method
 {
 	return nil;

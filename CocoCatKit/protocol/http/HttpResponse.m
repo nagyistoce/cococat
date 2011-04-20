@@ -12,21 +12,40 @@
 
 @implementation HttpResponse
 
+- initWithConnection:(HttpConnection *)aConnection
+{
+    connection = [aConnection retain];
+    return self;
+}
+
+- (void)dealloc
+{
+    [connection release];
+    
+    [super dealloc];
+}
+
 - (void)writeData:(NSData *)data
 {
 }
 
-- (BOOL)isCommited
+- (BOOL)isCommitted
 {
-	return NO;
+	return committed;
 }
 
-- (void)sendHeadersWithStatusCode:(unsigned int)code message:(NSString *)message headers:(NSDictionary *)headers
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header
 {
+    if (committed == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
+	}
+    
+    committed = YES;
 }
 
-- (void)end
+- (void)end:(BOOL)keepAlive
 {
+    //nothing todo
 }
 
 @end

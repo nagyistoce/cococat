@@ -9,16 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "../ServletResponseMessage.h"
 
+@class HttpConnection;
+
 @interface HttpResponse : NSObject <ServletResponseMessage> {
+	HttpConnection	*connection;
+	BOOL			committed;
 
 }
 
+- initWithConnection:(HttpConnection *)aConnection;
+- (void)dealloc;
+
 - (void)writeData:(NSData *)data;
 
-- (BOOL)isCommited;
+- (BOOL)isCommitted;
 
-- (void)sendHeadersWithStatusCode:(unsigned int)code message:(NSString *)message headers:(NSDictionary *)headers;
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
 
-- (void)end;
+- (void)end:(BOOL)keepAlive;
 
 @end

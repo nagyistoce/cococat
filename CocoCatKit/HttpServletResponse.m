@@ -39,9 +39,19 @@
 	status = aStatus;
 }
 
+- (unsigned int)status
+{
+    return status;
+}
+
 - (void)setHeaderValue:(NSString *)value forName:(NSString *)name
 {
 	[header setObject:value forKey:name];
+}
+
+- (NSDictionary *)header
+{
+    return header;
 }
 
 - (HttpServletOutputStream *)outputStream
@@ -53,41 +63,32 @@
 {
 	NSString * message = @"Unknown";
 	
-	message = [self _errorMessage:error];
+	message = [[self class] _errorMessage:error];
 	
 	[self sendError:error message:message];
 }
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
-	[responseMessage sendHeadersWithStatusCode:error message:message headers:header];
+	[responseMessage sendHeaderWithStatusCode:error message:message header:header];
 }
 
 - (void)writeData:(NSData *)data
 {
-	if([responseMessage isCommited] == NO) {
-		[responseMessage sendHeadersWithStatusCode:status message:[self _errorMessage:status] headers:header];
+	if([responseMessage isCommitted] == NO) {
+		[responseMessage sendHeaderWithStatusCode:status message:[[self class] _errorMessage:status] header:header];
 	}
 	
 	[responseMessage writeData:data];
 }
 
-- (void)end
+- (BOOL)isCommitted
 {
-	//if header not send
-	if([responseMessage isCommited] == NO) {
-		[responseMessage sendHeadersWithStatusCode:status message:[self _errorMessage:status] headers:header];
-	}
-	[responseMessage end];
-}
-
-- (BOOL)isCommited
-{
-	return [responseMessage isCommited];
+	return [responseMessage isCommitted];
 }
 
 //internal
-- (NSString *)_errorMessage:(unsigned int)error
++ (NSString *)_errorMessage:(unsigned int)error
 {
 	switch(error) {
 		case HTTP_RESPONSE_OK:

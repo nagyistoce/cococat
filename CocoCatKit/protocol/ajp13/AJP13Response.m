@@ -17,7 +17,7 @@
 {
 	connection = [aConnection retain];
 	
-	commited = NO;
+	committed = NO;
 		
 	return self;
 }
@@ -29,16 +29,15 @@
 	[super dealloc];
 }
 
-- (void)sendHeadersWithStatusCode:(unsigned int)code message:(NSString *)message headers:(NSDictionary *)headers
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header
 {
-	if (commited == YES) {
-		NSLog(@"Header already sent");
-		return;
+	if (committed == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
 	}
 	
-	[connection sendHeadersWithStatusCode:code statusMessage:message headers:headers];
+	[connection sendHeaderWithStatusCode:code statusMessage:message header:header];
 	
-	commited = YES;
+	committed = YES;
 }
 
 - (void)writeData:(NSData *)data
@@ -62,16 +61,14 @@
 	} while (offset < length);
 }
 
-- (void)end
+- (void)end:(BOOL)keepAlive
 {	
-	//TODO reuse connection
-	[connection sendEndResponse:NO];
-	[connection close];
+	[connection sendEndResponse:keepAlive];
 }
 
-- (BOOL)isCommited
+- (BOOL)isCommitted
 {
-	return commited;
+	return committed;
 }
 
 @end

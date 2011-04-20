@@ -10,6 +10,7 @@
 
 @class HttpServletManager;
 @class GCDAsyncSocket;
+@class ServletConnection;
 
 @interface ServletServer : NSObject 
 {
@@ -27,5 +28,6 @@
 - (BOOL)listen:(unsigned int)port;
 
 - (void)connectionDidDie:(NSNotification *)notification;
+- (void)addConnection:(ServletConnection *)connection;
 
 @end

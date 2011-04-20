@@ -11,7 +11,7 @@
 
 - (void)writeData:(NSData *)data;
 
-- (BOOL)isCommited;
+- (BOOL)isCommitted;
 
 @end
 

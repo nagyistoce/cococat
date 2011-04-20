@@ -8,8 +8,56 @@
 
 
 #import "HttpConnection.h"
-
+#import "HttpRequest.h"
+#import "HttpResponse.h"
+#import "ServletRequestDispatcher.h"
+#import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 
 @implementation HttpConnection
+
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
+{
+	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager];
+    [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
+
+	return self;
+}
+
+- (void)dealloc
+{	
+	[super dealloc];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
+{	
+	switch (tag) {
+		case HTTP_PACKET_HEADER: {
+            HttpRequest *request = [[[HttpRequest alloc] initWithData:data] autorelease];
+			
+			[self processRequest:request];
+            break;
+        }
+        default:
+			NSLog(@"Unknown data [%@] read", data);
+    }
+}
+
+//processing http request
+- (void)processRequest:(HttpRequest *)request
+{	
+    BOOL keepAlive = NO;
+    HttpResponse	*httpResponse = [[HttpResponse alloc] initWithConnection:self];
+    
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:httpResponse servletManager:servletManager keepAlive:keepAlive];	
+    
+    if(keepAlive == NO) {
+        [self close];
+    }
+}
+
++ (NSData *)headerSeparatorData
+{
+	return [NSData dataWithBytes:"\x0D\x0A\x0D\x0A" length:4];
+}
 
 @end

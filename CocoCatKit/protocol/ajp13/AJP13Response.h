@@ -14,18 +14,18 @@
 
 @interface AJP13Response : NSObject <ServletResponseMessage> {
 	AJP13Connection	*connection;
-	BOOL			commited;
+	BOOL			committed;
 }
 
 - initWithConnection:(AJP13Connection *)aConnection;
 - (void)dealloc;
 
-- (void)sendHeadersWithStatusCode:(unsigned int)code message:(NSString *)message headers:(NSDictionary *)headers;
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
 - (void)writeData:(NSData *)data;
 
 
-- (void)end;
+- (void)end:(BOOL)keepAlive;
 
-- (BOOL)isCommited;
+- (BOOL)isCommitted;
 
 @end

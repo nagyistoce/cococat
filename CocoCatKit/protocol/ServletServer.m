@@ -67,4 +67,11 @@
 	}
 }
 
+- (void)addConnection:(ServletConnection *)connection
+{
+    @synchronized(connections) {
+		[connections addObject:connection];
+	}	
+}
+
 @end

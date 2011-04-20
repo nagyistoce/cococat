@@ -25,9 +25,7 @@
 #define AJP_END_RESPONSE		5
 #define AJP_GET_BODY_CHUNK		6
 
-@class GCDAsyncSocket;
 @class AJP13ForwardRequest;
-@class HttpServletManager;
 
 @interface AJP13Connection : ServletConnection {
 }
@@ -35,11 +33,13 @@
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager;
 - (void)dealloc;
 
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+
 //processing ajp request
 - (void)processForwardRequest:(AJP13ForwardRequest *)request;
 
 //ajp response messaging
-- (void)sendHeadersWithStatusCode:(unsigned int)status statusMessage:(NSString *)message headers:(NSDictionary *)headers;
+- (void)sendHeaderWithStatusCode:(unsigned int)status statusMessage:(NSString *)message header:(NSDictionary *)header;
 - (void)sendBodyChunk:(NSData *)chunk;
 - (void)sendEndResponse:(BOOL)reuse;
 

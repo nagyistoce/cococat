@@ -30,7 +30,10 @@
 - (void)dealloc;
 
 - (void)setStatus:(unsigned int)aStatus;
+- (unsigned int)status;
+
 - (void)setHeaderValue:(NSString *)value forName:(NSString *)name;
+- (NSDictionary *)header;
 
 - (HttpServletOutputStream *)outputStream;
 
@@ -38,13 +41,10 @@
 - (void)sendError:(unsigned int)error message:(NSString *)message;
 - (void)writeData:(NSData *)data;
 
-
-- (void)end;
-
-- (BOOL)isCommited;
+- (BOOL)isCommitted;
 
 //internal
-- (NSString *)_errorMessage:(unsigned int)error;
++ (NSString *)_errorMessage:(unsigned int)error;
 
 
 @end

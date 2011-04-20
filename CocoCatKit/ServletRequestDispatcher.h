@@ -23,6 +23,7 @@
 
 - (void)dispatch:(<ServletRequestMessage>)requestMessage 
         response:(<ServletResponseMessage>)responseMessage 
-  servletManager:(HttpServletManager *)servletManager;
+  servletManager:(HttpServletManager *)servletManager
+       keepAlive:(BOOL)keepAlive;
 
 @end

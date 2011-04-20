@@ -11,8 +11,8 @@
 
 @protocol ServletResponseMessage <ServletResponse>
 
-- (void)sendHeadersWithStatusCode:(unsigned int)code message:(NSString *)message headers:(NSDictionary *)headers;
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
 
-- (void)end;
+- (void)end:(BOOL)keepAlive;
 
 @end

@@ -9,8 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "../ServletConnection.h"
 
+#define HTTP_PACKET_HEADER	0
+
+@class HttpRequest;
+
 @interface HttpConnection : ServletConnection {
 
 }
+
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager;
+- (void)dealloc;
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+
+- (void)processRequest:(HttpRequest *)request;
+
++ (NSData *)headerSeparatorData;
 
 @end

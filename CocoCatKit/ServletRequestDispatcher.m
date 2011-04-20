@@ -35,6 +35,7 @@
 - (void)dispatch:(<ServletRequestMessage>)requestMessage 
         response:(<ServletResponseMessage>)responseMessage 
   servletManager:(HttpServletManager *)servletManager
+       keepAlive:(BOOL)keepAlive
 {
 	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage] autorelease];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];
@@ -44,10 +45,24 @@
 		[servletResponse sendError:404];
 	}
 	else {
-		[servlet _service:servletRequest response:servletResponse];
+		@try {
+            [servlet _service:servletRequest response:servletResponse];
+        } @catch(NSException *ex) {
+            NSLog(@"Exception : %@", ex);
+            if([servletResponse isCommitted] == NO) {
+                @try {
+                    [servletResponse sendError:500];
+                } @catch(NSException *ex) {
+                    NSLog(@"Unable to send error code : %@", ex);
+                }
+            }
+        }
 	}
 	
-	[servletResponse end];
+    if([responseMessage isCommitted] == NO) {
+		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[HttpServletResponse _errorMessage:[servletResponse status]] header:[servletResponse header]];
+	}
+	[responseMessage end:keepAlive];
 }
 
 @end
