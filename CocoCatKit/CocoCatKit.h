@@ -6,29 +6,14 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-
-#import <Foundation/Foundation.h>
-#import "../ServletResponseMessage.h"
-
-@class AJP13Connection;
-@class HttpDefaultPageManager;
-
-@interface AJP13Response : NSObject <ServletResponseMessage> {
-	AJP13Connection	*connection;
-	BOOL			committed;
-}
-
-- initWithConnection:(AJP13Connection *)aConnection;
-- (void)dealloc;
-
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
-- (void)writeData:(NSData *)data;
-
-
-- (void)end:(BOOL)keepAlive;
-
-- (BOOL)isCommitted;
-
-- (HttpDefaultPageManager *)defaultPageManager;
-
-@end
+#import <CocoCatKit/ServletServer.h>
+#import <CocoCatKit/HttpServlet.h>
+#import <CocoCatKit/HttpServer.h>
+#import <CocoCatKit/AJP13Server.h>
+#import <CocoCatKit/HttpServletManager.h>
+#import <CocoCatKit/HttpServletOutputStream.h>
+#import <CocoCatKit/HttpServletRequest.h>
+#import <CocoCatKit/HttpServletResponse.h>
+#import <CocoCatKit/ServletRequest.h>
+#import <CocoCatKit/ServletResponse.h>
+#import <CocoCatKit/HttpDefaultPageManager.h>

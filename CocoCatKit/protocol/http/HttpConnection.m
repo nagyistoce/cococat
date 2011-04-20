@@ -15,9 +15,11 @@
 
 @implementation HttpConnection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(HttpServletManager *)aServletManager 
+   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
 {
-	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager];
+	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager defaultPageManager:aDefaultPageManager];
     [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
 
 	return self;

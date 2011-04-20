@@ -71,4 +71,9 @@
 	return committed;
 }
 
+- (HttpDefaultPageManager *)defaultPageManager
+{
+	return [connection defaultPageManager];
+}
+
 @end

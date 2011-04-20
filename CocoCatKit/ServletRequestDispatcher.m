@@ -9,6 +9,7 @@
 #import "ServletRequestDispatcher.h"
 #import "protocol/ServletRequestMessage.h"
 #import "protocol/ServletResponseMessage.h"
+#import "HttpDefaultPageManager.h"
 #import "HttpServletManager.h"
 #import "HttpServletRequest.h"
 #import "HttpServletResponse.h"
@@ -74,7 +75,7 @@
 	}
 	
     if ([responseMessage isCommitted] == NO) {
-		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[HttpServletResponse _errorMessage:[servletResponse status]] header:[servletResponse header]];
+		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[[responseMessage defaultPageManager] textForCode:[servletResponse status]] header:[servletResponse header]];
 	}
 	[responseMessage end:*keepAlive];
 }

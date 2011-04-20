@@ -8,6 +8,7 @@
 
 #import "HttpServletResponse.h"
 #import "HttpServletOutputStream.h"
+#import "HttpDefaultPageManager.h"
 #import "protocol/ServletResponseMessage.h"
 
 @implementation HttpServletResponse
@@ -52,6 +53,11 @@
     [header setObject:value forKey:name];
 }
 
+- (void)setIntHeaderValue:(int)value forName:(NSString *)name
+{
+	[header setObject:[NSString stringWithFormat:@"%d", value] forKey:name];
+}
+
 - (NSDictionary *)header
 {
     return header;
@@ -64,11 +70,7 @@
 
 - (void)sendError:(unsigned int)error
 {
-	NSString * message = @"Unknown";
-	
-	message = [[self class] _errorMessage:error];
-	
-	[self sendError:error message:message];
+	[self sendError:error message:[[responseMessage defaultPageManager] textForCode:error]];
 }
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
@@ -76,16 +78,21 @@
     if([responseMessage isCommitted] == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
     }
-    //we close the connection in error case
-    [self setHeaderValue:@"close" forName:@"Connection"];
+    
+	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error] dataUsingEncoding:NSISOLatin1StringEncoding];
 
+    [self setIntHeaderValue:[errorPage length] forName:@"Content-Length"];
+	
     [responseMessage sendHeaderWithStatusCode:error message:message header:header];
+	
+	[self writeData:errorPage];
+	
 }
 
 - (void)writeData:(NSData *)data
 {
 	if([responseMessage isCommitted] == NO) {
-		[responseMessage sendHeaderWithStatusCode:status message:[[self class] _errorMessage:status] header:header];
+		[responseMessage sendHeaderWithStatusCode:status message:[[responseMessage defaultPageManager] textForCode:status] header:header];
 	}
 	
 	[responseMessage writeData:data];
@@ -95,23 +102,5 @@
 {
 	return [responseMessage isCommitted];
 }
-
-//internal
-+ (NSString *)_errorMessage:(unsigned int)error
-{
-	switch(error) {
-		case HTTP_RESPONSE_OK:
-			return @"OK";
-		case HTTP_RESPONSE_NOT_FOUND:
-			return @"Not Found";
-		case HTTP_RESPONSE_METHOD_NOT_ALLOWED:
-			return @"Method Not Allowed";
-		case HTTP_RESPONSE_NOT_IMPLEMENTED:
-			return @"Not Implemented";
-	}
-	return @"Unknown";
-}
-
-
 
 @end

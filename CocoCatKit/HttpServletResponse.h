@@ -9,11 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/ServletResponse.h>
 
-#define HTTP_RESPONSE_OK					200
-#define HTTP_RESPONSE_NOT_FOUND				404
-#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
-#define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
-
 @class HttpServletOutputStream;
 @protocol ServletResponseMessage;
 
@@ -32,6 +27,7 @@
 - (unsigned int)status;
 
 - (void)setHeaderValue:(NSString *)value forName:(NSString *)name;
+- (void)setIntHeaderValue:(int)value forName:(NSString *)name;
 - (NSDictionary *)header;
 
 - (HttpServletOutputStream *)outputStream;
@@ -41,9 +37,5 @@
 - (void)writeData:(NSData *)data;
 
 - (BOOL)isCommitted;
-
-//internal
-+ (NSString *)_errorMessage:(unsigned int)error;
-
 
 @end

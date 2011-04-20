@@ -10,6 +10,7 @@
 #import "../ServletResponseMessage.h"
 
 @class HttpConnection;
+@class HttpDefaultPageManager;
 
 @interface HttpResponse : NSObject <ServletResponseMessage> {
 	HttpConnection	*connection;
@@ -27,5 +28,7 @@
 - (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
 
 - (void)end:(BOOL)keepAlive;
+
+- (HttpDefaultPageManager *)defaultPageManager;
 
 @end

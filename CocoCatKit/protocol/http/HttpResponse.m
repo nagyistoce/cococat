@@ -64,4 +64,9 @@
     //nothing todo
 }
 
+- (HttpDefaultPageManager *)defaultPageManager
+{
+	return [connection defaultPageManager];
+}
+
 @end

@@ -14,9 +14,11 @@
 
 @implementation AJP13Connection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(HttpServletManager *)aServletManager 
+   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
 {
-	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager];
+	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager defaultPageManager:aDefaultPageManager];
     [aSocket readDataToLength:5
 			   withTimeout:-1
 					   tag:AJP_PACKET_HEADER];

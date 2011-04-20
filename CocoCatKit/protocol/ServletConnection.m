@@ -12,12 +12,15 @@
 
 @implementation ServletConnection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(HttpServletManager *)aServletManager 
+   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
 {
     connectionQueue = dispatch_queue_create("ServletConnection", NULL);
     
 	socket = [aSocket retain];
     servletManager = [aServletManager retain];
+	defaultPageManager = [aDefaultPageManager retain];
 	[socket setDelegate:self delegateQueue:connectionQueue];
     
     return self;
@@ -29,6 +32,7 @@
 	
 	[socket release];
     [servletManager release];
+	[defaultPageManager release];
     
     [super dealloc];
 }
@@ -46,6 +50,11 @@
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {	
 	[self die];
+}
+
+- (HttpDefaultPageManager *)defaultPageManager
+{
+	return defaultPageManager;
 }
 
 @end

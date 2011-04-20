@@ -7,28 +7,54 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 
-#import <Foundation/Foundation.h>
-#import "../ServletResponseMessage.h"
+#import "HttpDefaultPageManager.h"
 
-@class AJP13Connection;
-@class HttpDefaultPageManager;
+@implementation HttpDefaultPageManager
 
-@interface AJP13Response : NSObject <ServletResponseMessage> {
-	AJP13Connection	*connection;
-	BOOL			committed;
+- init
+{
+	return self;
 }
 
-- initWithConnection:(AJP13Connection *)aConnection;
-- (void)dealloc;
+- (void)dealloc
+{
+	[super dealloc];
+}
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
-- (void)writeData:(NSData *)data;
++ (HttpDefaultPageManager *)defaultManager
+{
+	static HttpDefaultPageManager	*manager = nil;
+	if (manager == nil) {
+		manager = [[HttpDefaultPageManager alloc] init];
+	}
+	
+	return manager;
+}
 
+- (NSString *)errorPageForCode:(unsigned int)code
+{
+	return [self textForCode:code];
+}
 
-- (void)end:(BOOL)keepAlive;
+- (NSString *)textForCode:(unsigned int)code
+{
+	return [[self class] defaultTextForCode:code];
+}
 
-- (BOOL)isCommitted;
++ (NSString *)defaultTextForCode:(unsigned int)code
+{
+	switch(code) {
+		case HTTP_RESPONSE_OK:
+			return @"OK";
+		case HTTP_RESPONSE_NOT_FOUND:
+			return @"Not Found";
+		case HTTP_RESPONSE_METHOD_NOT_ALLOWED:
+			return @"Method Not Allowed";
+		case HTTP_RESPONSE_NOT_IMPLEMENTED:
+			return @"Not Implemented";
+	}
+	return @"Unknown";
+}
 
-- (HttpDefaultPageManager *)defaultPageManager;
 
 @end

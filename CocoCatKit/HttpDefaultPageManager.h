@@ -6,29 +6,27 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-
 #import <Foundation/Foundation.h>
-#import "../ServletResponseMessage.h"
 
-@class AJP13Connection;
-@class HttpDefaultPageManager;
+#define HTTP_RESPONSE_OK					200
+#define HTTP_RESPONSE_NOT_FOUND				404
+#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
+#define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
 
-@interface AJP13Response : NSObject <ServletResponseMessage> {
-	AJP13Connection	*connection;
-	BOOL			committed;
+@interface HttpDefaultPageManager : NSObject {
+
 }
 
-- initWithConnection:(AJP13Connection *)aConnection;
+- init;
 - (void)dealloc;
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
-- (void)writeData:(NSData *)data;
++ (HttpDefaultPageManager *)defaultManager;
+
+- (NSString *)errorPageForCode:(unsigned int)code;
+- (NSString *)textForCode:(unsigned int)code;
 
 
-- (void)end:(BOOL)keepAlive;
++ (NSString *)defaultTextForCode:(unsigned int)code;
 
-- (BOOL)isCommitted;
-
-- (HttpDefaultPageManager *)defaultPageManager;
 
 @end

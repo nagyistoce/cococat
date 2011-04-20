@@ -11,19 +11,23 @@
 @class HttpServletManager;
 @class GCDAsyncSocket;
 @class ServletConnection;
+@class HttpDefaultPageManager;
 
 @interface ServletServer : NSObject 
 {
- 	GCDAsyncSocket		*socket;
-    dispatch_queue_t	serverQueue;
-	NSMutableArray		*connections;
-    HttpServletManager  *servletManager;
+ 	GCDAsyncSocket			*socket;
+    dispatch_queue_t		serverQueue;
+	NSMutableArray			*connections;
+    HttpServletManager		*servletManager;
+	HttpDefaultPageManager	*defaultPageManager;
 }
 
 - init;
 - initWithServletManager:(HttpServletManager *)manager;
 
 - (void)dealloc;
+
+- (void)setDefaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager;
 
 - (BOOL)listen:(unsigned int)port;
 

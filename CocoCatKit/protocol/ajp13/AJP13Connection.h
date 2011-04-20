@@ -29,7 +29,10 @@
 @interface AJP13Connection : ServletConnection {
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager;
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(HttpServletManager *)aServletManager 
+   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager;
+
 - (void)dealloc;
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
