@@ -23,6 +23,9 @@
 {
 	HttpServletOutputStream *outputStream = [response outputStream];
 	
+	//we dont calculate the content size before, so we use no persistent connection
+	[response setHeaderValue:@"close" forName:@"Connection"];
+	
 	[response setHeaderValue:@"text/plain" forName:@"Content-Type"];
 	[outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[NSString stringWithFormat:@"Current Time : %@", [NSDate date]] encoding:NSISOLatin1StringEncoding];

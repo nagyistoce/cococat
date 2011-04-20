@@ -35,12 +35,19 @@
 - (void)dispatch:(<ServletRequestMessage>)requestMessage 
         response:(<ServletResponseMessage>)responseMessage 
   servletManager:(HttpServletManager *)servletManager
-       keepAlive:(BOOL)keepAlive
+       keepAlive:(BOOL *)keepAlive
 {
 	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage] autorelease];
-	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];
-	
+	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
+	
+	if(*keepAlive == YES) {
+		[servletResponse setHeaderValue:@"keep-alive" forName:@"Connection"];
+	}
+	else {
+		[servletResponse setHeaderValue:@"close" forName:@"Connection"];
+	}
+	
 	if(servlet == nil) {
 		[servletResponse sendError:404];
 	}
@@ -59,10 +66,18 @@
         }
 	}
 	
+	//get keep alive from response again, maybe the servlet modified it
+	if([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+		*keepAlive = YES;
+	}
+	else {
+		*keepAlive = NO;
+	}
+	
     if([responseMessage isCommitted] == NO) {
 		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[HttpServletResponse _errorMessage:[servletResponse status]] header:[servletResponse header]];
 	}
-	[responseMessage end:keepAlive];
+	[responseMessage end:*keepAlive];
 }
 
 @end

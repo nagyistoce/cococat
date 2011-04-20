@@ -52,10 +52,15 @@
 //processing http request
 - (void)processRequest:(HttpRequest *)request
 {	
-    BOOL keepAlive = NO;
     HttpResponse	*httpResponse = [[HttpResponse alloc] initWithConnection:self];
+
+    BOOL keepAlive = NO;
+	
+	if([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+		keepAlive = YES;
+	}	
     
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:httpResponse servletManager:servletManager keepAlive:keepAlive];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:httpResponse servletManager:servletManager keepAlive:&keepAlive];	
     
     if(keepAlive == NO) {
         [self close];

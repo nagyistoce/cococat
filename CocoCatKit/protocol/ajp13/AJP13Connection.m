@@ -77,7 +77,7 @@
 	BOOL keepAlive = NO;
     AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager keepAlive:keepAlive];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager keepAlive:&keepAlive];	
     
     if(keepAlive == NO) {
         [self close];
