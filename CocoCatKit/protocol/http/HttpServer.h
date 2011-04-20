@@ -8,9 +8,14 @@
 
 
 #import <Foundation/Foundation.h>
+#import <CocoCatKit/ServletServer.h>
 
-@interface HttpServer : NSObject {
+@interface HttpServer : ServletServer {
 
 }
+
+- init;
+
+- initWithServletManager:(HttpServletManager *)manager;
 
 @end

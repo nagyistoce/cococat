@@ -8,9 +8,10 @@
 
 
 #import <Foundation/Foundation.h>
-#import "protocol/ServletRequestMessage.h"
-#import "protocol/ServletResponseMessage.h"
 
+@class HttpServletManager;
+@protocol ServletRequestMessage;
+@protocol ServletResponseMessage;
 
 @interface ServletRequestDispatcher : NSObject {
 
@@ -19,6 +20,9 @@
 - init;
 
 + (ServletRequestDispatcher *)defaultDispatcher;
-- (void)dispatch:(<ServletRequestMessage>)requestMessage response:(<ServletResponseMessage>)responseMessage;
+
+- (void)dispatch:(<ServletRequestMessage>)requestMessage 
+        response:(<ServletResponseMessage>)responseMessage 
+  servletManager:(HttpServletManager *)servletManager;
 
 @end

@@ -16,11 +16,12 @@
 
 @implementation AJP13Connection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
 {
 	connectionQueue = dispatch_queue_create("AJP13Connection", NULL);
 
 	socket = [aSocket retain];
+    servletManager = [aServletManager retain];
 	[socket setDelegate:self delegateQueue:connectionQueue];
 	[socket readDataToLength:5
 			   withTimeout:-1
@@ -33,6 +34,7 @@
 	dispatch_release(connectionQueue);
 	
 	[socket release];
+    [servletManager release];
 	
 	[super dealloc];
 }
@@ -92,7 +94,7 @@
 {	
 	AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager];	
 }
 
 //ajp response messaging

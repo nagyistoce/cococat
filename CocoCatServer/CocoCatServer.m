@@ -6,21 +6,40 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <Foundation/Foundation.h>
-#import <CocoCatKit/AJP13Server.h>
-#import "HelloWorldServlet.h"
-#import <CocoCatKit/HttpServletManager.h>
+#import "CocoCatServer.h"
+#include <CocoCatKit/AJP13Server.h>
+#include <CocoCatKit/HttpServer.h>
+#include <CocoCatKit/HttpServletManager.h>
+#import "AdminServlet.h"
 
-int main (int argc, const char * argv[]) {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
-	[[HttpServletManager defaultManager] registerServlet:[[HelloWorldServlet alloc] init] forUrlPattern:@".*"];
 
-	AJP13Server *server = [[[AJP13Server alloc] init] autorelease];
-	[server listen:8009];
-		
-	[[NSRunLoop currentRunLoop] run];
+@implementation CocoCatServer
+
+- init
+{
+    adminServletManager = [[HttpServletManager alloc] init];
+    [adminServletManager registerServlet:[[AdminServlet alloc] init] forUrlPattern:@".*"];
     
-	[pool drain];
-    return 0;
+    servletManager = [[HttpServletManager alloc] init];
+    
+    ajpServer = [[AJP13Server alloc] initWithServletManager:servletManager];
+    adminServer = [[AJP13Server alloc] initWithServletManager:adminServletManager];
+
+    return self;
 }
+
+- (void)dealloc
+{
+    [adminServletManager release];
+    [servletManager release];
+    [ajpServer release];
+    [adminServer release];
+    
+    [super dealloc];
+}
+
+- (void)listen:(unsigned int)ajpPort adminPort:(unsigned int)adminPort
+{
+}
+
+@end

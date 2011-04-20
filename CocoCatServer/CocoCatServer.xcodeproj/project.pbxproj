@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		C64E8C54135EFAC3007A3E9F /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */; };
-		C6FBC505135ED43C00ABB4EF /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
+		C64E8C33135EFA38007A3E9F /* AdminServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8C32135EFA38007A3E9F /* AdminServlet.m */; };
+		C64E8C6C135EFAE2007A3E9F /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C64E8C6B135EFAE2007A3E9F /* CocoCatKit.framework */; };
+		C64E8C75135EFB25007A3E9F /* CocoCatServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8C74135EFB25007A3E9F /* CocoCatServer.m */; };
 		C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,10 +20,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		8D1107320486CEB800E47090 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/MacOS/x86/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
-		C6FBC503135ED43C00ABB4EF /* HelloWorldServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldServlet.h; sourceTree = "<group>"; };
-		C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldServlet.m; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* CocoCatServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoCatServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C64E8C31135EFA38007A3E9F /* AdminServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminServlet.h; sourceTree = "<group>"; };
+		C64E8C32135EFA38007A3E9F /* AdminServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminServlet.m; sourceTree = "<group>"; };
+		C64E8C6B135EFAE2007A3E9F /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/MacOS/x86/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
+		C64E8C73135EFB25007A3E9F /* CocoCatServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoCatServer.h; sourceTree = "<group>"; };
+		C64E8C74135EFB25007A3E9F /* CocoCatServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoCatServer.m; sourceTree = "<group>"; };
 		C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -32,7 +35,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */,
-				C64E8C54135EFAC3007A3E9F /* CocoCatKit.framework in Frameworks */,
+				C64E8C6C135EFAE2007A3E9F /* CocoCatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,8 +45,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C6FBC503135ED43C00ABB4EF /* HelloWorldServlet.h */,
-				C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */,
+				C64E8C31135EFA38007A3E9F /* AdminServlet.h */,
+				C64E8C32135EFA38007A3E9F /* AdminServlet.m */,
+				C64E8C73135EFB25007A3E9F /* CocoCatServer.h */,
+				C64E8C74135EFB25007A3E9F /* CocoCatServer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -69,7 +74,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* HelloWorld.app */,
+				8D1107320486CEB800E47090 /* CocoCatServer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,7 +88,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */,
-				C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */,
+				C64E8C6B135EFAE2007A3E9F /* CocoCatKit.framework */,
 			);
 			name = HelloWorld;
 			sourceTree = "<group>";
@@ -115,9 +120,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* HelloWorld (MacOS) */ = {
+		8D1107260486CEB800E47090 /* CocoCatServer (MacOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "HelloWorld (MacOS)" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "CocoCatServer (MacOS)" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -127,10 +132,10 @@
 			);
 			dependencies = (
 			);
-			name = "HelloWorld (MacOS)";
+			name = "CocoCatServer (MacOS)";
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelloWorld;
-			productReference = 8D1107320486CEB800E47090 /* HelloWorld.app */;
+			productReference = 8D1107320486CEB800E47090 /* CocoCatServer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,14 +143,14 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "HelloWorld" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CocoCatServer" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* HelloWorld */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* HelloWorld (MacOS) */,
+				8D1107260486CEB800E47090 /* CocoCatServer (MacOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -166,7 +171,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				C6FBC505135ED43C00ABB4EF /* HelloWorldServlet.m in Sources */,
+				C64E8C33135EFA38007A3E9F /* AdminServlet.m in Sources */,
+				C64E8C75135EFB25007A3E9F /* CocoCatServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,7 +197,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = HelloWorld;
+				PRODUCT_NAME = CocoCatServer;
 			};
 			name = Debug;
 		};
@@ -210,7 +216,7 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = HelloWorld;
+				PRODUCT_NAME = CocoCatServer;
 			};
 			name = Release;
 		};
@@ -243,7 +249,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "HelloWorld (MacOS)" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "CocoCatServer (MacOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -252,7 +258,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "HelloWorld" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CocoCatServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

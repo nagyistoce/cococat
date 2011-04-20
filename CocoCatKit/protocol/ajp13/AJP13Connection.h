@@ -26,17 +26,18 @@
 #define AJP_END_RESPONSE		5
 #define AJP_GET_BODY_CHUNK		6
 
-
 @class GCDAsyncSocket;
 @class AJP13ForwardRequest;
+@class HttpServletManager;
 
 @interface AJP13Connection : NSObject {
 	GCDAsyncSocket		*socket;
+    HttpServletManager *servletManager;
 	dispatch_queue_t	connectionQueue;
 	unsigned int		currentPacketLenght;
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket;
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager;
 - (void)dealloc;
 
 - (void)die;

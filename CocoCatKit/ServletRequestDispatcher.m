@@ -8,11 +8,12 @@
 
 
 #import "ServletRequestDispatcher.h"
+#import "protocol/ServletRequestMessage.h"
+#import "protocol/ServletResponseMessage.h"
 #import "HttpServletManager.h"
 #import "HttpServletRequest.h"
 #import "HttpServletResponse.h"
 #import "HttpServlet.h"
-
 
 @implementation ServletRequestDispatcher
 
@@ -31,12 +32,14 @@
 	return dispatcher;
 }
 
-- (void)dispatch:(<ServletRequestMessage>)requestMessage response:(<ServletResponseMessage>)responseMessage
+- (void)dispatch:(<ServletRequestMessage>)requestMessage 
+        response:(<ServletResponseMessage>)responseMessage 
+  servletManager:(HttpServletManager *)servletManager
 {
 	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage] autorelease];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];
 	
-	HttpServlet *servlet = [[HttpServletManager defaultManager] servletForUri:[servletRequest requestUri]];
+	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	if(servlet == nil) {
 		[servletResponse sendError:404];
 	}

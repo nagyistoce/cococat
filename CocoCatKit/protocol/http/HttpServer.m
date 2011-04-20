@@ -12,4 +12,16 @@
 
 @implementation HttpServer
 
+- init
+{
+    return [super init];
+}
+
+- initWithServletManager:(HttpServletManager *)manager
+{
+    self = [super initWithServletManager:manager];
+    
+    return self;
+}
+
 @end

@@ -12,7 +12,6 @@
 
 @protocol ServletRequestMessage;
 
-
 @interface HttpServletRequest : NSObject <ServletRequest> {
 	<ServletRequestMessage> requestMessage;
 }

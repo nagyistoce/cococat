@@ -7,17 +7,13 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/Foundation.h>
-#import <CocoCatKit/AJP13Server.h>
-#import "HelloWorldServlet.h"
-#import <CocoCatKit/HttpServletManager.h>
+#import "CocoCatServer.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	[[HttpServletManager defaultManager] registerServlet:[[HelloWorldServlet alloc] init] forUrlPattern:@".*"];
-
-	AJP13Server *server = [[[AJP13Server alloc] init] autorelease];
-	[server listen:8009];
+	CocoCatServer *server = [[[CocoCatServer alloc] init] autorelease];
+	[server listen:8009 adminPort:9000];
 		
 	[[NSRunLoop currentRunLoop] run];
     
