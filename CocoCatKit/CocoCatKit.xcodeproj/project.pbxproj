@@ -368,7 +368,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -383,7 +383,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_MODE_FLAG = "og-w,a+rX";
-				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/i386/Frameworks;
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86/Frameworks;
 				PRODUCT_NAME = CocoCatKit;
 				SYMROOT = build/MacOS/i386;
 				WRAPPER_EXTENSION = framework;
@@ -394,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -405,7 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_MODE_FLAG = "og-w,a+rX";
-				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/i386/Frameworks;
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86/Frameworks;
 				PRODUCT_NAME = CocoCatKit;
 				SYMROOT = build/MacOS/i386;
 				WRAPPER_EXTENSION = framework;
