@@ -28,10 +28,10 @@
 		2163C23D135B637E00AF6544 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2163C23C135B637E00AF6544 /* CoreServices.framework */; };
 		2163C23F135B638800AF6544 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2163C23E135B638800AF6544 /* Foundation.framework */; };
 		2163C243135B638D00AF6544 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2163C242135B638D00AF6544 /* Security.framework */; };
-		2163C24C135B63BC00AF6544 /* ServletRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C248135B63BC00AF6544 /* ServletRequest.h */; };
+		2163C24C135B63BC00AF6544 /* ServletRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C248135B63BC00AF6544 /* ServletRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C24D135B63BC00AF6544 /* ServletRequestDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C249135B63BC00AF6544 /* ServletRequestDispatcher.h */; };
 		2163C24E135B63BC00AF6544 /* ServletRequestDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C24A135B63BC00AF6544 /* ServletRequestDispatcher.m */; };
-		2163C24F135B63BC00AF6544 /* ServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C24B135B63BC00AF6544 /* ServletResponse.h */; };
+		2163C24F135B63BC00AF6544 /* ServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C24B135B63BC00AF6544 /* ServletResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C252135B63C800AF6544 /* HttpServletOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C250135B63C800AF6544 /* HttpServletOutputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C253135B63C800AF6544 /* HttpServletOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C251135B63C800AF6544 /* HttpServletOutputStream.m */; };
 		2163C25C135B63DC00AF6544 /* HttpServlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C254135B63DC00AF6544 /* HttpServlet.h */; settings = {ATTRIBUTES = (Public, ); }; };

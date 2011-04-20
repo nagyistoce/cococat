@@ -8,8 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "protocol/ServletResponseMessage.h"
-
+#import <CocoCatKit/ServletResponse.h>
 
 #define HTTP_RESPONSE_OK					200
 #define HTTP_RESPONSE_NOT_FOUND				404
@@ -17,6 +16,7 @@
 #define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
 
 @class HttpServletOutputStream;
+@protocol ServletResponseMessage;
 
 
 @interface HttpServletResponse : NSObject <ServletResponse> {

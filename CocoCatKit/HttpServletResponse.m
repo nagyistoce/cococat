@@ -9,6 +9,7 @@
 
 #import "HttpServletResponse.h"
 #import "HttpServletOutputStream.h"
+#import "protocol/ServletResponseMessage.h"
 
 @implementation HttpServletResponse
 

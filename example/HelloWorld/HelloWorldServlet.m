@@ -8,10 +8,9 @@
 
 
 #import "HelloWorldServlet.h"
-#import "HttpServletOutputStream.h"
-#import "HttpServletResponse.h"
-#import "HttpServletRequest.h"
-
+#import <CocoCatKit/HttpServletOutputStream.h>
+#import <CocoCatKit/HttpServletResponse.h>
+#import <CocoCatKit/HttpServletRequest.h>
 
 @implementation HelloWorldServlet
 

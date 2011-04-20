@@ -8,7 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "HttpServlet.h"
+#import <CocoCatKit/HttpServlet.h>
 
 
 @interface HelloWorldServlet : HttpServlet {

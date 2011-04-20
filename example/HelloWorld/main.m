@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "AJP13Server.h"
+#import <CocoCatKit/AJP13Server.h>
 #import "HelloWorldServlet.h"
-#import "HttpServletManager.h"
+#import <CocoCatKit/HttpServletManager.h>
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];

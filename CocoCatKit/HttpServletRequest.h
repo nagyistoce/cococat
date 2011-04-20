@@ -8,8 +8,9 @@
 
 
 #import <Foundation/Foundation.h>
+#import <CocoCatKit/ServletRequest.h>
 
-#import "protocol/ServletRequestMessage.h"
+@protocol ServletRequestMessage;
 
 
 @interface HttpServletRequest : NSObject <ServletRequest> {
