@@ -42,6 +42,11 @@
     }
 }
 
+- (void)sendData:(NSData *)data
+{
+    [socket writeData:data withTimeout:-1 tag:HTTP_SEND_DATA];
+}
+
 //processing http request
 - (void)processRequest:(HttpRequest *)request
 {	

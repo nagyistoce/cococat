@@ -11,6 +11,9 @@
 
 #define HTTP_PACKET_HEADER	0
 
+#define HTTP_SEND_DATA	1
+
+
 @class HttpRequest;
 
 @interface HttpConnection : ServletConnection {
@@ -21,6 +24,8 @@
 - (void)dealloc;
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+
+- (void)sendData:(NSData *)data;
 
 - (void)processRequest:(HttpRequest *)request;
 

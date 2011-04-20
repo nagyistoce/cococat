@@ -8,6 +8,7 @@
 
 
 #import "HttpResponse.h"
+#import "HttpConnection.h"
 
 
 @implementation HttpResponse
@@ -27,6 +28,7 @@
 
 - (void)writeData:(NSData *)data
 {
+    [connection sendData:data];
 }
 
 - (BOOL)isCommitted
@@ -41,6 +43,20 @@
 	}
     
     committed = YES;
+    
+    NSString        *statusLine = [NSString stringWithFormat:@"HTTP/1.1 %d %@\r\n", code, message];
+    NSEnumerator    *enumerator = [header keyEnumerator];
+    NSString        *key;
+    
+    [connection sendData:[statusLine dataUsingEncoding:NSASCIIStringEncoding]];
+
+    while ((key = [enumerator nextObject]) != nil) {
+        NSString *value = [header objectForKey:key];
+        NSString    *headerEntry = [NSString stringWithFormat:@"%@: %@\r\n", key, value];
+        [connection sendData:[headerEntry dataUsingEncoding:NSASCIIStringEncoding]];
+    }
+    
+    [connection sendData:[NSData dataWithBytes:"\x0D\x0A" length:2]];
 }
 
 - (void)end:(BOOL)keepAlive
