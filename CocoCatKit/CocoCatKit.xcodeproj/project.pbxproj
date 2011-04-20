@@ -34,7 +34,7 @@
 		2163C24F135B63BC00AF6544 /* ServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C24B135B63BC00AF6544 /* ServletResponse.h */; };
 		2163C252135B63C800AF6544 /* HttpServletOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C250135B63C800AF6544 /* HttpServletOutputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C253135B63C800AF6544 /* HttpServletOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C251135B63C800AF6544 /* HttpServletOutputStream.m */; };
-		2163C25C135B63DC00AF6544 /* HttpServlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C254135B63DC00AF6544 /* HttpServlet.h */; };
+		2163C25C135B63DC00AF6544 /* HttpServlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C254135B63DC00AF6544 /* HttpServlet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C25D135B63DC00AF6544 /* HttpServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C255135B63DC00AF6544 /* HttpServlet.m */; };
 		2163C25E135B63DC00AF6544 /* HttpServletManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C256135B63DC00AF6544 /* HttpServletManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2163C25F135B63DC00AF6544 /* HttpServletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C257135B63DC00AF6544 /* HttpServletManager.m */; };
@@ -44,9 +44,6 @@
 		2163C263135B63DC00AF6544 /* HttpServletResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C25B135B63DC00AF6544 /* HttpServletResponse.m */; };
 		2163C26A135B63F400AF6544 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C268135B63F400AF6544 /* GCDAsyncSocket.h */; };
 		2163C26B135B63F400AF6544 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C269135B63F400AF6544 /* GCDAsyncSocket.m */; };
-		2163C27F135B64AA00AF6544 /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C27D135B64AA00AF6544 /* HelloWorldServlet.m */; };
-		2163C280135B64AA00AF6544 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C27E135B64AA00AF6544 /* main.m */; };
-		2163C282135B64C900AF6544 /* HttpServlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* HttpServlet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,24 +87,12 @@
 		2163C25B135B63DC00AF6544 /* HttpServletResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpServletResponse.m; sourceTree = "<group>"; };
 		2163C268135B63F400AF6544 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		2163C269135B63F400AF6544 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		2163C272135B642400AF6544 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = HelloWorld.app; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2163C27C135B64AA00AF6544 /* HelloWorldServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldServlet.h; sourceTree = "<group>"; };
-		2163C27D135B64AA00AF6544 /* HelloWorldServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldServlet.m; sourceTree = "<group>"; };
-		2163C27E135B64AA00AF6544 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* HttpServlet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HttpServlet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2163C270135B642400AF6544 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2163C282135B64C900AF6544 /* HttpServlet.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8DC2EF560486A6940098B216 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,8 +109,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* HttpServlet.framework */,
-				2163C272135B642400AF6544 /* HelloWorld.app */,
+				8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,7 +117,6 @@
 		0867D691FE84028FC02AAC07 /* HttpServlet */ = {
 			isa = PBXGroup;
 			children = (
-				2163C27A135B64AA00AF6544 /* example */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -262,24 +245,6 @@
 			path = CocoaAsyncSocket;
 			sourceTree = "<group>";
 		};
-		2163C27A135B64AA00AF6544 /* example */ = {
-			isa = PBXGroup;
-			children = (
-				2163C27B135B64AA00AF6544 /* HelloWorld */,
-			);
-			path = example;
-			sourceTree = "<group>";
-		};
-		2163C27B135B64AA00AF6544 /* HelloWorld */ = {
-			isa = PBXGroup;
-			children = (
-				2163C27C135B64AA00AF6544 /* HelloWorldServlet.h */,
-				2163C27D135B64AA00AF6544 /* HelloWorldServlet.m */,
-				2163C27E135B64AA00AF6544 /* main.m */,
-			);
-			path = HelloWorld;
-			sourceTree = "<group>";
-		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,26 +284,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2163C271135B642400AF6544 /* HelloWorld */ = {
+		8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2163C277135B642400AF6544 /* Build configuration list for PBXNativeTarget "HelloWorld" */;
-			buildPhases = (
-				2163C26E135B642400AF6544 /* Resources */,
-				2163C26F135B642400AF6544 /* Sources */,
-				2163C270135B642400AF6544 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HelloWorld;
-			productName = Example;
-			productReference = 2163C272135B642400AF6544 /* HelloWorld.app */;
-			productType = "com.apple.product-type.application";
-		};
-		8DC2EF4F0486A6940098B216 /* HttpServlet */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "HttpServlet" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS)" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -349,10 +297,10 @@
 			);
 			dependencies = (
 			);
-			name = HttpServlet;
+			name = "CocoCatKit (MacOS)";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = HttpServlet;
-			productReference = 8DC2EF5B0486A6940098B216 /* HttpServlet.framework */;
+			productReference = 8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -360,9 +308,8 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "HttpServlet" */;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CocoCatKit" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -376,20 +323,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* HttpServlet */,
-				2163C271135B642400AF6544 /* HelloWorld */,
+				8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2163C26E135B642400AF6544 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8DC2EF520486A6940098B216 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,15 +339,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2163C26F135B642400AF6544 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2163C27F135B64AA00AF6544 /* HelloWorldServlet.m in Sources */,
-				2163C280135B64AA00AF6544 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8DC2EF540486A6940098B216 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,7 +368,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -448,8 +382,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PRODUCT_NAME = HttpServlet;
+				INSTALL_MODE_FLAG = "og-w,a+rX";
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/i386/Frameworks;
+				PRODUCT_NAME = CocoCatKit;
+				SYMROOT = build/MacOS/i386;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -459,14 +395,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PRODUCT_NAME = HttpServlet;
+				INSTALL_MODE_FLAG = "og-w,a+rX";
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/i386/Frameworks;
+				PRODUCT_NAME = CocoCatKit;
+				SYMROOT = build/MacOS/i386;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -497,64 +438,10 @@
 			};
 			name = Release;
 		};
-		2163C275135B642400AF6544 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/build/Debug\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Example;
-			};
-			name = Debug;
-		};
-		2163C276135B642400AF6544 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/build/Debug\"",
-				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Example;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "HttpServlet" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
@@ -563,20 +450,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "HttpServlet" */ = {
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CocoCatKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2163C277135B642400AF6544 /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2163C275135B642400AF6544 /* Debug */,
-				2163C276135B642400AF6544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
