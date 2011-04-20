@@ -12,7 +12,7 @@
 
 @implementation HttpServletResponse
 
-- initWithServletResponseMessage:(<ServletResponseMessage>)aResponseMessage
+- initWithServletResponseMessage:(id<ServletResponseMessage>)aResponseMessage
 {
 	responseMessage = [aResponseMessage retain];
 	header = [[NSMutableDictionary alloc] init];
@@ -45,7 +45,11 @@
 
 - (void)setHeaderValue:(NSString *)value forName:(NSString *)name
 {
-	[header setObject:value forKey:name];
+    if([responseMessage isCommitted] == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
+    }
+	
+    [header setObject:value forKey:name];
 }
 
 - (NSDictionary *)header
@@ -69,6 +73,9 @@
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
+    if([responseMessage isCommitted] == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
+    }
     //we close the connection in error case
     [self setHeaderValue:@"close" forName:@"Connection"];
 

@@ -12,10 +12,10 @@
 @protocol ServletRequestMessage;
 
 @interface HttpServletRequest : NSObject <ServletRequest> {
-	<ServletRequestMessage> requestMessage;
+	id<ServletRequestMessage> requestMessage;
 }
 
-- initWithServletRequestMessage:(<ServletRequestMessage>)aRequestMessage;
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage;
 - (void)dealloc;
 
 - (NSString *)method;

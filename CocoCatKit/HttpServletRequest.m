@@ -11,7 +11,7 @@
 
 @implementation HttpServletRequest
 
-- initWithServletRequestMessage:(<ServletRequestMessage>)aRequestMessage
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage
 {
 	requestMessage = [aRequestMessage retain];
 	return self;

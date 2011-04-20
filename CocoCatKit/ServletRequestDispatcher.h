@@ -20,8 +20,8 @@
 
 + (ServletRequestDispatcher *)defaultDispatcher;
 
-- (void)dispatch:(<ServletRequestMessage>)requestMessage 
-        response:(<ServletResponseMessage>)responseMessage 
+- (void)dispatch:(id<ServletRequestMessage>)requestMessage 
+        response:(id<ServletResponseMessage>)responseMessage 
   servletManager:(HttpServletManager *)servletManager
        keepAlive:(BOOL *)keepAlive;
 

@@ -19,13 +19,13 @@
 
 
 @interface HttpServletResponse : NSObject <ServletResponse> {
-	<ServletResponseMessage>	responseMessage;
+	id<ServletResponseMessage>	responseMessage;
 	unsigned					int status;
 	HttpServletOutputStream		*outputStream;
 	NSMutableDictionary			*header;
 }
 
-- initWithServletResponseMessage:(<ServletResponseMessage>)aResponseMessage;
+- initWithServletResponseMessage:(id<ServletResponseMessage>)aResponseMessage;
 - (void)dealloc;
 
 - (void)setStatus:(unsigned int)aStatus;
