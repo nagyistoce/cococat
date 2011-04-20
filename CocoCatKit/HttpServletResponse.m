@@ -46,7 +46,7 @@
 
 - (void)setHeaderValue:(NSString *)value forName:(NSString *)name
 {
-    if([responseMessage isCommitted] == YES) {
+    if ([responseMessage isCommitted] == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
     }
 	
@@ -75,7 +75,7 @@
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
-    if([responseMessage isCommitted] == YES) {
+    if ([responseMessage isCommitted] == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
     }
     
@@ -91,7 +91,7 @@
 
 - (void)writeData:(NSData *)data
 {
-	if([responseMessage isCommitted] == NO) {
+	if ([responseMessage isCommitted] == NO) {
 		[responseMessage sendHeaderWithStatusCode:status message:[[responseMessage defaultPageManager] textForCode:status] header:header];
 	}
 	
