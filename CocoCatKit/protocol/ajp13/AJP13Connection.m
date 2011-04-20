@@ -6,7 +6,6 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-
 #import "AJP13Connection.h"
 #import "AJP13ForwardRequest.h"
 #import "AJP13Response.h"
@@ -179,37 +178,37 @@
 {
 	NSString *upper = [name uppercaseString];
 	
-	if([upper isEqualToString:@"CONTENT-TYPE"] == YES) {
+	if ([upper isEqualToString:@"CONTENT-TYPE"] == YES) {
 		return [NSNumber numberWithInt:0xA001];
 	}
-	else if([upper isEqualToString:@"CONTENT-LANGUAGE"] == YES) {
+	else if ([upper isEqualToString:@"CONTENT-LANGUAGE"] == YES) {
 		return [NSNumber numberWithInt:0xA002];
 	}
-	else if([upper isEqualToString:@"CONTENT-LENGTH"] == YES) {
+	else if ([upper isEqualToString:@"CONTENT-LENGTH"] == YES) {
 		return [NSNumber numberWithInt:0xA003];
 	}
-	else if([upper isEqualToString:@"DATE"] == YES) {
+	else if ([upper isEqualToString:@"DATE"] == YES) {
 		return [NSNumber numberWithInt:0xA004];
 	}
-	else if([upper isEqualToString:@"LAST-MODIFIED"] == YES) {
+	else if ([upper isEqualToString:@"LAST-MODIFIED"] == YES) {
 		return [NSNumber numberWithInt:0xA005];
 	}
-	else if([upper isEqualToString:@"LOCATION"] == YES) {
+	else if ([upper isEqualToString:@"LOCATION"] == YES) {
 		return [NSNumber numberWithInt:0xA006];
 	}
-	else if([upper isEqualToString:@"SET-COOKIE"] == YES) {
+	else if ([upper isEqualToString:@"SET-COOKIE"] == YES) {
 		return [NSNumber numberWithInt:0xA007];
 	}
-	else if([upper isEqualToString:@"SET-COOKIE2"] == YES) {
+	else if ([upper isEqualToString:@"SET-COOKIE2"] == YES) {
 		return [NSNumber numberWithInt:0xA008];
 	}
-	else if([upper isEqualToString:@"SERVLET-ENGINE"] == YES) {
+	else if ([upper isEqualToString:@"SERVLET-ENGINE"] == YES) {
 		return [NSNumber numberWithInt:0xA009];
 	}
-	else if([upper isEqualToString:@"STATUS"] == YES) {
+	else if ([upper isEqualToString:@"STATUS"] == YES) {
 		return [NSNumber numberWithInt:0xA00A];
 	}
-	else if([upper isEqualToString:@"WWW-AUTHENTICATION"] == YES) {
+	else if ([upper isEqualToString:@"WWW-AUTHENTICATION"] == YES) {
 		return [NSNumber numberWithInt:0xA00B];
 	}
 	else {

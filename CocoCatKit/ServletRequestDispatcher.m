@@ -6,7 +6,6 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-
 #import "ServletRequestDispatcher.h"
 #import "protocol/ServletRequestMessage.h"
 #import "protocol/ServletResponseMessage.h"
@@ -25,7 +24,7 @@
 + (ServletRequestDispatcher *)defaultDispatcher
 {
 	static ServletRequestDispatcher	*dispatcher = nil;
-	if(dispatcher == nil) {
+	if (dispatcher == nil) {
 		dispatcher = [[ServletRequestDispatcher alloc] init];
 	}
 	
@@ -41,7 +40,7 @@
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	
-	if(*keepAlive == YES) {
+	if (*keepAlive == YES) {
 		[servletResponse setHeaderValue:@"keep-alive" forName:@"Connection"];
 	}
 	else {
@@ -54,12 +53,12 @@
 	else {
 		@try {
             [servlet _service:servletRequest response:servletResponse];
-        } @catch(NSException *ex) {
+        } @catch (NSException *ex) {
             NSLog(@"Exception : %@", ex);
-            if([servletResponse isCommitted] == NO) {
+            if ([servletResponse isCommitted] == NO) {
                 @try {
                     [servletResponse sendError:500];
-                } @catch(NSException *ex) {
+                } @catch (NSException *ex) {
                     NSLog(@"Unable to send error code : %@", ex);
                 }
             }
@@ -67,14 +66,14 @@
 	}
 	
 	//get keep alive from response again, maybe the servlet modified it
-	if([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 		*keepAlive = YES;
 	}
 	else {
 		*keepAlive = NO;
 	}
 	
-    if([responseMessage isCommitted] == NO) {
+    if ([responseMessage isCommitted] == NO) {
 		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[HttpServletResponse _errorMessage:[servletResponse status]] header:[servletResponse header]];
 	}
 	[responseMessage end:*keepAlive];

@@ -13,7 +13,6 @@
 
 #define HTTP_SEND_DATA	1
 
-
 @class HttpRequest;
 
 @interface HttpConnection : ServletConnection {

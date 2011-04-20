@@ -28,7 +28,7 @@
 + (HttpServletManager *)defaultManager
 {
 	static HttpServletManager	*manager = nil;
-	if(manager == nil) {
+	if (manager == nil) {
 		manager = [[HttpServletManager alloc] init];
 	}
 	
@@ -40,7 +40,7 @@
 	NSEnumerator	*enumerator = [servlets keyEnumerator];
 	NSString		*pattern;
 	
-	while((pattern = [enumerator nextObject]) != nil) {
+	while ((pattern = [enumerator nextObject]) != nil) {
 		NSPredicate *pred = [NSPredicate
 								  predicateWithFormat:@"SELF MATCHES %@", pattern];
 		if ([pred evaluateWithObject:uri] == YES) {

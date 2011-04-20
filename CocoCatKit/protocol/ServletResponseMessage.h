@@ -8,7 +8,6 @@
 
 #import "../ServletResponse.h"
 
-
 @protocol ServletResponseMessage <ServletResponse>
 
 - (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;

@@ -39,8 +39,6 @@
 #define HTTPMETHOD_BASELINE_CONTROL	26
 #define HTTPMETHOD_MKACTIVITY		27
 
-
-
 @interface AJP13ForwardRequest : NSObject <ServletRequestMessage> {
 	unsigned int		method;
 	NSString			*protocol;

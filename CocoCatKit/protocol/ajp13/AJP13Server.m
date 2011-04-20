@@ -12,7 +12,6 @@
 
 @implementation AJP13Server
 
-
 - init
 {
     return [super init];

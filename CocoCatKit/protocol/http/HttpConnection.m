@@ -33,7 +33,7 @@
 	switch (tag) {
 		case HTTP_PACKET_HEADER: {
             HttpRequest *request = [[[HttpRequest alloc] initWithData:data] autorelease];
-			if(request == nil) {
+			if (request == nil) {
 				[self close];
 			}
 			[self processRequest:request];
@@ -56,7 +56,7 @@
 
     BOOL keepAlive = NO;
 	
-	if([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+	if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 		keepAlive = YES;
 	}	
     
