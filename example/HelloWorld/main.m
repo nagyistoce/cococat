@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/AJP13Server.h>
-#import "HelloWorldServlet.h"
 #import <CocoCatKit/HttpServletManager.h>
+#import "HelloWorldServlet.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];

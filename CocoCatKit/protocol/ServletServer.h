@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class HttpServletManager;
+@class GCDAsyncSocket;
 
-@interface ServletServer : NSObject {
+@interface ServletServer : NSObject 
+{
+ 	GCDAsyncSocket		*socket;
+    dispatch_queue_t	serverQueue;
+	NSMutableArray		*connections;
     HttpServletManager  *servletManager;
 }
 
@@ -18,5 +23,9 @@
 - initWithServletManager:(HttpServletManager *)manager;
 
 - (void)dealloc;
+
+- (BOOL)listen:(unsigned int)port;
+
+- (void)connectionDidDie:(NSNotification *)notification;
 
 @end

@@ -46,6 +46,8 @@
 		2163C26B135B63F400AF6544 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2163C269135B63F400AF6544 /* GCDAsyncSocket.m */; };
 		C64E8CC6135F0083007A3E9F /* ServletServer.h in Headers */ = {isa = PBXBuildFile; fileRef = C64E8CC4135F0083007A3E9F /* ServletServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C64E8CC7135F0083007A3E9F /* ServletServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8CC5135F0083007A3E9F /* ServletServer.m */; };
+		C64E8D36135F0526007A3E9F /* ServletConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = C64E8D34135F0526007A3E9F /* ServletConnection.h */; };
+		C64E8D37135F0526007A3E9F /* ServletConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8D35135F0526007A3E9F /* ServletConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +95,8 @@
 		8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64E8CC4135F0083007A3E9F /* ServletServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServletServer.h; sourceTree = "<group>"; };
 		C64E8CC5135F0083007A3E9F /* ServletServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServletServer.m; sourceTree = "<group>"; };
+		C64E8D34135F0526007A3E9F /* ServletConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServletConnection.h; sourceTree = "<group>"; };
+		C64E8D35135F0526007A3E9F /* ServletConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServletConnection.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +204,8 @@
 				210F337C135E328100990051 /* ServletResponseMessage.h */,
 				C64E8CC4135F0083007A3E9F /* ServletServer.h */,
 				C64E8CC5135F0083007A3E9F /* ServletServer.m */,
+				C64E8D34135F0526007A3E9F /* ServletConnection.h */,
+				C64E8D35135F0526007A3E9F /* ServletConnection.m */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -285,6 +291,7 @@
 				210F3396135E338700990051 /* HttpResponse.h in Headers */,
 				210F339A135E339100990051 /* HttpServer.h in Headers */,
 				C64E8CC6135F0083007A3E9F /* ServletServer.h in Headers */,
+				C64E8D36135F0526007A3E9F /* ServletConnection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +373,7 @@
 				210F3397135E338700990051 /* HttpResponse.m in Sources */,
 				210F339B135E339100990051 /* HttpServer.m in Sources */,
 				C64E8CC7135F0083007A3E9F /* ServletServer.m in Sources */,
+				C64E8D37135F0526007A3E9F /* ServletConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

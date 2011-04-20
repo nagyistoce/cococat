@@ -23,7 +23,7 @@
     servletManager = [[HttpServletManager alloc] init];
     
     ajpServer = [[AJP13Server alloc] initWithServletManager:servletManager];
-    adminServer = [[AJP13Server alloc] initWithServletManager:adminServletManager];
+    adminServer = [[HttpServer alloc] initWithServletManager:adminServletManager];
 
     return self;
 }
@@ -40,6 +40,9 @@
 
 - (void)listen:(unsigned int)ajpPort adminPort:(unsigned int)adminPort
 {
+    [ajpServer listen:ajpPort];
+    [adminServer listen:adminPort];
+
 }
 
 @end

@@ -9,14 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/ServletServer.h>
 
-@class GCDAsyncSocket;
 @class HttpServletManager;
 
 @interface AJP13Server : ServletServer
 {
-	GCDAsyncSocket		*socket;
-	dispatch_queue_t	serverQueue;
-	NSMutableArray		*connections;
 }
 
 - init;
@@ -24,7 +20,7 @@
 
 - (void)dealloc;
 
-- (BOOL)listen:(unsigned int)port;
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket;
 
 @end
 

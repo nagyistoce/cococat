@@ -18,30 +18,16 @@
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager
 {
-	connectionQueue = dispatch_queue_create("AJP13Connection", NULL);
-
-	socket = [aSocket retain];
-    servletManager = [aServletManager retain];
-	[socket setDelegate:self delegateQueue:connectionQueue];
-	[socket readDataToLength:5
+	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager];
+    [aSocket readDataToLength:5
 			   withTimeout:-1
 					   tag:AJP_PACKET_HEADER];
 	return self;
 }
 
 - (void)dealloc
-{
-	dispatch_release(connectionQueue);
-	
-	[socket release];
-    [servletManager release];
-	
-	[super dealloc];
-}
-
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
 {	
-	[self die];
+	[super dealloc];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
@@ -82,11 +68,6 @@
 		default:
 			NSLog(@"did read %@", data);
 	}
-}
-
-- (void)die
-{	
-	[[NSNotificationCenter defaultCenter] postNotificationName:AJP13ConnectionDidDieNotification object:self];
 }
 
 //processing ajp request
@@ -152,11 +133,6 @@
 	else {
 		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
 	}
-}
-
-- (void)close
-{
-	[socket disconnect];
 }
 
 //helper for writing responses

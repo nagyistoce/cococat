@@ -8,8 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
-
-#define AJP13ConnectionDidDieNotification  @"AJP13ConnectionDidDie"
+#import "../ServletConnection.h"
 
 //receiving messages from http server
 #define AJP_PACKET_HEADER	0
@@ -30,17 +29,11 @@
 @class AJP13ForwardRequest;
 @class HttpServletManager;
 
-@interface AJP13Connection : NSObject {
-	GCDAsyncSocket		*socket;
-    HttpServletManager *servletManager;
-	dispatch_queue_t	connectionQueue;
-	unsigned int		currentPacketLenght;
+@interface AJP13Connection : ServletConnection {
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket servletManager:(HttpServletManager *)aServletManager;
 - (void)dealloc;
-
-- (void)die;
 
 //processing ajp request
 - (void)processForwardRequest:(AJP13ForwardRequest *)request;
@@ -49,8 +42,6 @@
 - (void)sendHeadersWithStatusCode:(unsigned int)status statusMessage:(NSString *)message headers:(NSDictionary *)headers;
 - (void)sendBodyChunk:(NSData *)chunk;
 - (void)sendEndResponse:(BOOL)reuse;
-
-- (void)close;
 
 
 //helper for writing responses

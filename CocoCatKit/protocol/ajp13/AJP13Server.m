@@ -10,8 +10,6 @@
 #import "AJP13Connection.h"
 #import "HttpServletManager.h"
 
-#import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
-
 @implementation AJP13Server
 
 
@@ -23,51 +21,13 @@
 - initWithServletManager:(HttpServletManager *)manager
 {
 	self = [super initWithServletManager:manager];
-    
-    connections = [[NSMutableArray alloc] init];
-	serverQueue = dispatch_queue_create("AJP13Server", NULL);
-	
-	socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:serverQueue];
-	
-	servletManager = [manager retain];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(connectionDidDie:)
-												 name:AJP13ConnectionDidDieNotification
-											   object:nil];
 	
 	return self;
 }
 
 - (void)dealloc
 {
-	dispatch_release(serverQueue);
-
-	[connections release];
-	[socket release];
-    [servletManager release];
-	
 	[super dealloc];
-}
-
-- (void)setServletManager:(HttpServletManager *)manager
-{
-    [servletManager release];
-    servletManager = [manager retain];
-}
-
-- (BOOL)listen:(unsigned int)port
-{
-	__block BOOL success;
-	dispatch_sync(serverQueue, ^{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		
-		success = [socket acceptOnPort:port error:NULL];
-		
-		[pool release];
-	});
-	
-	return success;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
@@ -76,15 +36,6 @@
 	@synchronized(connections) {
 		[connections addObject:newConnection];
 	}	
-}
-
-- (void)connectionDidDie:(NSNotification *)notification
-{
-	// Note: This method is called on the connection queue that posted the notification
-	
-	@synchronized(connections) {
-		[connections removeObject:[notification object]];
-	}
 }
 
 @end
