@@ -21,7 +21,7 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
-- (NSDictionary *)headers;
+- (NSDictionary *)header;
 - (NSDictionary *)parameters;
 
 @end

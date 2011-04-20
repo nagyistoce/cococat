@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/AJP13Server.h>
+#import <CocoCatKit/HttpServer.h>
 #import <CocoCatKit/HttpServletManager.h>
 #import "HelloWorldServlet.h"
 
@@ -18,6 +19,9 @@ int main (int argc, const char * argv[]) {
 
 	AJP13Server *server = [[[AJP13Server alloc] init] autorelease];
 	[server listen:8009];
+	
+	HttpServer *httpServer = [[[HttpServer alloc] init] autorelease];
+	[httpServer listen:8010];
 		
 	[[NSRunLoop currentRunLoop] run];
     

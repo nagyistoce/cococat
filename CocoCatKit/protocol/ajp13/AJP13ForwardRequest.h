@@ -50,7 +50,7 @@
 	NSString			*serverName;
 	unsigned int		serverPort;
 	BOOL				isSsl;
-	NSMutableDictionary	*headers;
+	NSMutableDictionary	*header;
 	NSMutableDictionary	*attributes;
 	NSData				*data;
 	
@@ -67,7 +67,7 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
-- (NSDictionary *)headers;
+- (NSDictionary *)header;
 - (NSDictionary *)parameters;
 
 //internal

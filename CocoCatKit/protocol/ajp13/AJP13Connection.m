@@ -60,7 +60,9 @@
 			break;
 		case AJP_FORWARD_REQUEST: {
 			AJP13ForwardRequest *request = [[[AJP13ForwardRequest alloc] initWithData:data] autorelease];
-			
+			if(request == nil) {
+				[self close];
+			}
 			[self processForwardRequest:request];
 			break;
 		}

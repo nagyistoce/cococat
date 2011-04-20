@@ -15,7 +15,7 @@
 //without data prefix code
 - initWithData:(NSData *)someData
 {
-	headers = [[NSMutableDictionary alloc] init];
+	header = [[NSMutableDictionary alloc] init];
 	attributes = [[NSMutableDictionary alloc] init];
 	parameters = [[NSMutableDictionary alloc] init];
 
@@ -25,7 +25,6 @@
 
 	//last byte must be a request terminator (0xFF)
 	if (bytes[length -1] != 0xFF) {
-		NSLog(@"bad request %@", data);
 		[self release];
 		return nil;
 	}
@@ -40,8 +39,8 @@
 	serverName = [[self _readNextString] retain];
 	serverPort = [self _readNextInteger];
 	isSsl = [self _readNextBOOL];
-	int numHeaders = [self _readNextInteger];
-	for (int i = 0; i < numHeaders; i++) {
+	int numHeaderFields = [self _readNextInteger];
+	for (int i = 0; i < numHeaderFields; i++) {
 		int codeValue = [self _readNextInteger];
 		NSString	*headerName = nil;
 		unsigned int b1 = (unsigned int)((codeValue >> 8) & 0x00FF);
@@ -57,7 +56,7 @@
 
 		NSString	*value = [self _readNextString];
 		if (headerName != nil) {
-			[headers setObject:value forKey:headerName];
+			[header setObject:value forKey:headerName];
 		}
 	}
 	
@@ -106,7 +105,7 @@
 	[remoteAddr release];
 	[remoteHost release];
 	[serverName release];
-	[headers release];
+	[header release];
 	[attributes release];
 	[parameters release];
 	
@@ -142,9 +141,9 @@
 	return reqUri;
 }
 
-- (NSDictionary *)headers
+- (NSDictionary *)header
 {
-	return headers;
+	return header;
 }
 
 - (NSDictionary *)parameters

@@ -10,7 +10,11 @@
 #import "../ServletRequestMessage.h"
 
 @interface HttpRequest : NSObject <ServletRequestMessage> {
-
+	NSString			*method;
+	NSString			*requestUri;
+	NSString			*httpVersion;
+	NSMutableDictionary	*header;
+	NSMutableDictionary	*parameters;
 }
 
 - initWithData:(NSData *)someData;
@@ -18,7 +22,7 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
-- (NSDictionary *)headers;
+- (NSDictionary *)header;
 - (NSDictionary *)parameters;
 
 @end

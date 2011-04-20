@@ -15,32 +15,100 @@
 
 - initWithData:(NSData *)someData
 {
-    return self;
+    NSString	*headerString = [[[NSString alloc]initWithData:someData encoding:NSISOLatin1StringEncoding] autorelease];
+	NSScanner	*scanner = [NSScanner scannerWithString:headerString];
+	
+	header = [[NSMutableDictionary alloc] init];
+	parameters = [[NSMutableDictionary alloc] init];
+
+	if ([scanner scanUpToString:@" " intoString:&method] != YES) {
+		[self release];
+		return nil;
+	}
+	[method retain];
+	
+	NSString *fullUri;
+	if ([scanner scanUpToString:@" " intoString:&fullUri] != YES) {
+		[self release];
+		return nil;
+	}
+	NSRange parameterDelimiterPosition = [fullUri rangeOfString:@"?"];
+	if(parameterDelimiterPosition.location != NSNotFound) {
+		requestUri = [[fullUri substringToIndex:parameterDelimiterPosition.location] retain];
+		NSString		*queryString = [fullUri substringFromIndex:parameterDelimiterPosition.location + 1];
+		NSArray			*keyValues = [queryString componentsSeparatedByString:@"&"];
+		NSEnumerator	*kVEnumerator = [keyValues objectEnumerator];
+		NSString		*keyValue;
+		
+		while ((keyValue = [kVEnumerator nextObject]) != nil) {
+			NSRange range = [keyValue rangeOfString:@"="];
+			if (range.location != NSNotFound) {
+				NSString *name = [keyValue substringToIndex:range.location];
+				NSString *value = [keyValue substringFromIndex:range.location + 1];
+				[parameters setObject:value forKey:name];
+			}
+			else {
+				[parameters setObject:@"" forKey:keyValue];
+			}
+		}
+		
+	}
+	else {
+		requestUri = [fullUri retain];
+	}
+
+	if ([scanner scanUpToString:@"\r\n" intoString:&httpVersion] != YES) {
+		[self release];
+		return nil;
+	}
+	[httpVersion retain];
+	NSString	*keyValue;
+	while ([scanner scanUpToString:@"\r\n" intoString:&keyValue] == YES) {
+		NSRange range = [keyValue rangeOfString:@": "];
+		if (range.location != NSNotFound) {
+			NSString *name = [keyValue substringToIndex:range.location];
+			NSString *value = [keyValue substringFromIndex:range.location + 2];
+			[header setObject:value forKey:name];
+		}
+		else {
+			[header setObject:@"" forKey:keyValue];
+		}
+		
+	}
+	[httpVersion retain];
+		
+	return self;
 }
 
 - (void)dealloc
 {
-    [super dealloc];
+    [method release];
+	[requestUri release];
+	[httpVersion release];
+	[header release];
+	[parameters release];
+	
+	[super dealloc];
 }
 
 - (NSString *)method
 {
-	return nil;
+	return method;
 }
 
 - (NSString *)requestUri
 {
-	return nil;
+	return requestUri;
 }
 
-- (NSDictionary *)headers
+- (NSDictionary *)header
 {
-	return nil;
+	return header;
 }
 
 - (NSDictionary *)parameters
 {
-	return nil;
+	return parameters;
 }
 
 @end

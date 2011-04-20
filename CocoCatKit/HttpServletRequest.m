@@ -34,9 +34,9 @@
 	return [requestMessage requestUri];
 }
 
-- (NSDictionary *)headers
+- (NSDictionary *)header
 {
-	return [requestMessage headers];
+	return [requestMessage header];
 }
 
 - (NSDictionary *)parameters

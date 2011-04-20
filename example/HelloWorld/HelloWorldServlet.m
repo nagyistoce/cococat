@@ -27,7 +27,7 @@
 	[outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[NSString stringWithFormat:@"Current Time : %@", [NSDate date]] encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:@"\n\n====== Headers ======\n" encoding:NSISOLatin1StringEncoding];
-	[outputStream writeString:[[request headers] description] encoding:NSISOLatin1StringEncoding];
+	[outputStream writeString:[[request header] description] encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:@"\n\n===== Parameters =====\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[[request parameters] description] encoding:NSISOLatin1StringEncoding];
 

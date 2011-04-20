@@ -33,7 +33,9 @@
 	switch (tag) {
 		case HTTP_PACKET_HEADER: {
             HttpRequest *request = [[[HttpRequest alloc] initWithData:data] autorelease];
-			
+			if(request == nil) {
+				[self close];
+			}
 			[self processRequest:request];
             break;
         }
