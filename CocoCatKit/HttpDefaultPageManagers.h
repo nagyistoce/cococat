@@ -8,15 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <CocoCatKit/ServletServer.h>
-#import <CocoCatKit/HttpServlet.h>
-#import <CocoCatKit/HttpServer.h>
-#import <CocoCatKit/AJP13Server.h>
-#import <CocoCatKit/HttpServletManager.h>
-#import <CocoCatKit/HttpServletOutputStream.h>
-#import <CocoCatKit/HttpServletRequest.h>
-#import <CocoCatKit/HttpServletResponse.h>
-#import <CocoCatKit/ServletRequest.h>
-#import <CocoCatKit/ServletResponse.h>
-#import <CocoCatKit/HttpDefaultPageManager.h>
-#import <CocoCatKit/HttpDefaultPageManagers.h>
+@protocol HttpDefaultPageManagers <NSObject>
+
+- (NSString *)errorPageForCode:(unsigned int)code;
+- (NSString *)textForCode:(unsigned int)code;
+
+@end
