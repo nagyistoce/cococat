@@ -10,17 +10,20 @@
 #import <CocoCatKit/ServletRequest.h>
 
 @protocol ServletRequestMessage;
+@class HttpSession;
 
 @interface HttpServletRequest : NSObject <ServletRequest> {
-	id<ServletRequestMessage> requestMessage;
+	id<ServletRequestMessage>   requestMessage;
+    HttpSession                 *session;
 }
 
-- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage;
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage session:(HttpSession *)aSession;
 - (void)dealloc;
 
 - (NSString *)method;
 - (NSString *)requestUri;
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
+- (HttpSession *)session;
 
 @end

@@ -7,19 +7,23 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import "HttpServletRequest.h"
+#import "HttpSession.h"
 #import "protocol/ServletRequestMessage.h"
 
 @implementation HttpServletRequest
 
-- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage session:(HttpSession *)aSession
 {
 	requestMessage = [aRequestMessage retain];
-	return self;
+    session = [aSession retain];
+	
+    return self;
 }
 
 - (void)dealloc
 {
 	[requestMessage release];
+    [session release];
 	
 	[super dealloc];
 }
@@ -42,6 +46,11 @@
 - (NSDictionary *)parameters
 {
 	return [requestMessage parameters];
+}
+
+- (HttpSession *)session
+{
+    return session;
 }
 
 

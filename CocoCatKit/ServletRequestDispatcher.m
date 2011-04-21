@@ -37,7 +37,7 @@
   servletManager:(HttpServletManager *)servletManager
        keepAlive:(BOOL *)keepAlive
 {
-	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage] autorelease];
+	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage session:nil] autorelease];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	

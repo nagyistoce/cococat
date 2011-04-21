@@ -52,6 +52,8 @@
 		C64E8D36135F0526007A3E9F /* ServletConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = C64E8D34135F0526007A3E9F /* ServletConnection.h */; };
 		C64E8D37135F0526007A3E9F /* ServletConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8D35135F0526007A3E9F /* ServletConnection.m */; };
 		D16CF936135F9C2100A6AAA7 /* HttpDefaultPageManagers.h in Headers */ = {isa = PBXBuildFile; fileRef = D16CF935135F9C2100A6AAA7 /* HttpDefaultPageManagers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D16CF93A13602D6900A6AAA7 /* HttpSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D16CF93813602D6700A6AAA7 /* HttpSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D16CF93B13602D6900A6AAA7 /* HttpSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D16CF93913602D6800A6AAA7 /* HttpSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,8 @@
 		C64E8D34135F0526007A3E9F /* ServletConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServletConnection.h; sourceTree = "<group>"; };
 		C64E8D35135F0526007A3E9F /* ServletConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServletConnection.m; sourceTree = "<group>"; };
 		D16CF935135F9C2100A6AAA7 /* HttpDefaultPageManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpDefaultPageManagers.h; sourceTree = "<group>"; };
+		D16CF93813602D6700A6AAA7 /* HttpSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpSession.h; sourceTree = "<group>"; };
+		D16CF93913602D6800A6AAA7 /* HttpSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpSession.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +189,8 @@
 				2163C24A135B63BC00AF6544 /* ServletRequestDispatcher.m */,
 				2163C24B135B63BC00AF6544 /* ServletResponse.h */,
 				2197CE2E135F714900B3938F /* CocoCatKit.h */,
+				D16CF93813602D6700A6AAA7 /* HttpSession.h */,
+				D16CF93913602D6800A6AAA7 /* HttpSession.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16CF93A13602D6900A6AAA7 /* HttpSession.h in Headers */,
 				D16CF936135F9C2100A6AAA7 /* HttpDefaultPageManagers.h in Headers */,
 				2163C24C135B63BC00AF6544 /* ServletRequest.h in Headers */,
 				2163C24D135B63BC00AF6544 /* ServletRequestDispatcher.h in Headers */,
@@ -391,6 +398,7 @@
 				C64E8CC7135F0083007A3E9F /* ServletServer.m in Sources */,
 				C64E8D37135F0526007A3E9F /* ServletConnection.m in Sources */,
 				2197CE24135F6F9000B3938F /* HttpDefaultPageManager.m in Sources */,
+				D16CF93B13602D6900A6AAA7 /* HttpSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
