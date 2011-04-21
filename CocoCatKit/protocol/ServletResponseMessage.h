@@ -8,7 +8,7 @@
 
 #import "../ServletResponse.h"
 
-@class HttpDefaultPageManager;
+@protocol HttpDefaultPageManagers;
 
 @protocol ServletResponseMessage <ServletResponse>
 
@@ -16,6 +16,6 @@
 
 - (void)end:(BOOL)keepAlive;
 
-- (HttpDefaultPageManager *)defaultPageManager;
+- (id<HttpDefaultPageManagers>)defaultPageManager;
 
 @end

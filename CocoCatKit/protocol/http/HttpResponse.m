@@ -64,7 +64,7 @@
     //nothing todo
 }
 
-- (HttpDefaultPageManager *)defaultPageManager
+- (id<HttpDefaultPageManagers>)defaultPageManager
 {
 	return [connection defaultPageManager];
 }

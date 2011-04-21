@@ -9,12 +9,13 @@
 #import "ServletConnection.h"
 #import "../HttpServletManager.h"
 #import "../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#import "../HttpDefaultPageManagers.h"
 
 @implementation ServletConnection
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
 {
     connectionQueue = dispatch_queue_create("ServletConnection", NULL);
     
@@ -52,7 +53,7 @@
 	[self die];
 }
 
-- (HttpDefaultPageManager *)defaultPageManager
+- (id<HttpDefaultPageManagers>)defaultPageManager
 {
 	return defaultPageManager;
 }

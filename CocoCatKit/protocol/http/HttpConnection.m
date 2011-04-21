@@ -17,7 +17,7 @@
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
 {
 	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager defaultPageManager:aDefaultPageManager];
     [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];

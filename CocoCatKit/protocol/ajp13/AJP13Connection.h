@@ -25,13 +25,14 @@
 #define AJP_GET_BODY_CHUNK		6
 
 @class AJP13ForwardRequest;
+@protocol HttpDefaultPageManagers;
 
 @interface AJP13Connection : ServletConnection {
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager;
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager;
 
 - (void)dealloc;
 

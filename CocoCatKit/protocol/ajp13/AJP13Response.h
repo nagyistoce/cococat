@@ -11,7 +11,7 @@
 #import "../ServletResponseMessage.h"
 
 @class AJP13Connection;
-@class HttpDefaultPageManager;
+@protocol HttpDefaultPageManagers;
 
 @interface AJP13Response : NSObject <ServletResponseMessage> {
 	AJP13Connection	*connection;
@@ -29,6 +29,6 @@
 
 - (BOOL)isCommitted;
 
-- (HttpDefaultPageManager *)defaultPageManager;
+- (id<HttpDefaultPageManagers>)defaultPageManager;
 
 @end

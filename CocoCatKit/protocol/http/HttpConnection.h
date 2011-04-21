@@ -14,6 +14,7 @@
 #define HTTP_SEND_DATA	1
 
 @class HttpRequest;
+@protocol HttpDefaultPageManagers;
 
 @interface HttpConnection : ServletConnection {
 
@@ -21,7 +22,7 @@
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager;
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager;
 
 - (void)dealloc;
 

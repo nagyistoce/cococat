@@ -51,6 +51,7 @@
 		C64E8CC7135F0083007A3E9F /* ServletServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8CC5135F0083007A3E9F /* ServletServer.m */; };
 		C64E8D36135F0526007A3E9F /* ServletConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = C64E8D34135F0526007A3E9F /* ServletConnection.h */; };
 		C64E8D37135F0526007A3E9F /* ServletConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C64E8D35135F0526007A3E9F /* ServletConnection.m */; };
+		D16CF936135F9C2100A6AAA7 /* HttpDefaultPageManagers.h in Headers */ = {isa = PBXBuildFile; fileRef = D16CF935135F9C2100A6AAA7 /* HttpDefaultPageManagers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		C64E8CC5135F0083007A3E9F /* ServletServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServletServer.m; sourceTree = "<group>"; };
 		C64E8D34135F0526007A3E9F /* ServletConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServletConnection.h; sourceTree = "<group>"; };
 		C64E8D35135F0526007A3E9F /* ServletConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServletConnection.m; sourceTree = "<group>"; };
+		D16CF935135F9C2100A6AAA7 /* HttpDefaultPageManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpDefaultPageManagers.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 			children = (
 				210F335D135E324700990051 /* protocol */,
 				2163C266135B63F400AF6544 /* Vendor */,
+				D16CF935135F9C2100A6AAA7 /* HttpDefaultPageManagers.h */,
 				2197CE21135F6F9000B3938F /* HttpDefaultPageManager.h */,
 				2197CE22135F6F9000B3938F /* HttpDefaultPageManager.m */,
 				2163C254135B63DC00AF6544 /* HttpServlet.h */,
@@ -280,6 +283,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16CF936135F9C2100A6AAA7 /* HttpDefaultPageManagers.h in Headers */,
 				2163C24C135B63BC00AF6544 /* ServletRequest.h in Headers */,
 				2163C24D135B63BC00AF6544 /* ServletRequestDispatcher.h in Headers */,
 				2163C24F135B63BC00AF6544 /* ServletResponse.h in Headers */,

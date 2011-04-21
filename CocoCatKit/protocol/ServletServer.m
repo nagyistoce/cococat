@@ -47,7 +47,7 @@
     [super dealloc];
 }
 
-- (void)setDefaultPageManager:(HttpDefaultPageManager *)aDefaultPageManager
+- (void)setDefaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
 {
 	[defaultPageManager release];
 	defaultPageManager = [aDefaultPageManager retain];
