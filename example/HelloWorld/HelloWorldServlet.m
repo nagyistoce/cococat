@@ -32,6 +32,16 @@
 
 	[outputStream writeString:@"\n\n====== Uri ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[request requestUri] encoding:NSISOLatin1StringEncoding];
+    
+    [outputStream writeString:@"\n\n===== Session =====\n" encoding:NSISOLatin1StringEncoding];
+
+    HttpSession *session = [request session];
+    if([session isNew] == YES) {
+        [outputStream writeString:[NSString stringWithFormat:@"New session [%@]", [session sessionId]] encoding:NSISOLatin1StringEncoding];
+    }
+    else {
+        [outputStream writeString:[NSString stringWithFormat:@"Session [%@] already exists", [session sessionId]] encoding:NSISOLatin1StringEncoding];
+    }
 }
 
 @end

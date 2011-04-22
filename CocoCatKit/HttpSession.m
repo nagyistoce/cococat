@@ -8,12 +8,27 @@
 
 #import "HttpSession.h"
 
+@implementation HttpSession(Private)
+
+- (void)setLastAccessedTime:(NSDate *)aDate
+{
+    [lastAccessedTime release];
+    lastAccessedTime = [aDate retain];
+}
+
+@end
 
 @implementation HttpSession
 
-- initWithSessionId:(NSString *)aSessionId
+- initWithSessionId:(NSString *)aSessionId maxInactiveInterval:(NSTimeInterval)interval
 {    
     sessionId = [aSessionId retain];
+    NSDate *currentTime = [NSDate date];
+    
+    creationTime = [currentTime retain];
+    lastAccessedTime = [currentTime retain];
+
+    maxInactiveInterval = interval;
     
     return self;
 }
@@ -21,8 +36,35 @@
 - (void)dealloc
 {
     [sessionId release];
+    [creationTime release];
+    [lastAccessedTime release];
     
     [super dealloc];
+}
+
+- (NSDate *)creationTime
+{
+    return creationTime;
+}
+
+- (NSDate *)lastAccessedTime
+{
+    return lastAccessedTime;
+}
+
+- (NSTimeInterval)maxInactiveInterval
+{
+    return maxInactiveInterval;
+}
+
+- (BOOL)isNew
+{
+    return (creationTime == lastAccessedTime ? YES: NO);
+}
+
+- (NSString *)sessionId
+{
+    return sessionId;
 }
 
 @end

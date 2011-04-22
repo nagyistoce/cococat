@@ -60,7 +60,7 @@
 		@try {
             [servlet _service:servletRequest response:servletResponse];
         } @catch (NSException *ex) {
-            NSLog(@"Exception : %@", ex);
+            NSLog(@"Caught exception : %@", ex);
             if ([servletResponse isCommitted] == NO) {
                 @try {
                     [servletResponse sendError:500];

@@ -9,17 +9,29 @@
 #import "HttpSessionManager.h"
 #import "HttpSession.h"
 
+@interface HttpSession(Private)
+
+- (void)setLastAccessedTime:(NSDate *)aDate;
+
+@end
+
 @implementation HttpSessionManager
 
 - init
 {
     sessions = [[NSMutableDictionary alloc] init];
+    
+    maxInactiveInterval = 300; //5 minutes
+    
+    cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
+    
     return self;
 }
 
 - (void)dealloc
 {
     [sessions release];
+    [cleanupTimer release];
     
     [super dealloc];
 }
@@ -40,6 +52,18 @@
     
     @synchronized(sessions) {
         session = [[sessions objectForKey:sessionId] retain];
+        NSDate              *lastAccessedTime = [session lastAccessedTime];
+        NSDate              *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
+        NSComparisonResult  result = [invalidDate compare:lastAccessedTime];
+        
+        if (result == NSOrderedAscending) {
+            [sessions removeObjectForKey:sessionId];
+            [session release];
+            session = nil;
+        }
+        else {
+            [session setLastAccessedTime:[NSDate date]];
+        }
     }
     
     return session;
@@ -55,8 +79,8 @@
     HttpSession *session;
     @synchronized(sessions) {
         NSString *sessionId = [[self class] _createSessionId];
-        session = [[HttpSession alloc] initWithSessionId:sessionId];
-        [session setValue:session forKey:sessionId];
+        session = [[HttpSession alloc] initWithSessionId:sessionId maxInactiveInterval:maxInactiveInterval];
+        [sessions setValue:session forKey:sessionId];
     }
     return session;
 }
@@ -64,9 +88,28 @@
 + (NSString *)_createSessionId 
 {
     CFUUIDRef	uuid = CFUUIDCreate(nil);
-    NSString	*sessionId = (NSString*)CFUUIDCreateString(nil, uuid);
+    NSString	*sessionId = (NSString *)CFUUIDCreateString(nil, uuid);
     CFRelease(uuid);
     return [sessionId autorelease];
+}
+
+- (void)_cleanupExpiredSession:(NSTimer *)theTimer
+{
+    @synchronized(sessions) {
+        NSEnumerator    *keyEnumerator = [[sessions allKeys] objectEnumerator];
+        NSString        *sessionId;
+        while ((sessionId = [keyEnumerator nextObject]) != nil) {
+            HttpSession *session = [sessions objectForKey:sessionId];
+            NSDate      *lastAccessedTime = [session lastAccessedTime];
+            NSDate      *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
+
+            NSComparisonResult  result = [invalidDate compare:lastAccessedTime];
+            
+            if (result == NSOrderedAscending) {
+                [sessions removeObjectForKey:sessionId];
+            }
+        }
+    }
 }
 
 @end

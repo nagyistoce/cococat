@@ -10,11 +10,20 @@
 
 
 @interface HttpSession : NSObject {
-    NSString    *sessionId;
+    NSString        *sessionId;
+    NSTimeInterval  maxInactiveInterval;
+    NSDate          *creationTime;
+    NSDate          *lastAccessedTime;
+
 }
 
-- initWithSessionId:(NSString *)aSessionId;
+- initWithSessionId:(NSString *)aSessionId maxInactiveInterval:(NSTimeInterval)interval;
 - (void)dealloc;
 
+- (NSDate *)creationTime;
+- (NSDate *)lastAccessedTime;
+- (NSTimeInterval)maxInactiveInterval;
+- (BOOL)isNew;
+- (NSString *)sessionId;
 
 @end

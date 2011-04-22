@@ -12,6 +12,9 @@
 
 @interface HttpSessionManager : NSObject {
     NSMutableDictionary *sessions;
+    NSTimeInterval      maxInactiveInterval;
+    NSTimer             *cleanupTimer;
+    
 }
 
 - init;
@@ -24,5 +27,7 @@
 - (HttpSession *)createAndOptainSession;
 
 + (NSString *)_createSessionId;
+- (void)_cleanupExpiredSession:(NSTimer *)theTimer;
+
 
 @end
