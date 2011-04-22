@@ -63,11 +63,11 @@
         return nil;
     }
   
-    @synchronized(sessions) {
+    @synchronized (sessions) {
         session = [[sessions objectForKey:sessionId] retain];
         NSDate              *lastAccessedTime = [session lastAccessedTime];
         NSDate              *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
-        NSComparisonResult  result = [invalidDate compare:lastAccessedTime];
+        NSComparisonResult  result = [invalidDate compare:[NSDate date]];
         if (result == NSOrderedAscending) {
             [sessions removeObjectForKey:sessionId];
             [session release];
@@ -89,7 +89,7 @@
 - (HttpSession *)createAndOptainSession
 {
     HttpSession *session;
-    @synchronized(sessions) {
+    @synchronized (sessions) {
         NSString *sessionId = [[self class] _createSessionId];
         session = [[HttpSession alloc] initWithSessionId:sessionId maxInactiveInterval:maxInactiveInterval];
         [sessions setValue:session forKey:sessionId];
@@ -112,15 +112,15 @@
 
 - (void)_cleanupExpiredSession:(NSTimer *)theTimer
 {
-    @synchronized(sessions) {
+    @synchronized (sessions) {
         NSEnumerator    *keyEnumerator = [[sessions allKeys] objectEnumerator];
         NSString        *sessionId;
         while ((sessionId = [keyEnumerator nextObject]) != nil) {
             HttpSession *session = [sessions objectForKey:sessionId];
             NSDate      *lastAccessedTime = [session lastAccessedTime];
             NSDate      *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
-
-            NSComparisonResult  result = [invalidDate compare:lastAccessedTime];
+            
+            NSComparisonResult  result = [invalidDate compare:[NSDate date]];
             
             if (result == NSOrderedAscending) {
                 [sessions removeObjectForKey:sessionId];

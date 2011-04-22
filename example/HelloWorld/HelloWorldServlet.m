@@ -25,8 +25,6 @@
 	[response setHeaderValue:@"close" forName:@"Connection"];
 	
 	[response setHeaderValue:@"text/plain" forName:@"Content-Type"];
-    [response setHeaderValue:@"Heoo" forName:@"Tst"];
-
     
     [response addCookie:[[[Cookie alloc] initWithName:@"TestCookie" withValue:@"This is a hello world test"] autorelease]];
 
@@ -38,8 +36,12 @@
         [outputStream writeString:[NSString stringWithFormat:@"New session [%@]\n", [session sessionId]] encoding:NSISOLatin1StringEncoding];
     }
     else {
-     [outputStream writeString:[NSString stringWithFormat:@"Session [%@] already exists\n", [session sessionId]] encoding:NSISOLatin1StringEncoding];
+        [outputStream writeString:[NSString stringWithFormat:@"Session [%@] already exists\n", [session sessionId]] encoding:NSISOLatin1StringEncoding];
     }
+    [outputStream writeString:[NSString stringWithFormat:@"Creation time : %@\n", [session creationTime]] encoding:NSISOLatin1StringEncoding];
+    [outputStream writeString:[NSString stringWithFormat:@"Last access time : %@\n", [session lastAccessedTime]] encoding:NSISOLatin1StringEncoding];
+
+    
     
 	[outputStream writeString:@"\n\n====== Headers ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[[request header] description] encoding:NSISOLatin1StringEncoding];
