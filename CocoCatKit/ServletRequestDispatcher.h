@@ -18,6 +18,7 @@
 }
 
 - init;
+- (void)dealloc;
 
 + (ServletRequestDispatcher *)defaultDispatcher;
 

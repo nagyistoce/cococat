@@ -8,7 +8,6 @@
 
 #import "Cookie.h"
 
-
 @implementation Cookie
 
 - initWithName:(NSString *)aName withValue:(NSString *)aValue

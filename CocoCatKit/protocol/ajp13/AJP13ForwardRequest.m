@@ -100,7 +100,7 @@
     NSEnumerator    *cookieEnumerator = [cookieStrings objectEnumerator];
     NSString        *cookieString;
     
-    while((cookieString = [cookieEnumerator nextObject]) != nil) {
+    while ((cookieString = [cookieEnumerator nextObject]) != nil) {
         NSRange range = [cookieString rangeOfString:@"="];
         if (range.location != NSNotFound) {
             NSString *name = [cookieString substringToIndex:range.location];
@@ -121,7 +121,7 @@
     NSEnumerator    *cookie2Enumerator = [cookie2Strings objectEnumerator];
     NSString        *cookie2String;
     
-    while((cookie2String = [cookie2Enumerator nextObject]) != nil) {
+    while ((cookie2String = [cookie2Enumerator nextObject]) != nil) {
         NSRange range = [cookie2String rangeOfString:@"="];
         if (range.location != NSNotFound) {
             NSString *name = [cookie2String substringToIndex:range.location];

@@ -32,7 +32,7 @@
 		return nil;
 	}
 	NSRange parameterDelimiterPosition = [fullUri rangeOfString:@"?"];
-	if(parameterDelimiterPosition.location != NSNotFound) {
+	if (parameterDelimiterPosition.location != NSNotFound) {
 		requestUri = [[fullUri substringToIndex:parameterDelimiterPosition.location] retain];
 		NSString		*queryString = [fullUri substringFromIndex:parameterDelimiterPosition.location + 1];
 		NSArray			*keyValues = [queryString componentsSeparatedByString:@"&"];
@@ -81,7 +81,7 @@
     NSEnumerator    *cookieEnumerator = [cookieStrings objectEnumerator];
     NSString        *cookieString;
 
-    while((cookieString = [cookieEnumerator nextObject]) != nil) {
+    while ((cookieString = [cookieEnumerator nextObject]) != nil) {
         NSRange range = [cookieString rangeOfString:@"="];
         if (range.location != NSNotFound) {
             NSString *name = [cookieString substringToIndex:range.location];

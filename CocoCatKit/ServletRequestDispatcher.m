@@ -30,6 +30,11 @@
 	return self;
 }
 
+- (void)dealloc
+{
+    [super dealloc];
+}
+
 + (ServletRequestDispatcher *)defaultDispatcher
 {
 	static ServletRequestDispatcher	*dispatcher = nil;

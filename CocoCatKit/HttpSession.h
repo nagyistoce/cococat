@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface HttpSession : NSObject {
-    NSString        *sessionId;
-    NSTimeInterval  maxInactiveInterval;
-    NSDate          *creationTime;
-    NSDate          *lastAccessedTime;
-
+    NSString            *sessionId;
+    NSTimeInterval      maxInactiveInterval;
+    NSDate              *creationTime;
+    NSDate              *lastAccessedTime;
+    NSMutableDictionary *attributes;
 }
 
 - initWithSessionId:(NSString *)aSessionId maxInactiveInterval:(NSTimeInterval)interval;
@@ -25,5 +24,9 @@
 - (NSTimeInterval)maxInactiveInterval;
 - (BOOL)isNew;
 - (NSString *)sessionId;
+
+- (void)setAttribute:(id)attribute forName:(NSString *)name;
+- (id)attributeForName:(NSString *)name;
+- (void)removeAttributeForName:(NSString *)name;
 
 @end

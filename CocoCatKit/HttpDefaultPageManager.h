@@ -29,5 +29,4 @@
 
 + (NSString *)defaultTextForCode:(unsigned int)code;
 
-
 @end

@@ -27,6 +27,8 @@
     
     creationTime = [currentTime retain];
     lastAccessedTime = [currentTime retain];
+    
+    attributes = [[NSMutableDictionary alloc] init];
 
     maxInactiveInterval = interval;
     
@@ -38,6 +40,7 @@
     [sessionId release];
     [creationTime release];
     [lastAccessedTime release];
+    [attributes release];
     
     [super dealloc];
 }
@@ -65,6 +68,21 @@
 - (NSString *)sessionId
 {
     return sessionId;
+}
+
+- (void)setAttribute:(id)attribute forName:(NSString *)name
+{
+    [attributes setObject:attribute forKey:name];
+}
+
+- (id)attributeForName:(NSString *)name
+{
+    return [attributes objectForKey:name];
+}
+
+- (void)removeAttributeForName:(NSString *)name
+{
+    [attributes removeObjectForKey:name];
 }
 
 @end

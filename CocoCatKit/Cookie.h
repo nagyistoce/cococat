@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface Cookie : NSObject {
-    NSString     *name;
+    NSString    *name;
     NSString    *value;
 }
 
