@@ -27,8 +27,4 @@
 - (HttpSession *)createAndOptainSession;
 - (NSString *)sessionIdentifier;
 
-+ (NSString *)_createSessionId;
-- (void)_cleanupExpiredSession:(NSTimer *)theTimer;
-
-
 @end

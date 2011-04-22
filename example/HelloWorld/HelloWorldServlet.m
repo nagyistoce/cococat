@@ -25,8 +25,10 @@
 	[response setHeaderValue:@"close" forName:@"Connection"];
 	
 	[response setHeaderValue:@"text/plain" forName:@"Content-Type"];
+    [response setHeaderValue:@"Heoo" forName:@"Tst"];
+
     
-    [response addCookie:[[[Cookie alloc] initWithName:@"TEST" withValue:@"Hallo"] autorelease]];
+    [response addCookie:[[[Cookie alloc] initWithName:@"TestCookie" withValue:@"This is a hello world test"] autorelease]];
 
     [outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[NSString stringWithFormat:@"Current Time : %@", [NSDate date]] encoding:NSISOLatin1StringEncoding];

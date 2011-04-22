@@ -47,9 +47,11 @@
 	[response sendError:501];
 }
 
+@end
 
-//private
-- (void)_service:(HttpServletRequest *)request response:(HttpServletResponse *)response
+@implementation HttpServlet(Private)
+
+- (void)service:(HttpServletRequest *)request response:(HttpServletResponse *)response
 {
 	NSString	*upperMethod = [[request method] uppercaseString];
 	

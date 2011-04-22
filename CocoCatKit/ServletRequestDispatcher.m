@@ -17,6 +17,12 @@
 #import "HttpServlet.h"
 #import "Cookie.h"
 
+@interface HttpServlet(Private)
+
+- (void)service:(HttpServletRequest *)request response:(HttpServletResponse *)response;
+
+@end
+
 @implementation ServletRequestDispatcher
 
 - init
@@ -71,7 +77,7 @@
 	}
 	else {
 		@try {
-            [servlet _service:servletRequest response:servletResponse];
+            [servlet service:servletRequest response:servletResponse];
         } @catch (NSException *ex) {
             NSLog(@"Caught exception : %@", ex);
             if ([servletResponse isCommitted] == NO) {

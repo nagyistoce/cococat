@@ -81,7 +81,7 @@
 //processing ajp request
 - (void)processForwardRequest:(AJP13ForwardRequest *)request
 {	
-	BOOL keepAlive = NO;
+    BOOL keepAlive = NO;
     AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
 	[[ServletRequestDispatcher defaultDispatcher] dispatch:request 
@@ -106,7 +106,7 @@
 	[data appendBytes:&prefixCode length:1];
 	[self _addInteger:status data:data];
 	[self _addString:message data:data];
-	[self _addInteger:[header count] data:data];
+	[self _addInteger:[header count] + [cookies count] data:data];
 	
 	NSEnumerator	*enumerator = [header keyEnumerator];
 	NSString		*key;
@@ -127,8 +127,9 @@
     Cookie          *cookie;
     
     while ((cookie = [cookieEnumerator nextObject]) != nil) {
+        
         NSString    *cookieEntry = [NSString stringWithFormat:@"%@=%@", [cookie name], [cookie value]];
-		NSNumber	*number = [self _codeValueForHeaderName:@"SET-COOKIE"];
+        NSNumber	*number = [self _codeValueForHeaderName:@"SET-COOKIE"];
         [self _addInteger:[number intValue] data:data];
         [self _addString:cookieEntry data:data];
     }

@@ -9,6 +9,13 @@
 #import "HttpSessionManager.h"
 #import "HttpSession.h"
 
+@interface HttpSessionManager(Private)
+
+- (void)_cleanupExpiredSession:(NSTimer *)theTimer;
++ (NSString *)_createSessionId;
+
+@end
+
 @interface HttpSession(Private)
 
 - (void)setLastAccessedTime:(NSDate *)aDate;
@@ -26,6 +33,7 @@
     cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
     
     sessionIdentifier = @"COCOCAT-SESSION";
+    
     return self;
 }
 

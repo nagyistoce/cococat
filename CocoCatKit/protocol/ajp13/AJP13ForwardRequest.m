@@ -96,7 +96,7 @@
 	}
     
     NSString        *cookieHeaderString = [header objectForKey:@"Cookie"];
-    NSArray         *cookieStrings = [cookieHeaderString componentsSeparatedByString:@";"];
+    NSArray         *cookieStrings = [cookieHeaderString componentsSeparatedByString:@"; "];
     NSEnumerator    *cookieEnumerator = [cookieStrings objectEnumerator];
     NSString        *cookieString;
     
@@ -113,11 +113,11 @@
             [cookies addObject:cookie];
         }
     }
-    
+        
     [header removeObjectForKey:@"Cookie"];
     
     NSString        *cookie2HeaderString = [header objectForKey:@"Cookie2"];
-    NSArray         *cookie2Strings = [cookie2HeaderString componentsSeparatedByString:@";"];
+    NSArray         *cookie2Strings = [cookie2HeaderString componentsSeparatedByString:@"; "];
     NSEnumerator    *cookie2Enumerator = [cookie2Strings objectEnumerator];
     NSString        *cookie2String;
     

@@ -23,8 +23,4 @@
 - (void)doPut:(HttpServletRequest *)request response:(HttpServletResponse *)response;
 - (void)doTrace:(HttpServletRequest *)request response:(HttpServletResponse *)response;
 
-
-//private
-- (void)_service:(HttpServletRequest *)request response:(HttpServletResponse *)response;
-
 @end
