@@ -57,12 +57,17 @@
 
 - (void)setIntHeaderValue:(int)value forName:(NSString *)name
 {
-	[header setObject:[NSString stringWithFormat:@"%d", value] forKey:name];
+	[self setHeaderValue:[NSString stringWithFormat:@"%d", value] forName:name];
 }
 
 - (NSDictionary *)header
 {
     return header;
+}
+
+- (void)setContentLength:(int)length
+{
+	[self setIntHeaderValue:length forName:@"Content-Length"];
 }
 
 - (HttpServletOutputStream *)outputStream

@@ -31,6 +31,8 @@
 - (void)setIntHeaderValue:(int)value forName:(NSString *)name;
 - (NSDictionary *)header;
 
+- (void)setContentLength:(int)length;
+
 - (HttpServletOutputStream *)outputStream;
 
 - (void)addCookie:(Cookie *)cookie;
