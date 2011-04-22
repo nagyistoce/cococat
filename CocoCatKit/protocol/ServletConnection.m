@@ -16,11 +16,13 @@
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(HttpSessionManager *)aSessionManager
 {
     connectionQueue = dispatch_queue_create("ServletConnection", NULL);
     
 	socket = [aSocket retain];
     servletManager = [aServletManager retain];
+    sessionManager = [aSessionManager retain];
 	defaultPageManager = [aDefaultPageManager retain];
 	[socket setDelegate:self delegateQueue:connectionQueue];
     
@@ -33,6 +35,7 @@
 	
 	[socket release];
     [servletManager release];
+    [sessionManager release];
 	[defaultPageManager release];
     
     [super dealloc];

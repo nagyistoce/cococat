@@ -6,34 +6,28 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <Foundation/Foundation.h>
-#import "../ServletConnection.h"
+#import "HttpSessionManager.h"
 
-#define HTTP_PACKET_HEADER	0
+@implementation HttpSessionManager
 
-#define HTTP_SEND_DATA	1
-
-@class HttpRequest;
-@protocol HttpDefaultPageManagers;
-@class HttpSessionManager;
-
-@interface HttpConnection : ServletConnection {
-
+- init
+{
+    return self;
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
-	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
-    sessionManager:(HttpSessionManager *)aSessionManager;
+- (void)dealloc
+{
+    [super dealloc];
+}
 
-- (void)dealloc;
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
-
-- (void)sendData:(NSData *)data;
-
-- (void)processRequest:(HttpRequest *)request;
-
-+ (NSData *)headerSeparatorData;
++ (HttpSessionManager *)defaultManager
+{
+	static HttpSessionManager	*manager = nil;
+	if (manager == nil) {
+		manager = [[HttpSessionManager alloc] init];
+	}
+	
+	return manager;
+}
 
 @end

@@ -11,6 +11,7 @@
 @class HttpServletManager;
 @class GCDAsyncSocket;
 @class ServletConnection;
+@class HttpSessionManager;
 @protocol HttpDefaultPageManagers;
 
 @interface ServletServer : NSObject 
@@ -20,6 +21,7 @@
 	NSMutableArray              *connections;
     HttpServletManager          *servletManager;
 	id<HttpDefaultPageManagers>	defaultPageManager;
+    HttpSessionManager          *sessionManager;
 }
 
 - init;
@@ -28,6 +30,7 @@
 - (void)dealloc;
 
 - (void)setDefaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager;
+- (void)setSessionManager:(HttpSessionManager *)aSessionManager;
 
 - (BOOL)listen:(unsigned int)port;
 

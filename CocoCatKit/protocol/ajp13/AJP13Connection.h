@@ -26,13 +26,15 @@
 
 @class AJP13ForwardRequest;
 @protocol HttpDefaultPageManagers;
+@class HttpSessionManager;
 
 @interface AJP13Connection : ServletConnection {
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager;
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(HttpSessionManager *)aSessionManager;
 
 - (void)dealloc;
 

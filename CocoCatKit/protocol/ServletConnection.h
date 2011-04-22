@@ -13,6 +13,7 @@
 @class GCDAsyncSocket;
 @class HttpServletManager;
 @protocol HttpDefaultPageManagers;
+@class HttpSessionManager;
 
 
 @interface ServletConnection : NSObject {
@@ -21,11 +22,13 @@
 	dispatch_queue_t            connectionQueue;
 	unsigned int                currentPacketLenght;
 	id<HttpDefaultPageManagers>	defaultPageManager;
+    HttpSessionManager          *sessionManager;
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
-   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager;
+   defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(HttpSessionManager *)aSessionManager;
 
 - (void)dealloc;
 

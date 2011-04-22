@@ -10,8 +10,11 @@
 
 
 @interface HttpSession : NSObject {
-@private
     
 }
+
+- init;
+- (void)dealloc;
+
 
 @end

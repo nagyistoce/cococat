@@ -9,6 +9,7 @@
 #import "ServletServer.h"
 #import "ServletConnection.h"
 #import "../HttpServletManager.h"
+#import "../HttpSessionManager.h"
 #import "../HttpDefaultPageManager.h"
 #import "../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 
@@ -23,6 +24,7 @@
 {
     servletManager = [manager retain];
 	defaultPageManager = [[HttpDefaultPageManager defaultManager] retain];
+    sessionManager = [[HttpSessionManager defaultManager] retain];
     connections = [[NSMutableArray alloc] init];
 	serverQueue = dispatch_queue_create("ServletServer", NULL);
     socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:serverQueue];
@@ -39,6 +41,7 @@
 {
     [servletManager release];
 	[defaultPageManager release];
+    [sessionManager release];
     dispatch_release(serverQueue);
     
 	[connections release];
@@ -53,6 +56,11 @@
 	defaultPageManager = [aDefaultPageManager retain];
 }
 
+- (void)setSessionManager:(HttpSessionManager *)aSessionManager
+{
+    [sessionManager release];
+	sessionManager = [aSessionManager retain];
+}
 - (BOOL)listen:(unsigned int)port
 {
     __block BOOL success;

@@ -30,7 +30,10 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
-	HttpConnection *newConnection = [[[HttpConnection alloc] initWithAsyncSocket:newSocket servletManager:servletManager defaultPageManager:defaultPageManager] autorelease];
+	HttpConnection *newConnection = [[[HttpConnection alloc] initWithAsyncSocket:newSocket 
+                                                                  servletManager:servletManager 
+                                                              defaultPageManager:defaultPageManager
+                                                                  sessionManager:sessionManager] autorelease];
     [super addConnection:newConnection];
 }
 

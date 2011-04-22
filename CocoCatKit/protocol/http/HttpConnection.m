@@ -12,14 +12,19 @@
 #import "HttpResponse.h"
 #import "ServletRequestDispatcher.h"
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#import "HttpSessionManager.h"
 
 @implementation HttpConnection
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(HttpSessionManager *)aSessionManager
 {
-	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager defaultPageManager:aDefaultPageManager];
+	self = [super initWithAsyncSocket:aSocket 
+                       servletManager:aServletManager 
+                   defaultPageManager:aDefaultPageManager 
+                       sessionManager:aSessionManager];
     [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
 
 	return self;
@@ -62,7 +67,11 @@
 		keepAlive = YES;
 	}	
     
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:httpResponse servletManager:servletManager keepAlive:&keepAlive];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request 
+                                                  response:httpResponse 
+                                            servletManager:servletManager 
+                                            sessionManager:sessionManager
+                                                 keepAlive:&keepAlive];	
     
     if(keepAlive == NO) {
         [self close];

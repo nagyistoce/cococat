@@ -35,6 +35,7 @@
 - (void)dispatch:(id<ServletRequestMessage>)requestMessage 
         response:(id<ServletResponseMessage>)responseMessage 
   servletManager:(HttpServletManager *)servletManager
+  sessionManager:(HttpSessionManager *)sessionManager
        keepAlive:(BOOL *)keepAlive
 {
 	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage session:nil] autorelease];

@@ -21,3 +21,4 @@
 #import <CocoCatKit/HttpDefaultPageManager.h>
 #import <CocoCatKit/HttpDefaultPageManagers.h>
 #import <CocoCatKit/HttpSession.h>
+#import <CocoCatKit/HttpSessionManager.h>

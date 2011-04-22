@@ -31,7 +31,10 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
-	AJP13Connection *newConnection = [[[AJP13Connection alloc] initWithAsyncSocket:newSocket servletManager:servletManager defaultPageManager:defaultPageManager] autorelease];
+	AJP13Connection *newConnection = [[[AJP13Connection alloc] initWithAsyncSocket:newSocket 
+                                                                    servletManager:servletManager 
+                                                                defaultPageManager:defaultPageManager
+                                                                    sessionManager:sessionManager] autorelease];
     [super addConnection:newConnection];
 }
 

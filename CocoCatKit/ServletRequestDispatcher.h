@@ -11,6 +11,7 @@
 @class HttpServletManager;
 @protocol ServletRequestMessage;
 @protocol ServletResponseMessage;
+@class HttpSessionManager;
 
 @interface ServletRequestDispatcher : NSObject {
 
@@ -23,6 +24,7 @@
 - (void)dispatch:(id<ServletRequestMessage>)requestMessage 
         response:(id<ServletResponseMessage>)responseMessage 
   servletManager:(HttpServletManager *)servletManager
+  sessionManager:(HttpSessionManager *)sessionManager
        keepAlive:(BOOL *)keepAlive;
 
 @end

@@ -11,14 +11,19 @@
 #import "AJP13Response.h"
 #import "ServletRequestDispatcher.h"
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#import "HttpSessionManager.h"
 
 @implementation AJP13Connection
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(HttpSessionManager *)aSessionManager
 {
-	self = [super initWithAsyncSocket:aSocket servletManager:aServletManager defaultPageManager:aDefaultPageManager];
+	self = [super initWithAsyncSocket:aSocket 
+                       servletManager:aServletManager 
+                   defaultPageManager:aDefaultPageManager 
+                       sessionManager:aSessionManager];
     [aSocket readDataToLength:5
 			   withTimeout:-1
 					   tag:AJP_PACKET_HEADER];
@@ -38,7 +43,7 @@
 	switch (tag) {
 		case AJP_PACKET_HEADER:
 			if([data length] != 5) {
-				NSLog(@"packet header length [%u] must be 5", length);
+				NSLog(@"packet header length [%lu] must be 5", length);
 				[self die];
 			}
 			if(bytes[0] != 0x12 || bytes[1] != 0x34) {
@@ -78,7 +83,11 @@
 	BOOL keepAlive = NO;
     AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
-	[[ServletRequestDispatcher defaultDispatcher] dispatch:request response:ajpResponse servletManager:servletManager keepAlive:&keepAlive];	
+	[[ServletRequestDispatcher defaultDispatcher] dispatch:request 
+                                                  response:ajpResponse 
+                                            servletManager:servletManager 
+                                            sessionManager:sessionManager
+                                                 keepAlive:&keepAlive];	
     
     if(keepAlive == NO) {
         [self close];
