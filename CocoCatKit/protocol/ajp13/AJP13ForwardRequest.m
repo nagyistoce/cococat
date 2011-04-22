@@ -9,6 +9,145 @@
 #import "AJP13ForwardRequest.h"
 #import "../../Cookie.h"
 
+@interface AJP13ForwardRequest(Private)
+
+- (NSString *)readNextString;
+- (int)readNextInteger;
+- (int)readNextByte;
+- (BOOL)readNextBOOL;
+- (NSString *)lookupHeaderNameWithCodeValue:(int)codeValue;
+- (NSString *)lookupAttributeNameWithCodeValue:(int)codeValue;
+
+@end
+
+@implementation AJP13ForwardRequest(Private)
+
+- (NSString *)readNextString
+{
+	NSString	*result = nil;
+	unsigned const char *bytes = [data bytes];
+	unsigned char b1 = bytes[_position++];
+	unsigned char b2 = bytes[_position++];
+    
+	
+	int length = (int)b1 << 8 | b2;
+	
+	if (length == -1) {
+		return result;
+	}
+	
+	result = [NSString stringWithCString:[data bytes]+_position encoding:NSISOLatin1StringEncoding];
+	
+	//skip null byte
+	_position += length + 1;
+	
+	return result;
+}
+
+- (int)readNextInteger
+{
+	int result = 0;
+	unsigned const char *bytes = [data bytes];
+	unsigned char b1 = bytes[_position++];
+	unsigned char b2 = bytes[_position++];
+	
+	
+	result = (int)b1 << 8 | b2;
+	
+	return result;
+}
+
+- (int)readNextByte
+{
+	int result = 0;
+	unsigned const char *bytes = [data bytes];
+	unsigned char b1 = bytes[_position++];
+    
+	result = (int)b1;
+	
+	return result;
+}
+
+- (BOOL)readNextBOOL
+{
+	unsigned const char *bytes = [data bytes];
+	unsigned char b1 = bytes[_position++];
+	
+	if (b1 != 0) {
+		return YES;
+	}
+	
+	return NO;
+}
+
+- (NSString *)lookupHeaderNameWithCodeValue:(int)codeValue
+{
+	switch (codeValue) {
+		case 0xA001:
+			return @"Accept";
+		case 0xA002:
+			return @"Accept-Charset";
+		case 0xA003:
+			return @"Accept-Encoding";
+		case 0xA004:
+			return @"Accept-Language";
+		case 0xA005:
+			return @"Authorization";
+		case 0xA006:
+			return @"Connection";
+		case 0xA007:
+			return @"Content-Type";
+		case 0xA008:
+			return @"Content-Length";
+		case 0xA009:
+			return @"Cookie";
+		case 0xA00A:
+			return @"Cookie2";
+		case 0xA00B:
+			return @"Host";
+		case 0xA00C:
+			return @"Pragma";
+		case 0xA00D:
+			return @"Referer";
+		case 0xA00E:
+			return @"User-Agent";
+		default:
+			return nil;
+	}
+}
+
+- (NSString *)lookupAttributeNameWithCodeValue:(int)codeValue
+{
+	switch(codeValue) {
+		case 0x01:
+			return @"context";
+		case 0x02:
+			return @"servlet_path";
+		case 0x03:
+			return @"remote_user";
+		case 0x04:
+			return @"auth_type";
+		case 0x05:
+			return @"query_string";
+		case 0x06:
+			return @"jvm_route";
+		case 0x07:
+			return @"ssl_cert";
+		case 0x08:
+			return @"ssl_cipher";
+		case 0x09:
+			return @"ssl_session";
+		case 0x0A:
+			return @"req_attribute";
+		case 0x0B:
+			return @"ssl_key_size";
+		default:
+			return nil;
+	}
+}
+
+@end
+
 @implementation AJP13ForwardRequest
 
 //without data prefix code
@@ -32,46 +171,46 @@
 	method = bytes[0];
 		
 	_position = 1;
-	protocol = [[self _readNextString] retain];
-	reqUri = [[self _readNextString] retain];
-	remoteAddr = [[self _readNextString] retain];
-	remoteHost = [[self _readNextString] retain];
-	serverName = [[self _readNextString] retain];
-	serverPort = [self _readNextInteger];
-	isSsl = [self _readNextBOOL];
-	int numHeaderFields = [self _readNextInteger];
+	protocol = [[self readNextString] retain];
+	reqUri = [[self readNextString] retain];
+	remoteAddr = [[self readNextString] retain];
+	remoteHost = [[self readNextString] retain];
+	serverName = [[self readNextString] retain];
+	serverPort = [self readNextInteger];
+	isSsl = [self readNextBOOL];
+	int numHeaderFields = [self readNextInteger];
 	for (int i = 0; i < numHeaderFields; i++) {
-		int codeValue = [self _readNextInteger];
+		int codeValue = [self readNextInteger];
 		NSString	*headerName = nil;
 		unsigned int b1 = (unsigned int)((codeValue >> 8) & 0x00FF);
 		if ((b1 & 0xA0) == 0xA0) {
 			//header name is a int
-			headerName = [self _lookupHeaderNameWithCodeValue:codeValue];
+			headerName = [self lookupHeaderNameWithCodeValue:codeValue];
 		}
 		else {
 			//header is a string
 			_position -= 2;
-			headerName = [self _readNextString];
+			headerName = [self readNextString];
 		}
 
-		NSString	*value = [self _readNextString];
+		NSString	*value = [self readNextString];
 		if (headerName != nil) {
 			[header setObject:value forKey:headerName];
 		}
 	}
 	
 	unsigned int attributeCode = 0;
-	while ((attributeCode = [self _readNextByte]) != 0xFF) {
+	while ((attributeCode = [self readNextByte]) != 0xFF) {
 		NSString	*attributeName = nil;
 		
 		if (attributeCode == 0x0A) {
-			attributeName = [self _readNextString];
+			attributeName = [self readNextString];
 		}
 		else {
-			attributeName = [self _lookupAttributeNameWithCodeValue:attributeCode];
+			attributeName = [self lookupAttributeNameWithCodeValue:attributeCode];
 		}
 		
-		NSString	*value = [self _readNextString];
+		NSString	*value = [self readNextString];
 		if (attributeName != nil) {
 			[attributes setObject:value forKey:attributeName];
 		}
@@ -198,131 +337,5 @@
 {
     return cookies;
 }
-
-//internal
-- (NSString *)_readNextString
-{
-	NSString	*result = nil;
-	unsigned const char *bytes = [data bytes];
-	unsigned char b1 = bytes[_position++];
-	unsigned char b2 = bytes[_position++];
-
-	
-	int length = (int)b1 << 8 | b2;
-	
-	if(length == -1) {
-		return result;
-	}
-	
-	result = [NSString stringWithCString:[data bytes]+_position encoding:NSISOLatin1StringEncoding];
-	
-	//skip null byte
-	_position += length + 1;
-	
-	return result;
-}
-
-- (int)_readNextInteger
-{
-	int result = 0;
-	unsigned const char *bytes = [data bytes];
-	unsigned char b1 = bytes[_position++];
-	unsigned char b2 = bytes[_position++];
-	
-	
-	result = (int)b1 << 8 | b2;
-	
-	return result;
-}
-
-- (int)_readNextByte
-{
-	int result = 0;
-	unsigned const char *bytes = [data bytes];
-	unsigned char b1 = bytes[_position++];
-		
-	result = (int)b1;
-	
-	return result;
-}
-
-- (BOOL)_readNextBOOL
-{
-	unsigned const char *bytes = [data bytes];
-	unsigned char b1 = bytes[_position++];
-	
-	if(b1 != 0) {
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (NSString *)_lookupHeaderNameWithCodeValue:(int)codeValue
-{
-	switch(codeValue) {
-		case 0xA001:
-			return @"Accept";
-		case 0xA002:
-			return @"Accept-Charset";
-		case 0xA003:
-			return @"Accept-Encoding";
-		case 0xA004:
-			return @"Accept-Language";
-		case 0xA005:
-			return @"Authorization";
-		case 0xA006:
-			return @"Connection";
-		case 0xA007:
-			return @"Content-Type";
-		case 0xA008:
-			return @"Content-Length";
-		case 0xA009:
-			return @"Cookie";
-		case 0xA00A:
-			return @"Cookie2";
-		case 0xA00B:
-			return @"Host";
-		case 0xA00C:
-			return @"Pragma";
-		case 0xA00D:
-			return @"Referer";
-		case 0xA00E:
-			return @"User-Agent";
-		default:
-			return nil;
-	}
-}
-
-- (NSString *)_lookupAttributeNameWithCodeValue:(int)codeValue
-{
-	switch(codeValue) {
-		case 0x01:
-			return @"context";
-		case 0x02:
-			return @"servlet_path";
-		case 0x03:
-			return @"remote_user";
-		case 0x04:
-			return @"auth_type";
-		case 0x05:
-			return @"query_string";
-		case 0x06:
-			return @"jvm_route";
-		case 0x07:
-			return @"ssl_cert";
-		case 0x08:
-			return @"ssl_cipher";
-		case 0x09:
-			return @"ssl_session";
-		case 0x0A:
-			return @"req_attribute";
-		case 0x0B:
-			return @"ssl_key_size";
-		default:
-			return nil;
-	}
-}
-
 
 @end

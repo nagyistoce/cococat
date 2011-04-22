@@ -15,7 +15,6 @@
 @interface HttpResponse : NSObject <ServletResponseMessage> {
 	HttpConnection	*connection;
 	BOOL			committed;
-
 }
 
 - initWithConnection:(HttpConnection *)aConnection;

@@ -19,6 +19,6 @@
 - (NSString *)name;
 - (NSString *)value;
 
--(NSString *)description;
+- (NSString *)description;
 
 @end

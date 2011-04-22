@@ -51,12 +51,4 @@
 - (void)sendBodyChunk:(NSData *)chunk;
 - (void)sendEndResponse:(BOOL)reuse;
 
-
-//helper for writing responses
-- (void)_addInteger:(unsigned int)integer data:(NSMutableData *)data;
-- (void)_addString:(NSString *)string  data:(NSMutableData *)data;
-- (void)_writePacketHeader:(unsigned int)length;
-- (NSNumber *)_codeValueForHeaderName:(NSString *)name;
-+ (NSData *)_sendBodyChunckIdentifierData;
-
 @end

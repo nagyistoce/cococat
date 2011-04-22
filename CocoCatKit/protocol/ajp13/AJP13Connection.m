@@ -14,6 +14,106 @@
 #import "HttpSessionManager.h"
 #import "../../Cookie.h"
 
+@interface AJP13Connection(Private)
+
+- (void)addInteger:(unsigned int)integer data:(NSMutableData *)data;
+- (void)addString:(NSString *)string  data:(NSMutableData *)data;
+- (void)writePacketHeader:(unsigned int)length;
+- (NSNumber *)codeValueForHeaderName:(NSString *)name;
++ (NSData *)sendBodyChunckIdentifierData;
+
+@end
+
+@implementation AJP13Connection(Private)
+
+- (void)writePacketHeader:(unsigned int)length
+{
+	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
+	NSMutableData	*lengthData = [NSMutableData data];
+    
+	[self addInteger:length data:lengthData];
+	
+	[socket writeData:lengthData withTimeout:-1 tag:AJP_WRITE_PACKET_HEADER];
+}
+
+- (void)addInteger:(unsigned int)integer data:(NSMutableData *)data
+{
+	if(integer > 65535) {
+		NSLog(@"integer too big");
+	}
+	unsigned int b1 = (unsigned int)((integer >> 8) & 0x00FF);
+	unsigned int b2 = (unsigned int)integer & 0x00FF;
+	
+	[data appendBytes:&b1 length:1];
+	[data appendBytes:&b2 length:1];
+}
+
+- (void)addString:(NSString *)string  data:(NSMutableData *)data
+{	
+	NSData *stringData = [string dataUsingEncoding:NSISOLatin1StringEncoding];
+	[self addInteger:[stringData length] data:data];
+	
+	[data appendData:stringData];
+	
+	unsigned char null = 0;
+	[data appendBytes:&null length:1];
+}
+
+- (NSNumber *)codeValueForHeaderName:(NSString *)name
+{
+	NSString *upper = [name uppercaseString];
+	
+	if ([upper isEqualToString:@"CONTENT-TYPE"] == YES) {
+		return [NSNumber numberWithInt:0xA001];
+	}
+	else if ([upper isEqualToString:@"CONTENT-LANGUAGE"] == YES) {
+		return [NSNumber numberWithInt:0xA002];
+	}
+	else if ([upper isEqualToString:@"CONTENT-LENGTH"] == YES) {
+		return [NSNumber numberWithInt:0xA003];
+	}
+	else if ([upper isEqualToString:@"DATE"] == YES) {
+		return [NSNumber numberWithInt:0xA004];
+	}
+	else if ([upper isEqualToString:@"LAST-MODIFIED"] == YES) {
+		return [NSNumber numberWithInt:0xA005];
+	}
+	else if ([upper isEqualToString:@"LOCATION"] == YES) {
+		return [NSNumber numberWithInt:0xA006];
+	}
+	else if ([upper isEqualToString:@"SET-COOKIE"] == YES) {
+		return [NSNumber numberWithInt:0xA007];
+	}
+	else if ([upper isEqualToString:@"SET-COOKIE2"] == YES) {
+		return [NSNumber numberWithInt:0xA008];
+	}
+	else if ([upper isEqualToString:@"SERVLET-ENGINE"] == YES) {
+		return [NSNumber numberWithInt:0xA009];
+	}
+	else if ([upper isEqualToString:@"STATUS"] == YES) {
+		return [NSNumber numberWithInt:0xA00A];
+	}
+	else if ([upper isEqualToString:@"WWW-AUTHENTICATION"] == YES) {
+		return [NSNumber numberWithInt:0xA00B];
+	}
+	else {
+		return nil;
+	}	
+}
+
++ (NSData *)sendBodyChunckIdentifierData
+{
+	static NSData *identifier = nil;
+	if (identifier == nil) {
+		unsigned char i = AJP_SEND_BODY_CHUNK;
+		identifier = [[NSData alloc] initWithBytes:&i length:1];
+	}
+	
+	return identifier;
+}
+
+@end
+
 @implementation AJP13Connection
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
@@ -104,23 +204,23 @@
 	NSMutableData	*data = [NSMutableData data];
 	unsigned char prefixCode = AJP_SEND_HEADER;
 	[data appendBytes:&prefixCode length:1];
-	[self _addInteger:status data:data];
-	[self _addString:message data:data];
-	[self _addInteger:[header count] + [cookies count] data:data];
+	[self addInteger:status data:data];
+	[self addString:message data:data];
+	[self addInteger:[header count] + [cookies count] data:data];
 	
 	NSEnumerator	*enumerator = [header keyEnumerator];
 	NSString		*key;
 	
 	while ((key = [enumerator nextObject]) != nil) {
 		NSString	*value = [header objectForKey:key];
-		NSNumber	*number = [self _codeValueForHeaderName:key];
+		NSNumber	*number = [self codeValueForHeaderName:key];
 		if(number != nil) {
-			[self _addInteger:[number intValue] data:data];
+			[self addInteger:[number intValue] data:data];
 		}
 		else {
-			[self _addString:key  data:data];
+			[self addString:key  data:data];
 		}
-		[self _addString:value  data:data];
+		[self addString:value  data:data];
 	}
     
     NSEnumerator    *cookieEnumerator = [cookies objectEnumerator];
@@ -129,11 +229,11 @@
     while ((cookie = [cookieEnumerator nextObject]) != nil) {
         
         NSString    *cookieEntry = [NSString stringWithFormat:@"%@=%@", [cookie name], [cookie value]];
-        NSNumber	*number = [self _codeValueForHeaderName:@"SET-COOKIE"];
-        [self _addInteger:[number intValue] data:data];
-        [self _addString:cookieEntry data:data];
+        NSNumber	*number = [self codeValueForHeaderName:@"SET-COOKIE"];
+        [self addInteger:[number intValue] data:data];
+        [self addString:cookieEntry data:data];
     }
-	[self _writePacketHeader:[data length]];
+	[self writePacketHeader:[data length]];
 	[socket writeData:data withTimeout:-1 tag:AJP_SEND_HEADER];
 
 }
@@ -143,10 +243,10 @@
 	NSMutableData	*lengthData = [NSMutableData data];
 	NSUInteger		length = [chunk length];
 
-	[self _addInteger:length  data:lengthData];
+	[self addInteger:length  data:lengthData];
 
-	[self _writePacketHeader:length + 4];
-	[socket writeData:[[self class] _sendBodyChunckIdentifierData] withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
+	[self writePacketHeader:length + 4];
+	[socket writeData:[[self class] sendBodyChunckIdentifierData] withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
 	[socket writeData:lengthData withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
 	[socket writeData:chunk withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
 	[socket writeData:[NSData dataWithBytes:"\x00" length:1] withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
@@ -154,7 +254,7 @@
 
 - (void)sendEndResponse:(BOOL)reuse
 {
-	[self _writePacketHeader:2];
+	[self writePacketHeader:2];
 
 	if(reuse == YES) {
 		[socket writeData:[NSData dataWithBytes:"\x05\x01" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
@@ -163,93 +263,6 @@
 	else {
 		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
 	}
-}
-
-//helper for writing responses
-- (void)_writePacketHeader:(unsigned int)length
-{
-	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
-	NSMutableData	*lengthData = [NSMutableData data];
-		
-	[self _addInteger:length data:lengthData];
-	
-	[socket writeData:lengthData withTimeout:-1 tag:AJP_WRITE_PACKET_HEADER];
-}
-
-- (void)_addInteger:(unsigned int)integer data:(NSMutableData *)data
-{
-	if(integer > 65535) {
-		NSLog(@"integer too big");
-	}
-	unsigned int b1 = (unsigned int)((integer >> 8) & 0x00FF);
-	unsigned int b2 = (unsigned int)integer & 0x00FF;
-	
-	[data appendBytes:&b1 length:1];
-	[data appendBytes:&b2 length:1];
-}
-
-- (void)_addString:(NSString *)string  data:(NSMutableData *)data
-{	
-	NSData *stringData = [string dataUsingEncoding:NSISOLatin1StringEncoding];
-	[self _addInteger:[stringData length] data:data];
-	
-	[data appendData:stringData];
-	
-	unsigned char null = 0;
-	[data appendBytes:&null length:1];
-}
-
-- (NSNumber *)_codeValueForHeaderName:(NSString *)name
-{
-	NSString *upper = [name uppercaseString];
-	
-	if ([upper isEqualToString:@"CONTENT-TYPE"] == YES) {
-		return [NSNumber numberWithInt:0xA001];
-	}
-	else if ([upper isEqualToString:@"CONTENT-LANGUAGE"] == YES) {
-		return [NSNumber numberWithInt:0xA002];
-	}
-	else if ([upper isEqualToString:@"CONTENT-LENGTH"] == YES) {
-		return [NSNumber numberWithInt:0xA003];
-	}
-	else if ([upper isEqualToString:@"DATE"] == YES) {
-		return [NSNumber numberWithInt:0xA004];
-	}
-	else if ([upper isEqualToString:@"LAST-MODIFIED"] == YES) {
-		return [NSNumber numberWithInt:0xA005];
-	}
-	else if ([upper isEqualToString:@"LOCATION"] == YES) {
-		return [NSNumber numberWithInt:0xA006];
-	}
-	else if ([upper isEqualToString:@"SET-COOKIE"] == YES) {
-		return [NSNumber numberWithInt:0xA007];
-	}
-	else if ([upper isEqualToString:@"SET-COOKIE2"] == YES) {
-		return [NSNumber numberWithInt:0xA008];
-	}
-	else if ([upper isEqualToString:@"SERVLET-ENGINE"] == YES) {
-		return [NSNumber numberWithInt:0xA009];
-	}
-	else if ([upper isEqualToString:@"STATUS"] == YES) {
-		return [NSNumber numberWithInt:0xA00A];
-	}
-	else if ([upper isEqualToString:@"WWW-AUTHENTICATION"] == YES) {
-		return [NSNumber numberWithInt:0xA00B];
-	}
-	else {
-		return nil;
-	}	
-}
-
-+ (NSData *)_sendBodyChunckIdentifierData
-{
-	static NSData *identifier = nil;
-	if (identifier == nil) {
-		unsigned char i = AJP_SEND_BODY_CHUNK;
-		identifier = [[NSData alloc] initWithBytes:&i length:1];
-	}
-	
-	return identifier;
 }
 	   
 @end
