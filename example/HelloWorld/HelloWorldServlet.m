@@ -32,8 +32,6 @@
 
 	[outputStream writeString:@"\n\n====== Uri ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[request requestUri] encoding:NSISOLatin1StringEncoding];
-
-
 }
 
 @end

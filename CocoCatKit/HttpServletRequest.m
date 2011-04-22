@@ -8,13 +8,17 @@
 
 #import "HttpServletRequest.h"
 #import "HttpSession.h"
+#import "HttpSessionManager.h"
 #import "protocol/ServletRequestMessage.h"
 
 @implementation HttpServletRequest
 
-- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage session:(HttpSession *)aSession
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
+                        session:(HttpSession *)aSession 
+                 sessionManager:(HttpSessionManager *)aSessionManager
 {
 	requestMessage = [aRequestMessage retain];
+    sessionManager = [aSessionManager retain];
     session = [aSession retain];
 	
     return self;
@@ -23,6 +27,7 @@
 - (void)dealloc
 {
 	[requestMessage release];
+    [sessionManager release];
     [session release];
 	
 	[super dealloc];
@@ -50,6 +55,10 @@
 
 - (HttpSession *)session
 {
+    if (session == nil) {
+        session = [sessionManager createAndOptainSession];
+    }
+    
     return session;
 }
 

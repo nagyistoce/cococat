@@ -11,13 +11,17 @@
 
 @protocol ServletRequestMessage;
 @class HttpSession;
+@class HttpSessionManager;
 
 @interface HttpServletRequest : NSObject <ServletRequest> {
 	id<ServletRequestMessage>   requestMessage;
     HttpSession                 *session;
+    HttpSessionManager          *sessionManager;
 }
 
-- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage session:(HttpSession *)aSession;
+- initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
+                        session:(HttpSession *)aSession 
+                 sessionManager:(HttpSessionManager *)aSessionManager;
 - (void)dealloc;
 
 - (NSString *)method;

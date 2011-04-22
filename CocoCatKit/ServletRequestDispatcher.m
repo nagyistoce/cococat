@@ -11,6 +11,7 @@
 #import "protocol/ServletResponseMessage.h"
 #import "HttpDefaultPageManager.h"
 #import "HttpServletManager.h"
+#import "HttpSessionManager.h"
 #import "HttpServletRequest.h"
 #import "HttpServletResponse.h"
 #import "HttpServlet.h"
@@ -38,7 +39,10 @@
   sessionManager:(HttpSessionManager *)sessionManager
        keepAlive:(BOOL *)keepAlive
 {
-	HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage session:nil] autorelease];
+	HttpSession         *session = [sessionManager obtainSession:nil];
+    HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage 
+                                                                                            session:session
+                                                                                     sessionManager:sessionManager] autorelease];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	
@@ -79,6 +83,8 @@
 		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[[responseMessage defaultPageManager] textForCode:[servletResponse status]] header:[servletResponse header]];
 	}
 	[responseMessage end:*keepAlive];
+    
+    [sessionManager releaseSession:session];
 }
 
 @end

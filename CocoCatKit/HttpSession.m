@@ -11,13 +11,17 @@
 
 @implementation HttpSession
 
-- init
+- initWithSessionId:(NSString *)aSessionId
 {    
+    sessionId = [aSessionId retain];
+    
     return self;
 }
 
 - (void)dealloc
 {
+    [sessionId release];
+    
     [super dealloc];
 }
 

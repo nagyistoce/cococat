@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class HttpSession;
 
 @interface HttpSessionManager : NSObject {
-    
+    NSMutableDictionary *sessions;
 }
 
 - init;
@@ -18,5 +19,10 @@
 
 + (HttpSessionManager *)defaultManager;
 
+- (HttpSession *)obtainSession:(NSString *)sessionId;
+- (void)releaseSession:(HttpSession *)session;
+- (HttpSession *)createAndOptainSession;
+
++ (NSString *)_createSessionId;
 
 @end

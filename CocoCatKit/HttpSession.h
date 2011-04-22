@@ -10,10 +10,10 @@
 
 
 @interface HttpSession : NSObject {
-    
+    NSString    *sessionId;
 }
 
-- init;
+- initWithSessionId:(NSString *)aSessionId;
 - (void)dealloc;
 
 
