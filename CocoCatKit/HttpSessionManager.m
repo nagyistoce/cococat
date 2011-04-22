@@ -9,6 +9,8 @@
 #import "HttpSessionManager.h"
 #import "HttpSession.h"
 
+static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
+
 @interface HttpSessionManager(Private)
 
 - (void)_cleanupExpiredSession:(NSTimer *)theTimer;
@@ -24,16 +26,13 @@
 
 @implementation HttpSessionManager
 
-- init
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier
 {
+    sessionIdentifier = [aSessionIdentifier retain];
     sessions = [[NSMutableDictionary alloc] init];
-    
     maxInactiveInterval = 300; //5 minutes
-    
     cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
-    
-    sessionIdentifier = @"COCOCAT-SESSION";
-    
+        
     return self;
 }
 
@@ -41,6 +40,7 @@
 {
     [sessions release];
     [cleanupTimer release];
+    [sessionIdentifier release];
     
     [super dealloc];
 }
@@ -49,7 +49,7 @@
 {
 	static HttpSessionManager	*manager = nil;
 	if (manager == nil) {
-		manager = [[HttpSessionManager alloc] init];
+		manager = [[HttpSessionManager alloc] initWithSessionIdentifier:defaultSessionIdentifier];
 	}
 	
 	return manager;

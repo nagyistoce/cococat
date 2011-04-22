@@ -17,7 +17,7 @@
     NSString            *sessionIdentifier;
 }
 
-- init;
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier;
 - (void)dealloc;
 
 + (HttpSessionManager *)defaultManager;
