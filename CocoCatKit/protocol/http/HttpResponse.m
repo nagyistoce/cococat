@@ -9,6 +9,7 @@
 
 #import "HttpResponse.h"
 #import "HttpConnection.h"
+#import "../../Cookie.h"
 
 
 @implementation HttpResponse
@@ -36,7 +37,7 @@
 	return committed;
 }
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies
 {
     if (committed == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
@@ -45,15 +46,23 @@
     committed = YES;
     
     NSString        *statusLine = [NSString stringWithFormat:@"HTTP/1.1 %d %@\r\n", code, message];
-    NSEnumerator    *enumerator = [header keyEnumerator];
+    NSEnumerator    *headerEnumerator = [header keyEnumerator];
     NSString        *key;
     
     [connection sendData:[statusLine dataUsingEncoding:NSASCIIStringEncoding]];
 
-    while ((key = [enumerator nextObject]) != nil) {
+    while ((key = [headerEnumerator nextObject]) != nil) {
         NSString *value = [header objectForKey:key];
         NSString    *headerEntry = [NSString stringWithFormat:@"%@: %@\r\n", key, value];
         [connection sendData:[headerEntry dataUsingEncoding:NSASCIIStringEncoding]];
+    }
+    
+    NSEnumerator    *cookieEnumerator = [cookies objectEnumerator];
+    Cookie          *cookie;
+    
+    while ((cookie = [cookieEnumerator nextObject]) != nil) {
+        NSString    *cookieEntry = [NSString stringWithFormat:@"Set-Cookie: %@=%@\r\n", [cookie name], [cookie value]];
+        [connection sendData:[cookieEntry dataUsingEncoding:NSASCIIStringEncoding]];
     }
     
     [connection sendData:[NSData dataWithBytes:"\x0D\x0A" length:2]];

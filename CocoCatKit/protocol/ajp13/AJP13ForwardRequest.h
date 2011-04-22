@@ -50,6 +50,7 @@
 	BOOL				isSsl;
 	NSMutableDictionary	*header;
 	NSMutableDictionary	*attributes;
+    NSMutableArray      *cookies;
 	NSData				*data;
 	
 	//derived
@@ -67,6 +68,7 @@
 - (NSString *)requestUri;
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
+- (NSArray *)cookies;
 
 //internal
 - (NSString *)_readNextString;

@@ -18,13 +18,27 @@
 - (void)doGet:(HttpServletRequest *)request response:(HttpServletResponse *)response
 {
 	HttpServletOutputStream *outputStream = [response outputStream];
-	
+    HttpSession *session = [request session];
+
+
 	//we dont calculate the content size before, so we use no persistent connection
 	[response setHeaderValue:@"close" forName:@"Connection"];
 	
 	[response setHeaderValue:@"text/plain" forName:@"Content-Type"];
-	[outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
+    
+    [response addCookie:[[[Cookie alloc] initWithName:@"TEST" withValue:@"Hallo"] autorelease]];
+
+    [outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[NSString stringWithFormat:@"Current Time : %@", [NSDate date]] encoding:NSISOLatin1StringEncoding];
+
+    [outputStream writeString:@"\n\n===== Session =====\n" encoding:NSISOLatin1StringEncoding];
+    if([session isNew] == YES) {
+        [outputStream writeString:[NSString stringWithFormat:@"New session [%@]\n", [session sessionId]] encoding:NSISOLatin1StringEncoding];
+    }
+    else {
+     [outputStream writeString:[NSString stringWithFormat:@"Session [%@] already exists\n", [session sessionId]] encoding:NSISOLatin1StringEncoding];
+    }
+    
 	[outputStream writeString:@"\n\n====== Headers ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[[request header] description] encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:@"\n\n===== Parameters =====\n" encoding:NSISOLatin1StringEncoding];
@@ -32,16 +46,11 @@
 
 	[outputStream writeString:@"\n\n====== Uri ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[request requestUri] encoding:NSISOLatin1StringEncoding];
+        
+    [outputStream writeString:@"\n\n====== Cookies ======\n" encoding:NSISOLatin1StringEncoding];
+	[outputStream writeString:[[request cookies] description] encoding:NSISOLatin1StringEncoding];
     
-    [outputStream writeString:@"\n\n===== Session =====\n" encoding:NSISOLatin1StringEncoding];
-
-    HttpSession *session = [request session];
-    if([session isNew] == YES) {
-        [outputStream writeString:[NSString stringWithFormat:@"New session [%@]", [session sessionId]] encoding:NSISOLatin1StringEncoding];
-    }
-    else {
-        [outputStream writeString:[NSString stringWithFormat:@"Session [%@] already exists", [session sessionId]] encoding:NSISOLatin1StringEncoding];
-    }
+    
 }
 
 @end

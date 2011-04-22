@@ -11,13 +11,14 @@
 
 @class HttpServletOutputStream;
 @protocol ServletResponseMessage;
-
+@class Cookie;
 
 @interface HttpServletResponse : NSObject <ServletResponse> {
 	id<ServletResponseMessage>	responseMessage;
 	unsigned					int status;
 	HttpServletOutputStream		*outputStream;
 	NSMutableDictionary			*header;
+    NSMutableArray              *cookies;
 }
 
 - initWithServletResponseMessage:(id<ServletResponseMessage>)aResponseMessage;
@@ -31,6 +32,9 @@
 - (NSDictionary *)header;
 
 - (HttpServletOutputStream *)outputStream;
+
+- (void)addCookie:(Cookie *)cookie;
+- (NSArray *)cookies;
 
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;

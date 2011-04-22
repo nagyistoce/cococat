@@ -7,6 +7,7 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import "AJP13ForwardRequest.h"
+#import "../../Cookie.h"
 
 @implementation AJP13ForwardRequest
 
@@ -16,6 +17,7 @@
 	header = [[NSMutableDictionary alloc] init];
 	attributes = [[NSMutableDictionary alloc] init];
 	parameters = [[NSMutableDictionary alloc] init];
+    cookies = [[NSMutableArray alloc] init];
 
 	data = [someData retain];
 	const unsigned char* bytes = [data bytes];
@@ -92,6 +94,48 @@
 			[parameters setObject:@"" forKey:keyValue];
 		}
 	}
+    
+    NSString        *cookieHeaderString = [header objectForKey:@"Cookie"];
+    NSArray         *cookieStrings = [cookieHeaderString componentsSeparatedByString:@";"];
+    NSEnumerator    *cookieEnumerator = [cookieStrings objectEnumerator];
+    NSString        *cookieString;
+    
+    while((cookieString = [cookieEnumerator nextObject]) != nil) {
+        NSRange range = [cookieString rangeOfString:@"="];
+        if (range.location != NSNotFound) {
+            NSString *name = [cookieString substringToIndex:range.location];
+            NSString *value = [cookieString substringFromIndex:range.location + 1];
+            Cookie  *cookie = [[[Cookie alloc] initWithName:name withValue:value] autorelease];
+            [cookies addObject:cookie];
+        }
+        else {
+            Cookie  *cookie = [[[Cookie alloc] initWithName:cookieString withValue:@""] autorelease];
+            [cookies addObject:cookie];
+        }
+    }
+    
+    [header removeObjectForKey:@"Cookie"];
+    
+    NSString        *cookie2HeaderString = [header objectForKey:@"Cookie2"];
+    NSArray         *cookie2Strings = [cookie2HeaderString componentsSeparatedByString:@";"];
+    NSEnumerator    *cookie2Enumerator = [cookie2Strings objectEnumerator];
+    NSString        *cookie2String;
+    
+    while((cookie2String = [cookie2Enumerator nextObject]) != nil) {
+        NSRange range = [cookie2String rangeOfString:@"="];
+        if (range.location != NSNotFound) {
+            NSString *name = [cookie2String substringToIndex:range.location];
+            NSString *value = [cookie2String substringFromIndex:range.location + 1];
+            Cookie  *cookie = [[[Cookie alloc] initWithName:name withValue:value] autorelease];
+            [cookies addObject:cookie];
+        }
+        else {
+            Cookie  *cookie = [[[Cookie alloc] initWithName:cookieString withValue:@""] autorelease];
+            [cookies addObject:cookie];
+        }
+    }
+    
+    [header removeObjectForKey:@"Cookie2"];
 
 	return self;
 }
@@ -106,6 +150,7 @@
 	[header release];
 	[attributes release];
 	[parameters release];
+    [cookies release];
 	
 	[super dealloc];
 }
@@ -147,6 +192,11 @@
 - (NSDictionary *)parameters
 {
 	return parameters;
+}
+
+- (NSArray *)cookies
+{
+    return cookies;
 }
 
 //internal
@@ -212,33 +262,33 @@
 {
 	switch(codeValue) {
 		case 0xA001:
-			return @"accept";
+			return @"Accept";
 		case 0xA002:
-			return @"accept-charset";
+			return @"Accept-Charset";
 		case 0xA003:
-			return @"accept-encoding";
+			return @"Accept-Encoding";
 		case 0xA004:
-			return @"accept-language";
+			return @"Accept-Language";
 		case 0xA005:
-			return @"authorization";
+			return @"Authorization";
 		case 0xA006:
-			return @"connection";
+			return @"Connection";
 		case 0xA007:
-			return @"content-type";
+			return @"Content-Type";
 		case 0xA008:
-			return @"content-length";
+			return @"Content-Length";
 		case 0xA009:
-			return @"cookie";
+			return @"Cookie";
 		case 0xA00A:
-			return @"cookie2";
+			return @"Cookie2";
 		case 0xA00B:
-			return @"host";
+			return @"Host";
 		case 0xA00C:
-			return @"pragma";
+			return @"Pragma";
 		case 0xA00D:
-			return @"referer";
+			return @"Referer";
 		case 0xA00E:
-			return @"user-agent";
+			return @"User-Agent";
 		default:
 			return nil;
 	}

@@ -15,6 +15,7 @@
 	NSString			*httpVersion;
 	NSMutableDictionary	*header;
 	NSMutableDictionary	*parameters;
+    NSMutableArray      *cookies;
 }
 
 - initWithData:(NSData *)someData;
@@ -24,5 +25,6 @@
 - (NSString *)requestUri;
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
+- (NSArray *)cookies;
 
 @end

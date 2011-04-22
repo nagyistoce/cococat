@@ -44,7 +44,10 @@
 - (void)processForwardRequest:(AJP13ForwardRequest *)request;
 
 //ajp response messaging
-- (void)sendHeaderWithStatusCode:(unsigned int)status statusMessage:(NSString *)message header:(NSDictionary *)header;
+- (void)sendHeaderWithStatusCode:(unsigned int)status 
+                   statusMessage:(NSString *)message 
+                          header:(NSDictionary *)header 
+                         cookies:(NSArray *)cookies;
 - (void)sendBodyChunk:(NSData *)chunk;
 - (void)sendEndResponse:(BOOL)reuse;
 

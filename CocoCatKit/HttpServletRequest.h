@@ -12,16 +12,19 @@
 @protocol ServletRequestMessage;
 @class HttpSession;
 @class HttpSessionManager;
+@class HttpServletResponse;
 
 @interface HttpServletRequest : NSObject <ServletRequest> {
 	id<ServletRequestMessage>   requestMessage;
     HttpSession                 *session;
     HttpSessionManager          *sessionManager;
+    HttpServletResponse         *response;
 }
 
 - initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
-                        session:(HttpSession *)aSession 
-                 sessionManager:(HttpSessionManager *)aSessionManager;
+                        retainedSession:(HttpSession *)aSession 
+                 sessionManager:(HttpSessionManager *)aSessionManager
+                       response:(HttpServletResponse *)aResponse;
 - (void)dealloc;
 
 - (NSString *)method;
@@ -29,5 +32,6 @@
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (HttpSession *)session;
+- (NSArray *)cookies;
 
 @end

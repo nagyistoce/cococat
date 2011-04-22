@@ -12,6 +12,7 @@
 #import "ServletRequestDispatcher.h"
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #import "HttpSessionManager.h"
+#import "../../Cookie.h"
 
 @implementation AJP13Connection
 
@@ -95,7 +96,10 @@
 }
 
 //ajp response messaging
-- (void)sendHeaderWithStatusCode:(unsigned int)status statusMessage:(NSString *)message header:(NSDictionary *)header
+- (void)sendHeaderWithStatusCode:(unsigned int)status 
+                   statusMessage:(NSString *)message 
+                          header:(NSDictionary *)header 
+                         cookies:(NSArray *)cookies
 {
 	NSMutableData	*data = [NSMutableData data];
 	unsigned char prefixCode = AJP_SEND_HEADER;
@@ -118,7 +122,16 @@
 		}
 		[self _addString:value  data:data];
 	}
-	
+    
+    NSEnumerator    *cookieEnumerator = [cookies objectEnumerator];
+    Cookie          *cookie;
+    
+    while ((cookie = [cookieEnumerator nextObject]) != nil) {
+        NSString    *cookieEntry = [NSString stringWithFormat:@"%@=%@", [cookie name], [cookie value]];
+		NSNumber	*number = [self _codeValueForHeaderName:@"SET-COOKIE"];
+        [self _addInteger:[number intValue] data:data];
+        [self _addString:cookieEntry data:data];
+    }
 	[self _writePacketHeader:[data length]];
 	[socket writeData:data withTimeout:-1 tag:AJP_SEND_HEADER];
 

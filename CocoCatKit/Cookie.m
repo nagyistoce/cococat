@@ -6,29 +6,41 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
+#import "Cookie.h"
 
-#import <Foundation/Foundation.h>
-#import "../ServletResponseMessage.h"
 
-@class AJP13Connection;
-@protocol HttpDefaultPageManagers;
+@implementation Cookie
 
-@interface AJP13Response : NSObject <ServletResponseMessage> {
-	AJP13Connection	*connection;
-	BOOL			committed;
+- initWithName:(NSString *)aName withValue:(NSString *)aValue
+{
+    name = [aName retain];
+    value = [aValue retain];
+
+    return self;
 }
 
-- initWithConnection:(AJP13Connection *)aConnection;
-- (void)dealloc;
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies;
-- (void)writeData:(NSData *)data;
+- (void)dealloc
+{
+    [name release];
+    [value release];
+    
+    [super dealloc];
+}
 
+- (NSString *)name
+{
+    return name;
+}
 
-- (void)end:(BOOL)keepAlive;
+- (NSString *)value
+{
+    return value;
+}
 
-- (BOOL)isCommitted;
-
-- (id<HttpDefaultPageManagers>)defaultPageManager;
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ - %@", name ,value];
+}
 
 @end

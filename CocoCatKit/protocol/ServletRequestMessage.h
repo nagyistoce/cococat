@@ -9,4 +9,11 @@
 #import "../ServletRequest.h"
 
 @protocol ServletRequestMessage <ServletRequest>
+
+- (NSString *)method;
+- (NSString *)requestUri;
+- (NSDictionary *)header;
+- (NSDictionary *)parameters;
+- (NSArray *)cookies;
+
 @end

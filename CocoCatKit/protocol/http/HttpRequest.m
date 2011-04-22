@@ -7,6 +7,7 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import "HttpRequest.h"
+#import "../../Cookie.h"
 
 @implementation HttpRequest
 
@@ -17,6 +18,7 @@
 	
 	header = [[NSMutableDictionary alloc] init];
 	parameters = [[NSMutableDictionary alloc] init];
+    cookies = [[NSMutableArray alloc] init];
 
 	if ([scanner scanUpToString:@" " intoString:&method] != YES) {
 		[self release];
@@ -73,6 +75,27 @@
 		
 	}
 	[httpVersion retain];
+    
+    NSString        *cookieHeaderString = [header objectForKey:@"Cookie"];
+    NSArray         *cookieStrings = [cookieHeaderString componentsSeparatedByString:@"; "];
+    NSEnumerator    *cookieEnumerator = [cookieStrings objectEnumerator];
+    NSString        *cookieString;
+
+    while((cookieString = [cookieEnumerator nextObject]) != nil) {
+        NSRange range = [cookieString rangeOfString:@"="];
+        if (range.location != NSNotFound) {
+            NSString *name = [cookieString substringToIndex:range.location];
+            NSString *value = [cookieString substringFromIndex:range.location + 1];
+            Cookie  *cookie = [[[Cookie alloc] initWithName:name withValue:value] autorelease];
+            [cookies addObject:cookie];
+        }
+        else {
+            Cookie  *cookie = [[[Cookie alloc] initWithName:cookieString withValue:@""] autorelease];
+            [cookies addObject:cookie];
+        }
+    }
+    
+    [header removeObjectForKey:@"Cookie"];
 		
 	return self;
 }
@@ -106,6 +129,11 @@
 - (NSDictionary *)parameters
 {
 	return parameters;
+}
+
+- (NSArray *)cookies
+{
+    return cookies;
 }
 
 @end

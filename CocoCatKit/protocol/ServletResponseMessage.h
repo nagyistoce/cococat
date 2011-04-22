@@ -12,7 +12,7 @@
 
 @protocol ServletResponseMessage <ServletResponse>
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header;
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies;
 
 - (void)end:(BOOL)keepAlive;
 

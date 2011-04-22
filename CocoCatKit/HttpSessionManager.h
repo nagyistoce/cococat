@@ -14,7 +14,7 @@
     NSMutableDictionary *sessions;
     NSTimeInterval      maxInactiveInterval;
     NSTimer             *cleanupTimer;
-    
+    NSString            *sessionIdentifier;
 }
 
 - init;
@@ -25,6 +25,7 @@
 - (HttpSession *)obtainSession:(NSString *)sessionId;
 - (void)releaseSession:(HttpSession *)session;
 - (HttpSession *)createAndOptainSession;
+- (NSString *)sessionIdentifier;
 
 + (NSString *)_createSessionId;
 - (void)_cleanupExpiredSession:(NSTimer *)theTimer;

@@ -25,6 +25,7 @@
     
     cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
     
+    sessionIdentifier = @"COCOCAT-SESSION";
     return self;
 }
 
@@ -50,12 +51,15 @@
 {
     HttpSession *session = nil;
     
+    if(sessionId == nil) {
+        return nil;
+    }
+  
     @synchronized(sessions) {
         session = [[sessions objectForKey:sessionId] retain];
         NSDate              *lastAccessedTime = [session lastAccessedTime];
         NSDate              *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
         NSComparisonResult  result = [invalidDate compare:lastAccessedTime];
-        
         if (result == NSOrderedAscending) {
             [sessions removeObjectForKey:sessionId];
             [session release];
@@ -83,6 +87,11 @@
         [sessions setValue:session forKey:sessionId];
     }
     return session;
+}
+
+- (NSString *)sessionIdentifier
+{
+    return sessionIdentifier;
 }
 
 + (NSString *)_createSessionId 

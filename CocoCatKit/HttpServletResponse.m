@@ -17,6 +17,7 @@
 {
 	responseMessage = [aResponseMessage retain];
 	header = [[NSMutableDictionary alloc] init];
+    cookies = [[NSMutableArray alloc] init];
 	
 	outputStream = [[HttpServletOutputStream alloc] initWithResponse:self];
 	
@@ -30,6 +31,7 @@
 	[responseMessage release];
 	[outputStream release];
 	[header release];
+    [cookies release];
 	
 	[super dealloc];
 }
@@ -68,6 +70,19 @@
 	return outputStream;
 }
 
+- (void)addCookie:(Cookie *)cookie
+{
+    if ([responseMessage isCommitted] == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot add cookie, message already committed" userInfo:nil] raise];
+    }
+    [cookies addObject:cookie];   
+}
+
+- (NSArray *)cookies
+{
+    return cookies;
+}
+
 - (void)sendError:(unsigned int)error
 {
 	[self sendError:error message:[[responseMessage defaultPageManager] textForCode:error]];
@@ -76,14 +91,14 @@
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
     if ([responseMessage isCommitted] == YES) {
-        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot send header, message already committed" userInfo:nil] raise];
     }
     
 	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error] dataUsingEncoding:NSISOLatin1StringEncoding];
 
     [self setIntHeaderValue:[errorPage length] forName:@"Content-Length"];
 	
-    [responseMessage sendHeaderWithStatusCode:error message:message header:header];
+    [responseMessage sendHeaderWithStatusCode:error message:message header:header cookies:cookies];
 	
 	[self writeData:errorPage];
 	
@@ -92,7 +107,7 @@
 - (void)writeData:(NSData *)data
 {
 	if ([responseMessage isCommitted] == NO) {
-		[responseMessage sendHeaderWithStatusCode:status message:[[responseMessage defaultPageManager] textForCode:status] header:header];
+		[responseMessage sendHeaderWithStatusCode:status message:[[responseMessage defaultPageManager] textForCode:status] header:header cookies:cookies];
 	}
 	
 	[responseMessage writeData:data];

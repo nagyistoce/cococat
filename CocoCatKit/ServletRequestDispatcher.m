@@ -15,6 +15,7 @@
 #import "HttpServletRequest.h"
 #import "HttpServletResponse.h"
 #import "HttpServlet.h"
+#import "Cookie.h"
 
 @implementation ServletRequestDispatcher
 
@@ -39,11 +40,23 @@
   sessionManager:(HttpSessionManager *)sessionManager
        keepAlive:(BOOL *)keepAlive
 {
-	HttpSession         *session = [sessionManager obtainSession:nil];
-    HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage 
-                                                                                            session:session
-                                                                                     sessionManager:sessionManager] autorelease];
+	NSArray             *cookies = [requestMessage cookies];
+    NSEnumerator        *cookieEnumerator = [cookies objectEnumerator];
+    Cookie              *cookie;
+    NSString            *sessionId = nil;
+    while ((cookie = [cookieEnumerator nextObject]) != nil) {
+        if ([[cookie name] isEqualToString:[sessionManager sessionIdentifier]] == YES) {
+            sessionId = [cookie value];
+            
+            break;
+        }
+    }
+    HttpSession         *session = [sessionManager obtainSession:sessionId];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
+    HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage 
+                                                                                    retainedSession:session
+                                                                                     sessionManager:sessionManager
+                                                                                           response:servletResponse] autorelease];
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	
 	if (*keepAlive == YES) {
@@ -80,7 +93,7 @@
 	}
 	
     if ([responseMessage isCommitted] == NO) {
-		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[[responseMessage defaultPageManager] textForCode:[servletResponse status]] header:[servletResponse header]];
+		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[[responseMessage defaultPageManager] textForCode:[servletResponse status]] header:[servletResponse header] cookies:[servletResponse cookies]];
 	}
 	[responseMessage end:*keepAlive];
     

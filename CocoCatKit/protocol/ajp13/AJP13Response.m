@@ -29,13 +29,13 @@
 	[super dealloc];
 }
 
-- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies
 {
 	if (committed == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
 	}
 	
-	[connection sendHeaderWithStatusCode:code statusMessage:message header:header];
+	[connection sendHeaderWithStatusCode:code statusMessage:message header:header cookies:cookies];
 	
 	committed = YES;
 }

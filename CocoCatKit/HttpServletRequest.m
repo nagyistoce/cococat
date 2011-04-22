@@ -7,19 +7,23 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import "HttpServletRequest.h"
+#import "HttpServletResponse.h"
 #import "HttpSession.h"
+#import "Cookie.h"
 #import "HttpSessionManager.h"
 #import "protocol/ServletRequestMessage.h"
 
 @implementation HttpServletRequest
 
 - initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
-                        session:(HttpSession *)aSession 
+                        retainedSession:(HttpSession *)aSession 
                  sessionManager:(HttpSessionManager *)aSessionManager
+                       response:(HttpServletResponse *)aResponse
 {
 	requestMessage = [aRequestMessage retain];
     sessionManager = [aSessionManager retain];
-    session = [aSession retain];
+    response = [aResponse retain];
+    session =[aSession retain];
 	
     return self;
 }
@@ -28,6 +32,7 @@
 {
 	[requestMessage release];
     [sessionManager release];
+    [response release];
     [session release];
 	
 	[super dealloc];
@@ -57,9 +62,17 @@
 {
     if (session == nil) {
         session = [sessionManager createAndOptainSession];
+
+        Cookie  *sessionCookie = [[Cookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]];
+        [response addCookie:sessionCookie];
     }
     
     return session;
+}
+
+- (NSArray *)cookies
+{
+    return [requestMessage cookies];
 }
 
 
