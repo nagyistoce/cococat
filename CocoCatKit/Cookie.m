@@ -23,6 +23,8 @@
 {
     [name release];
     [value release];
+    [domain release];
+    [path release];
     
     [super dealloc];
 }
@@ -35,6 +37,23 @@
 - (NSString *)value
 {
     return value;
+}
+
+- (void)setMaxAge:(NSTimeInterval)seconds
+{
+    maxAge = seconds;
+}
+
+- (void)setDomain:(NSString *)aDomain
+{
+    [domain release];
+    domain = [aDomain retain];
+}
+
+- (void)setPath:(NSString *)aPath
+{
+    [path release];
+    path = [aPath retain];
 }
 
 - (NSString *)description

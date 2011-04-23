@@ -36,7 +36,6 @@
 - (HttpServletOutputStream *)outputStream;
 
 - (void)addCookie:(Cookie *)cookie;
-- (NSArray *)cookies;
 
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;

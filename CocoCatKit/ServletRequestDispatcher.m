@@ -17,6 +17,12 @@
 #import "HttpServlet.h"
 #import "Cookie.h"
 
+@interface HttpServletResponse(Private)
+
+- (NSArray *)cookies;
+
+@end
+
 @interface HttpServlet(Private)
 
 - (void)service:(HttpServletRequest *)request response:(HttpServletResponse *)response;

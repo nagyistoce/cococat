@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface Cookie : NSObject {
-    NSString    *name;
-    NSString    *value;
+    NSString        *name;
+    NSString        *value;
+    NSTimeInterval  maxAge;
+    NSString        *domain;
+    NSString        *path;
 }
 
 - initWithName:(NSString *)aName withValue:(NSString *)aValue;
@@ -18,6 +21,11 @@
 
 - (NSString *)name;
 - (NSString *)value;
+
+- (void)setMaxAge:(NSTimeInterval)seconds;
+- (void)setDomain:(NSString *)aDomain;
+- (void)setPath:(NSString *)aPath;
+
 
 - (NSString *)description;
 

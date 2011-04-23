@@ -11,6 +11,15 @@
 #import "HttpDefaultPageManager.h"
 #import "protocol/ServletResponseMessage.h"
 
+@implementation HttpServletResponse(Private)
+
+- (NSArray *)cookies
+{
+    return cookies;
+}
+
+@end
+
 @implementation HttpServletResponse
 
 - initWithServletResponseMessage:(id<ServletResponseMessage>)aResponseMessage
@@ -81,11 +90,6 @@
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot add cookie, message already committed" userInfo:nil] raise];
     }
     [cookies addObject:cookie];   
-}
-
-- (NSArray *)cookies
-{
-    return cookies;
 }
 
 - (void)sendError:(unsigned int)error
