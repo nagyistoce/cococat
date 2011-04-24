@@ -50,7 +50,7 @@
     [connection sendData:[statusLine dataUsingEncoding:NSASCIIStringEncoding]];
 
     while ((key = [headerEnumerator nextObject]) != nil) {
-        NSString *value = [header objectForKey:key];
+        NSString    *value = [header objectForKey:key];
         NSString    *headerEntry = [NSString stringWithFormat:@"%@: %@\r\n", key, value];
         [connection sendData:[headerEntry dataUsingEncoding:NSASCIIStringEncoding]];
     }

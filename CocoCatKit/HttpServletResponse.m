@@ -47,7 +47,11 @@
 
 - (void)setStatus:(unsigned int)aStatus
 {
-	status = aStatus;
+    if ([responseMessage isCommitted] == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Can not send header, message already committed" userInfo:nil] raise];
+    }
+    
+    status = aStatus;
 }
 
 - (unsigned int)status

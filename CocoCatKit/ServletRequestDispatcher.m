@@ -83,7 +83,7 @@
 		[servletResponse setHeaderValue:@"close" forName:@"Connection"];
 	}
 	
-	if(servlet == nil) {
+	if (servlet == nil) {
 		[servletResponse sendError:404];
 	}
 	else {
@@ -102,7 +102,8 @@
 	}
 	
 	//get keep alive from response again, maybe the servlet modified it
-	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES
+        && [[servletResponse header] objectForKey:@"Content-Length"] != nil) {
 		*keepAlive = YES;
 	}
 	else {
