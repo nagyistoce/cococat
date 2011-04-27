@@ -49,6 +49,7 @@
 - (void)close
 {
 	[socket disconnect];
+  //  [socket disconnectAfterReadingAndWriting];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err

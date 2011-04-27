@@ -21,10 +21,12 @@
 	
 	[response setHeaderValue:@"text/html" forName:@"Content-Type"];
     
-    [outputStream writeString:@"<html><form name=\"input\" action=\"FormTestServlet\" method=\"post\">\n" encoding:NSISOLatin1StringEncoding];
-    [outputStream writeString:@"Name: <input type=\"text\" name=\"name\" />" encoding:NSISOLatin1StringEncoding];
-    [outputStream writeString:@"<input type=\"submit\" value=\"Submit\" /></html>" encoding:NSISOLatin1StringEncoding];
-    [outputStream writeString:@"</form>" encoding:NSISOLatin1StringEncoding];
+    NSMutableString *string = [NSMutableString stringWithString:@"<html><form name=\"input\" action=\"FormTestServlet\" method=\"post\">\n"];
+    [string appendString:@"Name: <input type=\"text\" name=\"name\" />"];
+    [string appendString:@"<input type=\"submit\" value=\"Submit\" /></form></html>"];
+    NSData  *data = [string dataUsingEncoding:NSISOLatin1StringEncoding];
+    [response setContentLength:[data length]];
+    [outputStream writeData:data];
 }
 
 - (void)doPost:(HttpServletRequest *)request response:(HttpServletResponse *)response

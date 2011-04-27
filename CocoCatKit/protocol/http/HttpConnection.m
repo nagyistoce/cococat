@@ -39,7 +39,7 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
 {	
-	switch (tag) {
+    switch (tag) {
 		case HTTP_PACKET_HEADER: {
             [currentRequest release];
             currentRequest = [[HttpRequest alloc] initWithData:data];
@@ -85,10 +85,10 @@
     HttpResponse	*httpResponse = [[HttpResponse alloc] initWithConnection:self];
 
     BOOL keepAlive = NO;
-    
-	if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+    //TODO fix keepAlive
+	/*if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 		keepAlive = YES;
-	}	
+	}*/	
     
 	[[ServletRequestDispatcher defaultDispatcher] dispatch:request 
                                                   response:httpResponse 
@@ -98,6 +98,9 @@
     
     if(keepAlive == NO) {
         [self close];
+    }
+    else {
+        [socket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
     }
 }
 

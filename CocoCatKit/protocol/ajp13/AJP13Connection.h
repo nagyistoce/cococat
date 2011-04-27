@@ -32,7 +32,6 @@
 @interface AJP13Connection : ServletConnection 
 {
 	AJP13ForwardRequest		*currentRequest;
-
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 

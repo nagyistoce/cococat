@@ -28,7 +28,7 @@
 
 - (void)writePacketHeader:(unsigned int)length
 {
-	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
+	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:AJP_WRITE_PACKET_HEADER];
 	NSMutableData	*lengthData = [NSMutableData data];
     
 	[self addInteger:length data:lengthData];
@@ -39,7 +39,8 @@
 - (void)addInteger:(unsigned int)integer data:(NSMutableData *)data
 {
 	if(integer > 65535) {
-		NSLog(@"integer too big");
+		NSLog(@"Internal error: integer [%d] too big. maximum [65535]", integer);
+        [self die];
 	}
 	unsigned int b1 = (unsigned int)((integer >> 8) & 0x00FF);
 	unsigned int b2 = (unsigned int)integer & 0x00FF;
@@ -144,13 +145,13 @@
 	
 	switch (tag) {
 		case AJP_PACKET_HEADER:
-			if([data length] != 5) {
+			if ([data length] != 5) {
 				NSLog(@"packet header length [%lu] must be 5", length);
 				[self die];
 				break;
 
 			}
-			if(bytes[0] != 0x12 || bytes[1] != 0x34) {
+			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
 				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
 				[self die];
 				break;
@@ -158,7 +159,7 @@
 			
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
 			
-			switch(bytes[4]) {
+			switch (bytes[4]) {
 				case AJP_FORWARD_REQUEST:
 					[socket readDataToLength:currentPacketLenght -1
 								 withTimeout:-1
@@ -197,17 +198,28 @@
 				break;
 			}
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
+            unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
 			NSRange range;
 			range.location = 6;
 			range.length = [data length] - 6;
-			[currentRequest setParameterData:[data subdataWithRange:range]];
+            NSData  *parameterData = [data subdataWithRange:range];
+            if ([parameterData length] != contentLength) {
+                //TODO: send a get body chunk and fill up the parameterData for bigger parameter data
+                NSLog(@"Parameter data size [%d] not supported. Cococat supports only up to [%lu]", contentLength, [parameterData length]);
+                [self die];
+            }
+            
+			[currentRequest setParameterData:parameterData];
 
 			[self processForwardRequest:currentRequest];
 			break;
 		}
 
-		default:
-			NSLog(@"Unknown data [%@] read", data);
+		default: {
+			NSLog(@"Unknown tag [%ld] read", tag);
+            [self die];
+            break;
+        }
 	}
 }
 
@@ -223,6 +235,10 @@
 - (void)processForwardRequest:(AJP13ForwardRequest *)request
 {	
     BOOL keepAlive = NO;
+   //TODO fix keepAlive
+    /*if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+		keepAlive = YES;
+	}*/	
     AJP13Response	*ajpResponse = [[AJP13Response alloc] initWithConnection:self];
 
 	[[ServletRequestDispatcher defaultDispatcher] dispatch:request 
@@ -233,6 +249,9 @@
     
     if(keepAlive == NO) {
         [self close];
+    }
+    else {
+        [socket readDataToLength:5 withTimeout:-1 tag:AJP_PACKET_HEADER];   
     }
 }
 
@@ -299,7 +318,6 @@
 
 	if(reuse == YES) {
 		[socket writeData:[NSData dataWithBytes:"\x05\x01" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
-		
 	}
 	else {
 		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
