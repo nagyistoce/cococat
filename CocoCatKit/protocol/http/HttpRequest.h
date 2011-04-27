@@ -27,4 +27,6 @@
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
 
+- (void)setParameterData:(NSData *)data;
+
 @end

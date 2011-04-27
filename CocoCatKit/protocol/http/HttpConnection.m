@@ -32,22 +32,36 @@
 
 - (void)dealloc
 {	
-	[super dealloc];
+	[currentRequest release];
+    
+    [super dealloc];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
 {	
 	switch (tag) {
 		case HTTP_PACKET_HEADER: {
-            HttpRequest *request = [[[HttpRequest alloc] initWithData:data] autorelease];
-			if (request == nil) {
+            [currentRequest release];
+            currentRequest = [[HttpRequest alloc] initWithData:data];
+			if (currentRequest == nil) {
 				[self close];
 			}
-			[self processRequest:request];
+            
+            if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
+                unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
+                [self readParameterDataWithLength:contentLength];
+            }
+            else {
+                [self processRequest:currentRequest];
+            }
             break;
         }
+        case HTTP_PACKET_PARAMS:
+            [currentRequest setParameterData:data];
+            [self processRequest:currentRequest];
+            break;
         default:
-			NSLog(@"Unknown data [%@] read", data);
+            break;
     }
 }
 
@@ -56,13 +70,22 @@
     [socket writeData:data withTimeout:-1 tag:HTTP_SEND_DATA];
 }
 
+- (void)readParameterDataWithLength:(unsigned int)length
+{
+    [socket readDataToLength:length
+                 withTimeout:-1
+                      buffer:nil
+                bufferOffset:0
+                         tag:HTTP_PACKET_PARAMS];    
+}
+
 //processing http request
 - (void)processRequest:(HttpRequest *)request
 {	
     HttpResponse	*httpResponse = [[HttpResponse alloc] initWithConnection:self];
 
     BOOL keepAlive = NO;
-	
+    
 	if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 		keepAlive = YES;
 	}	

@@ -96,7 +96,7 @@
     }
     
     [header removeObjectForKey:@"Cookie"];
-		
+        		
 	return self;
 }
 
@@ -134,6 +134,26 @@
 - (NSArray *)cookies
 {
     return cookies;
+}
+
+- (void)setParameterData:(NSData *)data
+{
+    NSString    *parametersString = [[[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding] autorelease];
+    NSArray			*keyValues = [parametersString componentsSeparatedByString:@"&"];
+    NSEnumerator	*kVEnumerator = [keyValues objectEnumerator];
+    NSString		*keyValue;
+    
+    while ((keyValue = [kVEnumerator nextObject]) != nil) {
+        NSRange range = [keyValue rangeOfString:@"="];
+        if (range.location != NSNotFound) {
+            NSString *name = [keyValue substringToIndex:range.location];
+            NSString *value = [keyValue substringFromIndex:range.location + 1];
+            [parameters setObject:value forKey:name];
+        }
+        else {
+            [parameters setObject:@"" forKey:keyValue];
+        }
+    }
 }
 
 @end

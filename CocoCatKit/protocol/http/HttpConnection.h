@@ -10,14 +10,17 @@
 #import "../ServletConnection.h"
 
 #define HTTP_PACKET_HEADER	0
+#define HTTP_PACKET_PARAMS	1
 
-#define HTTP_SEND_DATA	1
+#define HTTP_SEND_DATA	2
 
 @class HttpRequest;
 @protocol HttpDefaultPageManagers;
 @class HttpSessionManager;
 
 @interface HttpConnection : ServletConnection {
+    
+    HttpRequest *currentRequest;
 
 }
 
@@ -31,6 +34,7 @@
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
 
 - (void)sendData:(NSData *)data;
+- (void)readParameterDataWithLength:(unsigned int)length;
 
 - (void)processRequest:(HttpRequest *)request;
 
