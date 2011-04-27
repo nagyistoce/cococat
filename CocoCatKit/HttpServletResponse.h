@@ -40,6 +40,7 @@
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;
 - (void)writeData:(NSData *)data;
+- (unsigned int)responsePayloadSize;
 
 - (BOOL)isCommitted;
 

@@ -104,7 +104,13 @@
 	//get keep alive from response again, maybe the servlet modified it
 	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES
         && [[servletResponse header] objectForKey:@"Content-Length"] != nil) {
-		*keepAlive = YES;
+		int contentLength = [[[servletResponse header] objectForKey:@"Content-Length"] intValue];
+		if ([servletResponse responsePayloadSize] >=  contentLength) {
+			*keepAlive = YES;
+		}
+		else {
+			*keepAlive = NO;
+		}
 	}
 	else {
 		*keepAlive = NO;

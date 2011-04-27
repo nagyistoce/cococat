@@ -18,17 +18,21 @@
 #define AJP_DATA			-1
 
 //sending messages to http server
-#define AJP_WRITE_PACKET_HEADER 255
-#define AJP_SEND_BODY_CHUNK		3
-#define AJP_SEND_HEADER			4
-#define AJP_END_RESPONSE		5
-#define AJP_GET_BODY_CHUNK		6
+#define AJP_WRITE_PACKET_HEADER		255
+#define AJP_SEND_BODY_CHUNK			3
+#define AJP_SEND_HEADER				4
+#define AJP_END_RESPONSE			5
+#define AJP_GET_BODY_CHUNK			6
+#define AJP_GET_PARAM_BODY_CHUNK	7
 
 @class AJP13ForwardRequest;
 @protocol HttpDefaultPageManagers;
 @class HttpSessionManager;
 
-@interface AJP13Connection : ServletConnection {
+@interface AJP13Connection : ServletConnection 
+{
+	AJP13ForwardRequest		*currentRequest;
+
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
@@ -39,6 +43,7 @@
 - (void)dealloc;
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+- (void)readParameterChunck;
 
 //processing ajp request
 - (void)processForwardRequest:(AJP13ForwardRequest *)request;

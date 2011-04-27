@@ -15,6 +15,7 @@
 @interface AJP13Response : NSObject <ServletResponseMessage> {
 	AJP13Connection	*connection;
 	BOOL			committed;
+	unsigned int	responsePayloadSize;
 }
 
 - initWithConnection:(AJP13Connection *)aConnection;
@@ -22,6 +23,7 @@
 
 - (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies;
 - (void)writeData:(NSData *)data;
+- (unsigned int)responsePayloadSize;
 
 
 - (void)end:(BOOL)keepAlive;

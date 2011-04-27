@@ -9,6 +9,7 @@
 @protocol ServletResponse <NSObject>
 
 - (void)writeData:(NSData *)data;
+- (unsigned int)responsePayloadSize;
 
 - (BOOL)isCommitted;
 

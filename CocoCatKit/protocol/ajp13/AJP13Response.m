@@ -14,6 +14,7 @@
 - initWithConnection:(AJP13Connection *)aConnection
 {
 	connection = [aConnection retain];
+	responsePayloadSize = 0;
 	
 	committed = NO;
 		
@@ -53,10 +54,15 @@
 											 length:thisChunkSize
 									   freeWhenDone:NO];
 		offset += thisChunkSize;
-
+		responsePayloadSize += [chunk length];
 		[connection sendBodyChunk:chunk];
 
 	} while (offset < length);
+}
+
+- (unsigned int)responsePayloadSize
+{
+	return responsePayloadSize;
 }
 
 - (void)end:(BOOL)keepAlive

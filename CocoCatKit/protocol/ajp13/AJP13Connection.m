@@ -133,6 +133,7 @@
 
 - (void)dealloc
 {	
+	[currentRequest release];
 	[super dealloc];
 }
 
@@ -166,16 +167,48 @@
 			
 			break;
 		case AJP_FORWARD_REQUEST: {
-			AJP13ForwardRequest *request = [[[AJP13ForwardRequest alloc] initWithData:data] autorelease];
-			if(request == nil) {
+			[currentRequest release];
+			currentRequest = [[AJP13ForwardRequest alloc] initWithData:data];
+			if(currentRequest == nil) {
 				[self close];
 			}
-			[self processForwardRequest:request];
+			if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
+                [self readParameterChunck];
+            }
+            else {
+                [self processForwardRequest:currentRequest];
+            }
 			break;
 		}
+		case AJP_GET_PARAM_BODY_CHUNK: {
+			if(length < 4) {
+				NSLog(@"packet header length [%lu] must be 4", length);
+			}
+			if(bytes[0] != 0x12 || bytes[1] != 0x34) {
+				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
+				[self die];
+			}
+			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
+			NSRange range;
+			range.location = 6;
+			range.length = [data length] - 6;
+			[currentRequest setParameterData:[data subdataWithRange:range]];
+
+			[self processForwardRequest:currentRequest];
+			break;
+		}
+
 		default:
 			NSLog(@"Unknown data [%@] read", data);
 	}
+}
+
+- (void)readParameterChunck
+{
+	unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
+	[socket readDataToLength:contentLength + 6
+				 withTimeout:-1
+						 tag:AJP_GET_PARAM_BODY_CHUNK];
 }
 
 //processing ajp request

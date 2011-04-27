@@ -61,6 +61,7 @@
 //without data prefix code
 - initWithData:(NSData *)someData;
 - (void)dealloc;
+- (void)setParameterData:(NSData *)someData;
 
 - (NSString *)method;
 - (NSString *)requestUri;

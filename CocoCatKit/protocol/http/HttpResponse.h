@@ -15,12 +15,14 @@
 @interface HttpResponse : NSObject <ServletResponseMessage> {
 	HttpConnection	*connection;
 	BOOL			committed;
+	unsigned int	responsePayloadSize;
 }
 
 - initWithConnection:(HttpConnection *)aConnection;
 - (void)dealloc;
 
 - (void)writeData:(NSData *)data;
+- (unsigned int)responsePayloadSize;
 
 - (BOOL)isCommitted;
 

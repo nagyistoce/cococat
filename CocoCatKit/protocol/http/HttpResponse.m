@@ -15,6 +15,7 @@
 - initWithConnection:(HttpConnection *)aConnection
 {
     connection = [aConnection retain];
+	responsePayloadSize = 0;
     return self;
 }
 
@@ -28,6 +29,12 @@
 - (void)writeData:(NSData *)data
 {
     [connection sendData:data];
+	responsePayloadSize += [data length];
+}
+
+- (unsigned int)responsePayloadSize
+{
+	return responsePayloadSize;
 }
 
 - (BOOL)isCommitted

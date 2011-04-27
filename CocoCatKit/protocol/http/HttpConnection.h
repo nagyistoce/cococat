@@ -20,8 +20,7 @@
 
 @interface HttpConnection : ServletConnection {
     
-    HttpRequest *currentRequest;
-
+    HttpRequest		*currentRequest;
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 

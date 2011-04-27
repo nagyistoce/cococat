@@ -126,6 +126,10 @@
 	[responseMessage writeData:data];
 }
 
+- (unsigned int)responsePayloadSize
+{
+	return [responseMessage responsePayloadSize];
+}
 - (BOOL)isCommitted
 {
 	return [responseMessage isCommitted];
