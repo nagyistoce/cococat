@@ -147,10 +147,13 @@
 			if([data length] != 5) {
 				NSLog(@"packet header length [%lu] must be 5", length);
 				[self die];
+				break;
+
 			}
 			if(bytes[0] != 0x12 || bytes[1] != 0x34) {
 				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
 				[self die];
+				break;
 			}
 			
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
@@ -163,13 +166,15 @@
 					break;
 				default:
 					NSLog(@"unknown data code %x", bytes[4]);
+					[self die];
+					break;
 			}
 			
 			break;
 		case AJP_FORWARD_REQUEST: {
 			[currentRequest release];
 			currentRequest = [[AJP13ForwardRequest alloc] initWithData:data];
-			if(currentRequest == nil) {
+			if (currentRequest == nil) {
 				[self close];
 			}
 			if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
@@ -181,12 +186,15 @@
 			break;
 		}
 		case AJP_GET_PARAM_BODY_CHUNK: {
-			if(length < 4) {
+			if (length < 4) {
 				NSLog(@"packet header length [%lu] must be 4", length);
+				[self die];
+				break;
 			}
-			if(bytes[0] != 0x12 || bytes[1] != 0x34) {
+			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
 				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
 				[self die];
+				break;
 			}
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
 			NSRange range;
