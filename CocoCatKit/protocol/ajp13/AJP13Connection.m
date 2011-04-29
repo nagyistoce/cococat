@@ -40,7 +40,7 @@
 {
 	if(integer > 65535) {
 		NSLog(@"Internal error: integer [%d] too big. maximum [65535]", integer);
-        [self die];
+        [self close];
 	}
 	unsigned int b1 = (unsigned int)((integer >> 8) & 0x00FF);
 	unsigned int b2 = (unsigned int)integer & 0x00FF;
@@ -147,13 +147,13 @@
 		case AJP_PACKET_HEADER:
 			if ([data length] != 5) {
 				NSLog(@"packet header length [%lu] must be 5", length);
-				[self die];
+				[self close];
 				break;
 
 			}
 			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
 				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
-				[self die];
+				[self close];
 				break;
 			}
 			
@@ -167,7 +167,7 @@
 					break;
 				default:
 					NSLog(@"unknown data code %x", bytes[4]);
-					[self die];
+					[self close];
 					break;
 			}
 			
@@ -189,12 +189,12 @@
 		case AJP_GET_PARAM_BODY_CHUNK: {
 			if (length < 4) {
 				NSLog(@"packet header length [%lu] must be 4", length);
-				[self die];
+				[self close];
 				break;
 			}
 			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
 				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
-				[self die];
+				[self close];
 				break;
 			}
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
@@ -206,7 +206,7 @@
             if ([parameterData length] != contentLength) {
                 //TODO: send a get body chunk and fill up the parameterData for bigger parameter data
                 NSLog(@"Parameter data size [%d] not supported. Cococat supports only up to [%lu]", contentLength, [parameterData length]);
-                [self die];
+                [self close];
             }
             
 			[currentRequest setParameterData:parameterData];
@@ -217,7 +217,7 @@
 
 		default: {
 			NSLog(@"Unknown tag [%ld] read", tag);
-            [self die];
+            [self close];
             break;
         }
 	}
