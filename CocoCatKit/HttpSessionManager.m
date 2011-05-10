@@ -92,7 +92,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
     @synchronized (sessions) {
         NSString *sessionId = [[self class] _createSessionId];
         session = [[HttpSession alloc] initWithSessionId:sessionId maxInactiveInterval:maxInactiveInterval];
-        [sessions setValue:session forKey:sessionId];
+        [sessions setObject:session forKey:sessionId];
     }
     return session;
 }
