@@ -39,6 +39,7 @@
 
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;
+- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(NSString *)contextInfo;
 - (void)writeData:(NSData *)data;
 - (unsigned int)responsePayloadSize;
 

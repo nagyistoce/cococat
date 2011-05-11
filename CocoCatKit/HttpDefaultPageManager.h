@@ -11,8 +11,9 @@
 
 #define HTTP_RESPONSE_OK					200
 #define HTTP_RESPONSE_NOT_FOUND				404
-#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
 #define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
+#define HTTP_RESPONSE_INTERNAL_SERVER_ERROR 500
+#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
 
 @interface HttpDefaultPageManager : NSObject <HttpDefaultPageManagers> {
 
@@ -23,7 +24,7 @@
 
 + (HttpDefaultPageManager *)defaultManager;
 
-- (NSString *)errorPageForCode:(unsigned int)code;
+- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(NSString *)contextInfo;
 - (NSString *)textForCode:(unsigned int)code;
 
 

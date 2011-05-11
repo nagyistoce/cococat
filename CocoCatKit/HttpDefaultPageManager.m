@@ -30,9 +30,14 @@
 	return manager;
 }
 
-- (NSString *)errorPageForCode:(unsigned int)code
+- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(NSString *)contextInfo
 {
-	return [self textForCode:code];
+	if (contextInfo != nil) {
+        return [NSString stringWithFormat:@"%@ - %@", [self textForCode:code], contextInfo];
+    }
+    else {
+        return [self textForCode:code];
+    } 
 }
 
 - (NSString *)textForCode:(unsigned int)code
@@ -51,6 +56,8 @@
 			return @"Method Not Allowed";
 		case HTTP_RESPONSE_NOT_IMPLEMENTED:
 			return @"Not Implemented";
+        case HTTP_RESPONSE_INTERNAL_SERVER_ERROR:
+			return @"Internal Server Error";
 	}
 	return @"Unknown";
 }

@@ -10,7 +10,7 @@
 
 @protocol HttpDefaultPageManagers <NSObject>
 
-- (NSString *)errorPageForCode:(unsigned int)code;
+- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(NSString *)contextInfo;
 - (NSString *)textForCode:(unsigned int)code;
 
 @end

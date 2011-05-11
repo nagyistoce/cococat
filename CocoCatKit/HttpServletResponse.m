@@ -98,17 +98,26 @@
 
 - (void)sendError:(unsigned int)error
 {
-	[self sendError:error message:[[responseMessage defaultPageManager] textForCode:error]];
+	[self sendError:error message:nil];
 }
 
 - (void)sendError:(unsigned int)error message:(NSString *)message
 {
+    [self sendError:error message:message contextInfo:nil];
+}
+
+- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(NSString *)contextInfo
+{
+    if(message == nil) {
+        message = [[responseMessage defaultPageManager] textForCode:error];
+    }
+    
     if ([responseMessage isCommitted] == YES) {
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot send header, message already committed" userInfo:nil] raise];
     }
     
-	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error] dataUsingEncoding:NSISOLatin1StringEncoding];
-
+	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error contextInfo:contextInfo] dataUsingEncoding:NSISOLatin1StringEncoding];
+    
     [self setIntHeaderValue:[errorPage length] forName:@"Content-Length"];
 	
     [responseMessage sendHeaderWithStatusCode:error message:message header:header cookies:cookies];

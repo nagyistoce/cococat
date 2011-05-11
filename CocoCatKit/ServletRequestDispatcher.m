@@ -84,7 +84,7 @@
 	}
 	
 	if (servlet == nil) {
-		[servletResponse sendError:404];
+		[servletResponse sendError:404 message:nil contextInfo:[servletRequest requestUri]];
 	}
 	else {
 		@try {
@@ -93,7 +93,7 @@
             NSLog(@"Caught exception : %@", ex);
             if ([servletResponse isCommitted] == NO) {
                 @try {
-                    [servletResponse sendError:500];
+                    [servletResponse sendError:500 message:nil contextInfo:[ex reason]];
                 } @catch (NSException *ex) {
                     NSLog(@"Unable to send error code : %@", ex);
                 }
