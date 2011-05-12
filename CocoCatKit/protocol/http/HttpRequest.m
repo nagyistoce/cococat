@@ -11,7 +11,7 @@
 
 @implementation HttpRequest
 
-- initWithData:(NSData *)someData
+- initWithData:(NSData *)someData secure:(BOOL)isSecure
 {
     NSString	*headerString = [[[NSString alloc]initWithData:someData encoding:NSISOLatin1StringEncoding] autorelease];
 	NSScanner	*scanner = [NSScanner scannerWithString:headerString];
@@ -19,6 +19,7 @@
 	header = [[NSMutableDictionary alloc] init];
 	parameters = [[NSMutableDictionary alloc] init];
     cookies = [[NSMutableArray alloc] init];
+    secure = isSecure;
 
 	if ([scanner scanUpToString:@" " intoString:&method] != YES) {
 		[self release];
@@ -134,6 +135,11 @@
 - (NSArray *)cookies
 {
     return cookies;
+}
+
+- (BOOL)secure
+{
+    return secure;
 }
 
 - (void)setParameterData:(NSData *)data

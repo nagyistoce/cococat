@@ -21,12 +21,14 @@
 @interface HttpConnection : ServletConnection {
     
     HttpRequest		*currentRequest;
+    BOOL            secure;
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
-    sessionManager:(HttpSessionManager *)aSessionManager;
+    sessionManager:(HttpSessionManager *)aSessionManager
+               secure:(BOOL)isSecure;
 
 - (void)dealloc;
 

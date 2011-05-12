@@ -75,5 +75,9 @@
     return [requestMessage cookies];
 }
 
+- (BOOL)secure
+{
+    return [requestMessage secure];
+}
 
 @end

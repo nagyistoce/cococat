@@ -13,13 +13,19 @@
 
 - init
 {
-    return [super init];
+    self =  [super init];
+    
+    secure = NO; //not supported
+    
+    return self;
 }
 
 - initWithServletManager:(HttpServletManager *)manager
 {
 	self = [super initWithServletManager:manager];
-	
+    
+    secure = NO; //not supported
+
 	return self;
 }
 
@@ -33,7 +39,8 @@
 	HttpConnection *newConnection = [[[HttpConnection alloc] initWithAsyncSocket:newSocket 
                                                                   servletManager:servletManager 
                                                               defaultPageManager:defaultPageManager
-                                                                  sessionManager:sessionManager] autorelease];
+                                                                  sessionManager:sessionManager
+                                                                          secure:secure] autorelease];
     [super addConnection:newConnection];
 }
 

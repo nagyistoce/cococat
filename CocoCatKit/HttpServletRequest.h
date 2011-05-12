@@ -33,5 +33,5 @@
 - (NSDictionary *)parameters;
 - (HttpSession *)session;
 - (NSArray *)cookies;
-
+- (BOOL)secure;
 @end

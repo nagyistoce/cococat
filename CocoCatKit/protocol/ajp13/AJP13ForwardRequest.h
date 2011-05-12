@@ -51,6 +51,7 @@
     NSMutableArray      *cookies;
 	NSData				*data;
     NSString            *mountPath;
+    BOOL                secure;
 	
 	//derived
 	NSMutableDictionary	*parameters;
@@ -69,5 +70,6 @@
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
+- (BOOL)secure;
 
 @end

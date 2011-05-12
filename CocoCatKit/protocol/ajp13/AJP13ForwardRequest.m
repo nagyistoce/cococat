@@ -216,6 +216,13 @@
 			[attributes setObject:value forKey:attributeName];
 		}
 	}
+    
+    if ([attributes objectForKey:@"ssl_session"] != nil) {
+        secure = YES;
+    }
+    else {
+        secure = NO;
+    }
 	
 	//derived
 	NSString		*queryString = [attributes objectForKey:@"query_string"];
@@ -359,6 +366,11 @@
 - (NSArray *)cookies
 {
     return cookies;
+}
+
+- (BOOL)secure
+{
+    return secure;
 }
 
 @end

@@ -15,5 +15,6 @@
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
+- (BOOL)secure;
 
 @end

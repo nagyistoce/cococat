@@ -20,11 +20,14 @@
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(HttpSessionManager *)aSessionManager
+               secure:(BOOL)isSecure
 {
 	self = [super initWithAsyncSocket:aSocket 
                        servletManager:aServletManager 
                    defaultPageManager:aDefaultPageManager 
                        sessionManager:aSessionManager];
+    secure = isSecure;
+    
     [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
 
 	return self;
@@ -42,7 +45,7 @@
     switch (tag) {
 		case HTTP_PACKET_HEADER: {
             [currentRequest release];
-            currentRequest = [[HttpRequest alloc] initWithData:data];
+            currentRequest = [[HttpRequest alloc] initWithData:data secure:secure];
 			if (currentRequest == nil) {
 				[self close];
 			}

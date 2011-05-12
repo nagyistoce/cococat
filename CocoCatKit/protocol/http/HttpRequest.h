@@ -16,9 +16,10 @@
 	NSMutableDictionary	*header;
 	NSMutableDictionary	*parameters;
     NSMutableArray      *cookies;
+    BOOL                secure;
 }
 
-- initWithData:(NSData *)someData;
+- initWithData:(NSData *)someData secure:(BOOL)isSecure;
 - (void)dealloc;
 
 - (NSString *)method;
@@ -26,6 +27,7 @@
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
+- (BOOL)secure;
 
 - (void)setParameterData:(NSData *)data;
 

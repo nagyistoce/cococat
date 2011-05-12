@@ -10,7 +10,7 @@
 #import <CocoCatKit/ServletServer.h>
 
 @interface HttpServer : ServletServer {
-
+    BOOL secure;
 }
 
 - init;
