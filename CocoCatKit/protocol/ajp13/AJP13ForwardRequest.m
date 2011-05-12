@@ -151,7 +151,7 @@
 @implementation AJP13ForwardRequest
 
 //without data prefix code
-- initWithData:(NSData *)someData
+- initWithData:(NSData *)someData mountPath:(NSString *)aMountPath
 {
 	header = [[NSMutableDictionary alloc] init];
 	attributes = [[NSMutableDictionary alloc] init];
@@ -159,6 +159,7 @@
     cookies = [[NSMutableArray alloc] init];
 
 	data = [someData retain];
+    mountPath = [aMountPath retain];
 	const unsigned char* bytes = [data bytes];
 	NSUInteger length = [data length];
 
@@ -290,6 +291,7 @@
 	[attributes release];
 	[parameters release];
     [cookies release];
+    [mountPath release];
 	
 	[super dealloc];
 }

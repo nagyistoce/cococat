@@ -17,11 +17,31 @@
     return [super init];
 }
 
+- initWithMountPath:(NSString *)aMountPath
+{
+    self = [super init];
+    mountPath = [aMountPath retain];
+    return self;
+}
+
 - initWithServletManager:(HttpServletManager *)manager
 {
 	self = [super initWithServletManager:manager];
 	
 	return self;
+}
+
+- initWithServletManager:(HttpServletManager *)manager mountPath:(NSString *)aMountPath
+{
+    self = [self initWithServletManager:manager];
+    mountPath = [aMountPath retain];
+    
+    return self;
+}
+
+- (NSString *)mountPath
+{
+    return mountPath;
 }
 
 - (void)dealloc
@@ -34,7 +54,8 @@
 	AJP13Connection *newConnection = [[[AJP13Connection alloc] initWithAsyncSocket:newSocket 
                                                                     servletManager:servletManager 
                                                                 defaultPageManager:defaultPageManager
-                                                                    sessionManager:sessionManager] autorelease];
+                                                                    sessionManager:sessionManager
+                                                                         mountPath:mountPath] autorelease];
     [super addConnection:newConnection];
 }
 

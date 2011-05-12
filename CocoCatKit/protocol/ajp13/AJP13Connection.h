@@ -32,12 +32,14 @@
 @interface AJP13Connection : ServletConnection 
 {
 	AJP13ForwardRequest		*currentRequest;
+    NSString                *mountPath;
 }
 
 - initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
-       sessionManager:(HttpSessionManager *)aSessionManager;
+       sessionManager:(HttpSessionManager *)aSessionManager
+            mountPath:(NSString *)aMountPath;
 
 - (void)dealloc;
 

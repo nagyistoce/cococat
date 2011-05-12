@@ -13,10 +13,15 @@
 
 @interface AJP13Server : ServletServer
 {
+    NSString    *mountPath;
 }
 
 - init;
+- initWithMountPath:(NSString *)aMountPath;
 - initWithServletManager:(HttpServletManager *)manager;
+- initWithServletManager:(HttpServletManager *)manager mountPath:(NSString *)aMountPath;
+
+- (NSString *)mountPath;
 
 - (void)dealloc;
 

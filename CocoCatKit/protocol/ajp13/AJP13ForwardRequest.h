@@ -50,6 +50,7 @@
 	NSMutableDictionary	*attributes;
     NSMutableArray      *cookies;
 	NSData				*data;
+    NSString            *mountPath;
 	
 	//derived
 	NSMutableDictionary	*parameters;
@@ -59,7 +60,7 @@
 }
 
 //without data prefix code
-- initWithData:(NSData *)someData;
+- initWithData:(NSData *)someData mountPath:(NSString *)aMountPath;
 - (void)dealloc;
 - (void)setParameterData:(NSData *)someData;
 

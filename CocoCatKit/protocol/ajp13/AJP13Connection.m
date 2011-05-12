@@ -121,11 +121,14 @@
 	   servletManager:(HttpServletManager *)aServletManager 
    defaultPageManager:(id<HttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(HttpSessionManager *)aSessionManager
+            mountPath:(NSString *)aMountPath
 {
 	self = [super initWithAsyncSocket:aSocket 
                        servletManager:aServletManager 
                    defaultPageManager:aDefaultPageManager 
                        sessionManager:aSessionManager];
+    mountPath = [aMountPath retain];
+    
     [aSocket readDataToLength:5
 			   withTimeout:-1
 					   tag:AJP_PACKET_HEADER];
@@ -135,6 +138,7 @@
 - (void)dealloc
 {	
 	[currentRequest release];
+    [mountPath release];
 	[super dealloc];
 }
 
@@ -174,7 +178,7 @@
 			break;
 		case AJP_FORWARD_REQUEST: {
 			[currentRequest release];
-			currentRequest = [[AJP13ForwardRequest alloc] initWithData:data];
+			currentRequest = [[AJP13ForwardRequest alloc] initWithData:data mountPath:mountPath];
 			if (currentRequest == nil) {
 				[self close];
 			}
