@@ -85,7 +85,7 @@
 //processing http request
 - (void)processRequest:(HttpRequest *)request
 {	
-    HttpResponse	*httpResponse = [[HttpResponse alloc] initWithConnection:self];
+    HttpResponse	*httpResponse = [[[HttpResponse alloc] initWithConnection:self] autorelease];
 
     BOOL keepAlive = NO;
     //TODO fix keepAlive
