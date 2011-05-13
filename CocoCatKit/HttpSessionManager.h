@@ -17,7 +17,7 @@
     NSString            *sessionIdentifier;
 }
 
-- initWithSessionIdentifier:(NSString *)aSessionIdentifier;
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval;
 - (void)dealloc;
 
 + (HttpSessionManager *)defaultManager;

@@ -15,7 +15,7 @@ int main (int argc, const char * argv[]) {
 	
 	[[HttpServletManager defaultManager] registerServlet:[[FormTestServlet alloc] init] forUrlPattern:@".*"];
 
-	AJP13Server *server = [[[AJP13Server alloc] init] autorelease];
+	AJP13Server *server = [[[AJP13Server alloc] initWithMountPath:@"/cococat"] autorelease];
 	[server listen:8009];
 	
 	HttpServer *httpServer = [[[HttpServer alloc] init] autorelease];

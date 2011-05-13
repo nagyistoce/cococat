@@ -52,6 +52,8 @@
 			return @"OK";
 		case HTTP_RESPONSE_NOT_FOUND:
 			return @"Not Found";
+        case HTTP_RESPONSE_FOUND:
+			return @"Found";
 		case HTTP_RESPONSE_METHOD_NOT_ALLOWED:
 			return @"Method Not Allowed";
 		case HTTP_RESPONSE_NOT_IMPLEMENTED:

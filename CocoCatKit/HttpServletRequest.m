@@ -48,6 +48,16 @@
 	return [requestMessage requestUri];
 }
 
+- (NSString *)requestUrl
+{
+    return [requestMessage requestUrl];
+}
+
+- (NSString *)queryString
+{
+	return [requestMessage queryString];
+}
+
 - (NSDictionary *)header
 {
 	return [requestMessage header];

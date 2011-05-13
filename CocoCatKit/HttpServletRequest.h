@@ -29,6 +29,9 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
+- (NSString *)requestUrl;
+- (NSString *)queryString;
+
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (HttpSession *)session;

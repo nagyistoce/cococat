@@ -32,6 +32,7 @@
 - (NSDictionary *)header;
 
 - (void)setContentLength:(int)length;
+- (void)setContentType:(NSString *)type;
 
 - (HttpServletOutputStream *)outputStream;
 
@@ -40,6 +41,8 @@
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;
 - (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(NSString *)contextInfo;
+- (void)sendRedirect:(NSString *)location;
+
 - (void)writeData:(NSData *)data;
 - (unsigned int)responsePayloadSize;
 

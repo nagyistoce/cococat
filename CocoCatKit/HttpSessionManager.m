@@ -26,11 +26,11 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 
 @implementation HttpSessionManager
 
-- initWithSessionIdentifier:(NSString *)aSessionIdentifier
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
 {
     sessionIdentifier = [aSessionIdentifier retain];
     sessions = [[NSMutableDictionary alloc] init];
-    maxInactiveInterval = 300; //5 minutes
+    maxInactiveInterval = aMaxInactiveInterval;
     cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
         
     return self;
@@ -49,7 +49,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 {
 	static HttpSessionManager	*manager = nil;
 	if (manager == nil) {
-		manager = [[HttpSessionManager alloc] initWithSessionIdentifier:defaultSessionIdentifier];
+		manager = [[HttpSessionManager alloc] initWithSessionIdentifier:defaultSessionIdentifier maxInactiveInterval:300]; //5 minutes
 	}
 	
 	return manager;

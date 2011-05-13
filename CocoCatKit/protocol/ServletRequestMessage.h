@@ -12,9 +12,11 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
+- (NSString *)requestUrl;
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
+- (NSString *)queryString;
 - (BOOL)secure;
 
 @end

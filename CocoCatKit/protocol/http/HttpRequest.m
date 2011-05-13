@@ -35,7 +35,7 @@
 	NSRange parameterDelimiterPosition = [fullUri rangeOfString:@"?"];
 	if (parameterDelimiterPosition.location != NSNotFound) {
 		requestUri = [[fullUri substringToIndex:parameterDelimiterPosition.location] retain];
-		NSString		*queryString = [fullUri substringFromIndex:parameterDelimiterPosition.location + 1];
+        queryString = [[fullUri substringFromIndex:parameterDelimiterPosition.location + 1] retain];
 		NSArray			*keyValues = [queryString componentsSeparatedByString:@"&"];
 		NSEnumerator	*kVEnumerator = [keyValues objectEnumerator];
 		NSString		*keyValue;
@@ -108,6 +108,7 @@
 	[httpVersion release];
 	[header release];
 	[parameters release];
+    [queryString release];
 	
 	[super dealloc];
 }
@@ -120,6 +121,16 @@
 - (NSString *)requestUri
 {
 	return requestUri;
+}
+
+- (NSString *)requestUrl
+{
+    if (secure == YES) {
+        return [NSString stringWithFormat:@"https://%@%@", [[self header] objectForKey:@"Host"], [self requestUri]];
+    }
+    else {
+        return [NSString stringWithFormat:@"http://%@%@", [[self header] objectForKey:@"Host"], [self requestUri]];
+    }
 }
 
 - (NSDictionary *)header
@@ -137,6 +148,10 @@
     return cookies;
 }
 
+- (NSString *)queryString
+{
+    return queryString;
+}
 - (BOOL)secure
 {
     return secure;

@@ -7,18 +7,65 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import "HttpServletManager.h"
+#import "HttpServlet.h"
+
+
+@interface HttpServletMapping : NSObject
+{
+    HttpServlet	*servlet;
+    NSString	*pattern;
+}
+
+- initWithServlet:(HttpServlet *)aServlet forPattern:(NSString *)aPattern;
+- (void)dealloc;
+
+- (NSString *)pattern;
+- (HttpServlet *)servlet;
+
+@end
+
+@implementation HttpServletMapping
+
+- initWithServlet:(HttpServlet *)aServlet forPattern:(NSString *)aPattern
+{
+    servlet = [aServlet retain];
+    pattern = [aPattern retain];
+    
+    return self;
+}
+
+- (void)dealloc
+{
+    [servlet release];
+    [pattern release];
+    
+    [super dealloc];
+}
+
+- (NSString *)pattern
+{
+    return pattern;
+}
+
+- (HttpServlet *)servlet
+{
+    return servlet; 
+}
+
+@end
+
 
 @implementation HttpServletManager
 
 - init
 {
-	servlets = [[NSMutableDictionary alloc] init];
+	servletMappings = [[NSMutableArray alloc] init];
 	return self;
 }
 
 - (void)dealloc
 {
-	[servlets release];
+	[servletMappings release];
 	
 	[super dealloc];
 }
@@ -35,14 +82,14 @@
 
 - (HttpServlet *)servletForUri:(NSString *)uri
 {
-	NSEnumerator	*enumerator = [servlets keyEnumerator];
-	NSString		*pattern;
+	NSEnumerator        *enumerator = [servletMappings objectEnumerator];
+	HttpServletMapping	*mapping;
 	
-	while ((pattern = [enumerator nextObject]) != nil) {
+	while ((mapping = [enumerator nextObject]) != nil) {
 		NSPredicate *pred = [NSPredicate
-								  predicateWithFormat:@"SELF MATCHES %@", pattern];
+								  predicateWithFormat:@"SELF MATCHES %@", [mapping pattern]];
 		if ([pred evaluateWithObject:uri] == YES) {
-			return [servlets objectForKey:pattern];
+			return [mapping servlet];
 		} 
 	}
 	
@@ -51,7 +98,7 @@
 
 - (void)registerServlet:(HttpServlet *)servlet forUrlPattern:(NSString *)pattern
 {
-	[servlets setObject:servlet forKey:pattern];
+    [servletMappings addObject:[[[HttpServletMapping alloc] initWithServlet:servlet forPattern:pattern] autorelease]];
 }
 
 @end

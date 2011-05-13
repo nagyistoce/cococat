@@ -11,7 +11,7 @@
 @class HttpServlet;
 
 @interface HttpServletManager : NSObject {
-	NSMutableDictionary	*servlets;
+	NSMutableArray	*servletMappings;
 }
 
 - init;

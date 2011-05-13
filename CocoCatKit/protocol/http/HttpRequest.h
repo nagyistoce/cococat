@@ -17,6 +17,7 @@
 	NSMutableDictionary	*parameters;
     NSMutableArray      *cookies;
     BOOL                secure;
+    NSString            *queryString;
 }
 
 - initWithData:(NSData *)someData secure:(BOOL)isSecure;
@@ -24,9 +25,11 @@
 
 - (NSString *)method;
 - (NSString *)requestUri;
+- (NSString *)requestUrl;
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
+- (NSString *)queryString;
 - (BOOL)secure;
 
 - (void)setParameterData:(NSData *)data;

@@ -223,9 +223,10 @@
     else {
         secure = NO;
     }
+    
+    queryString = [[attributes objectForKey:@"query_string"] retain];
 	
 	//derived
-	NSString		*queryString = [attributes objectForKey:@"query_string"];
 	NSArray			*keyValues = [queryString componentsSeparatedByString:@"&"];
 	NSEnumerator	*kVEnumerator = [keyValues objectEnumerator];
 	NSString		*keyValue;
@@ -299,6 +300,7 @@
 	[parameters release];
     [cookies release];
     [mountPath release];
+    [queryString release];
 	
 	[super dealloc];
 }
@@ -353,6 +355,25 @@
 	return reqUri;
 }
 
+- (NSString *)requestUrl
+{
+    NSString    *protocolString = nil;
+    if (secure == YES) {
+        protocolString = @"https://";
+    }
+    else {
+        protocolString = @"http://";
+
+    }
+ 
+    if (mountPath != nil) {
+        return [NSString stringWithFormat:@"%@%@%@%@", protocolString, [[self header] objectForKey:@"Host"], mountPath, [self requestUri]];
+    }
+    else {
+        return [NSString stringWithFormat:@"%@%@%@", protocolString, [[self header] objectForKey:@"Host"], [self requestUri]];
+    }
+}
+
 - (NSDictionary *)header
 {
 	return header;
@@ -366,6 +387,11 @@
 - (NSArray *)cookies
 {
     return cookies;
+}
+
+- (NSString *)queryString
+{
+    return queryString;
 }
 
 - (BOOL)secure

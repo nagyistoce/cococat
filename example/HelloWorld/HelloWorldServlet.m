@@ -50,7 +50,10 @@
 
 	[outputStream writeString:@"\n\n====== Uri ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[request requestUri] encoding:NSISOLatin1StringEncoding];
-        
+ 	[outputStream writeString:@"\n\n====== Url ======\n" encoding:NSISOLatin1StringEncoding];
+	[outputStream writeString:[request requestUrl] encoding:NSISOLatin1StringEncoding]; 
+    [outputStream writeString:@"\n\n====== QueryString ======\n" encoding:NSISOLatin1StringEncoding];
+	[outputStream writeString:[request queryString] encoding:NSISOLatin1StringEncoding];
     [outputStream writeString:@"\n\n====== Cookies ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[[request cookies] description] encoding:NSISOLatin1StringEncoding];
     

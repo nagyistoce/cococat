@@ -83,6 +83,11 @@
 	[self setIntHeaderValue:length forName:@"Content-Length"];
 }
 
+- (void)setContentType:(NSString *)type
+{
+    [self setHeaderValue:type forName:@"Content-Type"];
+}
+
 - (HttpServletOutputStream *)outputStream
 {
 	return outputStream;
@@ -119,11 +124,22 @@
 	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error contextInfo:contextInfo] dataUsingEncoding:NSISOLatin1StringEncoding];
     
     [self setIntHeaderValue:[errorPage length] forName:@"Content-Length"];
+    [self setContentType:@"text/html"];
 	
     [responseMessage sendHeaderWithStatusCode:error message:message header:header cookies:cookies];
 	
 	[self writeData:errorPage];
 	
+}
+
+- (void)sendRedirect:(NSString *)location
+{
+    if ([responseMessage isCommitted] == YES) {
+        [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot send header, message already committed" userInfo:nil] raise];
+    }
+    
+    [self setHeaderValue:location forName:@"Location"];
+    [responseMessage sendHeaderWithStatusCode:302 message:[[responseMessage defaultPageManager] textForCode:302] header:header cookies:cookies];
 }
 
 - (void)writeData:(NSData *)data
