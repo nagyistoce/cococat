@@ -68,10 +68,9 @@
             break;
         }
     }
-    HttpSession         *session = [sessionManager obtainSession:sessionId];
 	HttpServletResponse	*servletResponse = [[[HttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
     HttpServletRequest	*servletRequest = [[[HttpServletRequest alloc] initWithServletRequestMessage:requestMessage 
-                                                                                    retainedSession:session
+                                                                                 requestedSessionId:sessionId
                                                                                      sessionManager:sessionManager
                                                                                            response:servletResponse] autorelease];
 	HttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
@@ -120,8 +119,6 @@
 		[responseMessage sendHeaderWithStatusCode:[servletResponse status] message:[[responseMessage defaultPageManager] textForCode:[servletResponse status]] header:[servletResponse header] cookies:[servletResponse cookies]];
 	}
 	[responseMessage end:*keepAlive];
-    
-    [sessionManager releaseSession:session];
 }
 
 @end

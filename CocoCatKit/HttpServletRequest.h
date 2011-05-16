@@ -19,10 +19,11 @@
     HttpSession                 *session;
     HttpSessionManager          *sessionManager;
     HttpServletResponse         *response;
+    NSString                    *requestedSessionId;
 }
 
 - initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
-                        retainedSession:(HttpSession *)aSession 
+             requestedSessionId:(NSString *)aRequestedSessionId 
                  sessionManager:(HttpSessionManager *)aSessionManager
                        response:(HttpServletResponse *)aResponse;
 - (void)dealloc;
@@ -35,6 +36,7 @@
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;
 - (HttpSession *)session;
+- (HttpSession *)session:(BOOL)create;
 - (NSArray *)cookies;
 - (BOOL)secure;
 @end

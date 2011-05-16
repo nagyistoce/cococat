@@ -16,24 +16,28 @@
 @implementation HttpServletRequest
 
 - initWithServletRequestMessage:(id<ServletRequestMessage>)aRequestMessage 
-                        retainedSession:(HttpSession *)aSession 
+             requestedSessionId:(NSString *)aRequestedSessionId 
                  sessionManager:(HttpSessionManager *)aSessionManager
                        response:(HttpServletResponse *)aResponse
 {
 	requestMessage = [aRequestMessage retain];
     sessionManager = [aSessionManager retain];
     response = [aResponse retain];
-    session =[aSession retain];
+    requestedSessionId = [aRequestedSessionId retain];
     
     return self;
 }
 
 - (void)dealloc
 {
+    [requestedSessionId release];
 	[requestMessage release];
-    [sessionManager release];
     [response release];
-    [session release];
+    
+    if (session != nil) {
+        [sessionManager releaseSession:session];
+    }
+    [sessionManager release];
 	
 	[super dealloc];
 }
@@ -70,14 +74,27 @@
 
 - (HttpSession *)session
 {
-    if (session == nil) {
-        session = [sessionManager createAndOptainSession];
-
-        Cookie  *sessionCookie = [[Cookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]];
-        [response addCookie:sessionCookie];
+    if(session == nil) {
+        session = [sessionManager obtainSession:requestedSessionId];
+        if (session == nil) {
+            session = [sessionManager createAndOptainSession];
+            
+            Cookie  *sessionCookie = [[Cookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]];
+            [response addCookie:sessionCookie];
+        }
     }
     
     return session;
+}
+
+- (HttpSession *)session:(BOOL)create
+{
+    if(session == nil) {
+        session = [sessionManager obtainSession:requestedSessionId];
+    }
+    
+    return session;
+    
 }
 
 - (NSArray *)cookies
