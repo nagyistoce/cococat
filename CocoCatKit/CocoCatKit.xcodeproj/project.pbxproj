@@ -334,9 +334,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS) */ = {
+		8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS x86_64) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS)" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS x86_64)" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -347,7 +347,7 @@
 			);
 			dependencies = (
 			);
-			name = "CocoCatKit (MacOS)";
+			name = "CocoCatKit (MacOS x86_64)";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = HttpServlet;
 			productReference = 8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */;
@@ -360,6 +360,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CocoCatKit" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -373,7 +374,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS) */,
+				8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS x86_64) */,
 			);
 		};
 /* End PBXProject section */
@@ -439,9 +440,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_MODE_FLAG = "og-w,a+rX";
-				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86/Frameworks;
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86_64/Frameworks;
 				PRODUCT_NAME = CocoCatKit;
-				SYMROOT = build/MacOS/i386;
+				SYMROOT = build/MacOS/x86_64;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -462,9 +463,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_MODE_FLAG = "og-w,a+rX";
-				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86/Frameworks;
+				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86_64/Frameworks;
 				PRODUCT_NAME = CocoCatKit;
-				SYMROOT = build/MacOS/i386;
+				SYMROOT = build/MacOS/x86_64;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -498,7 +499,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS)" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS x86_64)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
