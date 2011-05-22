@@ -13,12 +13,12 @@
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	[[HttpServletManager defaultManager] registerServlet:[[FormTestServlet alloc] init] forUrlPattern:@".*"];
+	[[CKHttpServletManager defaultManager] registerServlet:[[FormTestServlet alloc] init] forUrlPattern:@".*"];
 
-	AJP13Server *server = [[[AJP13Server alloc] initWithMountPath:@"/cococat"] autorelease];
+	CKAJP13Server *server = [[[CKAJP13Server alloc] initWithMountPath:@"/cococat"] autorelease];
 	[server listen:8009];
 	
-	HttpServer *httpServer = [[[HttpServer alloc] init] autorelease];
+	CKHttpServer *httpServer = [[[CKHttpServer alloc] init] autorelease];
 	[httpServer listen:8010];
 		
 	[[NSRunLoop currentRunLoop] run];

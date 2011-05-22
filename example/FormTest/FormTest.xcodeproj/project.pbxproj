@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		217F95D91389701800D408E6 /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217F95D81389701800D408E6 /* CocoCatKit.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		C64E8C54135EFAC3007A3E9F /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */; };
 		C6F60B53136875B70005BE87 /* FormTestServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F60B52136875B70005BE87 /* FormTestServlet.m */; };
 		C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -16,11 +16,11 @@
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		217F95D81389701800D408E6 /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/MacOS/x86_64/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* FormTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/MacOS/x86/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
 		C6F60B51136875B70005BE87 /* FormTestServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormTestServlet.h; sourceTree = "<group>"; };
 		C6F60B52136875B70005BE87 /* FormTestServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormTestServlet.m; sourceTree = "<group>"; };
 		C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,7 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */,
-				C64E8C54135EFAC3007A3E9F /* CocoCatKit.framework in Frameworks */,
+				217F95D91389701800D408E6 /* CocoCatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */,
-				C64E8C53135EFAC3007A3E9F /* CocoCatKit.framework */,
+				217F95D81389701800D408E6 /* CocoCatKit.framework */,
 			);
 			name = HelloWorld;
 			sourceTree = "<group>";
@@ -115,9 +115,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* FormTest (MacOS) */ = {
+		8D1107260486CEB800E47090 /* FormTest (MacOS x86_64) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FormTest (MacOS)" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FormTest (MacOS x86_64)" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -127,7 +127,7 @@
 			);
 			dependencies = (
 			);
-			name = "FormTest (MacOS)";
+			name = "FormTest (MacOS x86_64)";
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelloWorld;
 			productReference = 8D1107320486CEB800E47090 /* FormTest.app */;
@@ -140,6 +140,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FormTest" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -151,7 +152,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* FormTest (MacOS) */,
+				8D1107260486CEB800E47090 /* FormTest (MacOS x86_64) */,
 			);
 		};
 /* End PBXProject section */
@@ -187,7 +188,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/CocoCat/1.0/MacOS/x86/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/MacOS/x86_64/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -209,7 +210,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/CocoCat/1.0/MacOS/x86/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/MacOS/x86_64/Frameworks\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -249,7 +250,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FormTest (MacOS)" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FormTest (MacOS x86_64)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,

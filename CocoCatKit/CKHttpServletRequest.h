@@ -6,14 +6,37 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
+#import <CocoCatKit/CKServletRequest.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+@protocol CKServletRequestMessage;
+@class CKHttpSession;
+@class CKHttpSessionManager;
+@class CKHttpServletResponse;
 
+@interface CKHttpServletRequest : NSObject <CKServletRequest> {
+	id<CKServletRequestMessage>	requestMessage;
+    CKHttpSession               *session;
+    CKHttpSessionManager        *sessionManager;
+    CKHttpServletResponse       *response;
+    NSString                    *requestedSessionId;
 }
 
-- init;
+- initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
+             requestedSessionId:(NSString *)aRequestedSessionId 
+                 sessionManager:(CKHttpSessionManager *)aSessionManager
+                       response:(CKHttpServletResponse *)aResponse;
+- (void)dealloc;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (NSString *)method;
+- (NSString *)requestUri;
+- (NSString *)requestUrl;
+- (NSString *)queryString;
 
+- (NSDictionary *)header;
+- (NSDictionary *)parameters;
+- (CKHttpSession *)session;
+- (CKHttpSession *)session:(BOOL)create;
+- (NSArray *)cookies;
+- (BOOL)secure;
 @end

@@ -8,13 +8,13 @@
 
 #import <CocoCatKit/CocoCatKit.h>
 
-@interface FormTestServlet : HttpServlet {
+@interface FormTestServlet : CKHttpServlet {
 
 }
 
 - init;
 
-- (void)doGet:(HttpServletRequest *)request response:(HttpServletResponse *)response;
-- (void)doPost:(HttpServletRequest *)request response:(HttpServletResponse *)response;
+- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (void)doPost:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
 
 @end

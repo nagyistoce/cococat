@@ -6,14 +6,43 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import "CKHttpServer.h"
+#import "CKHttpConnection.h"
 
-@interface HelloWorldServlet : CKHttpServlet {
+@implementation CKHttpServer
 
+- init
+{
+    self =  [super init];
+    
+    secure = NO; //not supported
+    
+    return self;
 }
 
-- init;
+- initWithServletManager:(CKHttpServletManager *)manager
+{
+	self = [super initWithServletManager:manager];
+    
+    secure = NO; //not supported
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+	return self;
+}
+
+- (void)dealloc
+{
+	[super dealloc];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+	CKHttpConnection *newConnection = [[[CKHttpConnection alloc] initWithAsyncSocket:newSocket 
+																	  servletManager:servletManager 
+																  defaultPageManager:defaultPageManager
+																	  sessionManager:sessionManager
+																			  secure:secure] autorelease];
+    [super addConnection:newConnection];
+}
+
 
 @end

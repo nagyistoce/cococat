@@ -6,14 +6,39 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
+#import "../CKServletConnection.h"
 
-@interface HelloWorldServlet : CKHttpServlet {
+#define HTTP_PACKET_HEADER	0
+#define HTTP_PACKET_PARAMS	1
 
+#define HTTP_SEND_DATA	2
+
+@class CKHttpRequest;
+@protocol CKHttpDefaultPageManagers;
+@class CKHttpSessionManager;
+
+@interface CKHttpConnection : CKServletConnection {
+    
+    CKHttpRequest	*currentRequest;
+    BOOL            secure;
 }
 
-- init;
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(CKHttpServletManager *)aServletManager 
+   defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
+    sessionManager:(CKHttpSessionManager *)aSessionManager
+               secure:(BOOL)isSecure;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (void)dealloc;
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+
+- (void)sendData:(NSData *)data;
+- (void)readParameterDataWithLength:(unsigned int)length;
+
+- (void)processRequest:(CKHttpRequest *)request;
+
++ (NSData *)headerSeparatorData;
 
 @end

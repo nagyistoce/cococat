@@ -6,14 +6,26 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
+#import <CocoCatKit/CKServletServer.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+@class CKHttpServletManager;
 
+@interface CKAJP13Server : CKServletServer
+{
+    NSString    *mountPath;
 }
 
 - init;
+- initWithMountPath:(NSString *)aMountPath;
+- initWithServletManager:(CKHttpServletManager *)manager;
+- initWithServletManager:(CKHttpServletManager *)manager mountPath:(NSString *)aMountPath;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (NSString *)mountPath;
+
+- (void)dealloc;
+
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket;
 
 @end
+

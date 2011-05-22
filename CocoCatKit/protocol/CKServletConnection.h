@@ -6,14 +6,37 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+#define ServletConnectionDidDieNotification  @"ServletConnectionDidDie"
 
+@class GCDAsyncSocket;
+@class CKHttpServletManager;
+@protocol CKHttpDefaultPageManagers;
+@class CKHttpSessionManager;
+
+
+@interface CKServletConnection : NSObject {
+	GCDAsyncSocket					*socket;
+    CKHttpServletManager			*servletManager;
+	dispatch_queue_t				connectionQueue;
+	unsigned int					currentPacketLenght;
+	id<CKHttpDefaultPageManagers>	defaultPageManager;
+    CKHttpSessionManager			*sessionManager;
 }
 
-- init;
+- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+	   servletManager:(CKHttpServletManager *)aServletManager 
+   defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
+       sessionManager:(CKHttpSessionManager *)aSessionManager;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (void)dealloc;
+
+- (void)die;
+- (void)close;
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
+
+- (id<CKHttpDefaultPageManagers>)defaultPageManager;
 
 @end

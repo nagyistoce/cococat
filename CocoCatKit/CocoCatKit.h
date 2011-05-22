@@ -8,18 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import <CocoCatKit/ServletServer.h>
-#import <CocoCatKit/HttpServlet.h>
-#import <CocoCatKit/HttpServer.h>
-#import <CocoCatKit/AJP13Server.h>
-#import <CocoCatKit/HttpServletManager.h>
-#import <CocoCatKit/HttpServletOutputStream.h>
-#import <CocoCatKit/HttpServletRequest.h>
-#import <CocoCatKit/HttpServletResponse.h>
-#import <CocoCatKit/ServletRequest.h>
-#import <CocoCatKit/ServletResponse.h>
-#import <CocoCatKit/HttpDefaultPageManager.h>
-#import <CocoCatKit/HttpDefaultPageManagers.h>
-#import <CocoCatKit/HttpSession.h>
-#import <CocoCatKit/HttpSessionManager.h>
-#import <CocoCatKit/Cookie.h>
+#import <CocoCatKit/CKServletServer.h>
+#import <CocoCatKit/CKHttpServlet.h>
+#import <CocoCatKit/CKHttpServer.h>
+#import <CocoCatKit/CKAJP13Server.h>
+#import <CocoCatKit/CKHttpServletManager.h>
+#import <CocoCatKit/CKHttpServletOutputStream.h>
+#import <CocoCatKit/CKHttpServletRequest.h>
+#import <CocoCatKit/CKHttpServletResponse.h>
+#import <CocoCatKit/CKServletRequest.h>
+#import <CocoCatKit/CKServletResponse.h>
+#import <CocoCatKit/CKHttpDefaultPageManager.h>
+#import <CocoCatKit/CKHttpDefaultPageManagers.h>
+#import <CocoCatKit/CKHttpSession.h>
+#import <CocoCatKit/CKHttpSessionManager.h>
+#import <CocoCatKit/CKCookie.h>

@@ -6,14 +6,29 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
+#import <CocoCatKit/CKHttpDefaultPageManagers.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+#define HTTP_RESPONSE_OK					200
+#define HTTP_RESPONSE_FOUND					302
+#define HTTP_RESPONSE_NOT_FOUND				404
+#define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
+#define HTTP_RESPONSE_INTERNAL_SERVER_ERROR 500
+#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
+
+@interface CKHttpDefaultPageManager : NSObject <CKHttpDefaultPageManagers> {
 
 }
 
 - init;
+- (void)dealloc;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
++ (CKHttpDefaultPageManager *)defaultManager;
+
+- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(NSString *)contextInfo;
+- (NSString *)textForCode:(unsigned int)code;
+
+
++ (NSString *)defaultTextForCode:(unsigned int)code;
 
 @end

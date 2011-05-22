@@ -6,14 +6,30 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
+#import "../CKServletResponseMessage.h"
 
-@interface HelloWorldServlet : CKHttpServlet {
+@class CKAJP13Connection;
+@protocol CKHttpDefaultPageManagers;
 
+@interface CKAJP13Response : NSObject <CKServletResponseMessage> {
+	CKAJP13Connection	*connection;
+	BOOL				committed;
+	unsigned int		responsePayloadSize;
 }
 
-- init;
+- initWithConnection:(CKAJP13Connection *)aConnection;
+- (void)dealloc;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (void)sendHeaderWithStatusCode:(unsigned int)code message:(NSString *)message header:(NSDictionary *)header cookies:(NSArray *)cookies;
+- (void)writeData:(NSData *)data;
+- (unsigned int)responsePayloadSize;
+
+
+- (void)end:(BOOL)keepAlive;
+
+- (BOOL)isCommitted;
+
+- (id<CKHttpDefaultPageManagers>)defaultPageManager;
 
 @end

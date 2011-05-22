@@ -6,37 +6,64 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import "FormTestServlet.h"
+#import "CKHttpServlet.h"
+#import "CKHttpServletRequest.h"
+#import "CKHttpServletResponse.h"
 
-@implementation FormTestServlet
+@implementation CKHttpServlet
 
-- init
+- (void)doDelete:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
 {
-	return self;
+	[response sendError:501];
 }
 
 - (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
 {
-	CKHttpServletOutputStream *outputStream = [response outputStream];
-	
-	[response setHeaderValue:@"text/html" forName:@"Content-Type"];
-    
-    NSMutableString *string = [NSMutableString stringWithString:@"<html><form name=\"input\" action=\"FormTestServlet\" method=\"post\">\n"];
-    [string appendString:@"Name: <input type=\"text\" name=\"name\" />"];
-    [string appendString:@"<input type=\"submit\" value=\"Submit\" /></form></html>"];
-    NSData  *data = [string dataUsingEncoding:NSISOLatin1StringEncoding];
-    [response setContentLength:[data length]];
-    [outputStream writeData:data];
+	[response sendError:501];
+}
+
+- (void)doHead:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
+{
+	[response sendError:501];
+}
+
+- (void)doOptions:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
+{
+	[response sendError:501];
 }
 
 - (void)doPost:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
 {
-    CKHttpServletOutputStream *outputStream = [response outputStream];
-
-    [response setHeaderValue:@"text/plain" forName:@"Content-Type"];
-
-    [outputStream writeString:[NSString stringWithFormat:@"Hello %@", [[request parameters] objectForKey:@"name"]] encoding:NSISOLatin1StringEncoding];	
+	[response sendError:501];
 }
 
+- (void)doPut:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
+{
+	[response sendError:501];
+}
+
+- (void)doTrace:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
+{
+	[response sendError:501];
+}
+
+@end
+
+@implementation CKHttpServlet(Private)
+
+- (void)service:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
+{
+	NSString	*upperMethod = [[request method] uppercaseString];
+	
+	if ([upperMethod isEqualToString:@"GET"] == YES) {
+		[self doGet:request response:response];
+	}
+	else if ([upperMethod isEqualToString:@"POST"] == YES) {
+		[self doPost:request response:response];
+	}
+	else {
+		[response sendError:405];
+	}
+}
 
 @end

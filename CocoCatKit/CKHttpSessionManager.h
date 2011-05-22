@@ -6,14 +6,25 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+@class CKHttpSession;
 
+@interface CKHttpSessionManager : NSObject {
+    NSMutableDictionary *sessions;
+    NSTimeInterval      maxInactiveInterval;
+    NSTimer             *cleanupTimer;
+    NSString            *sessionIdentifier;
 }
 
-- init;
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval;
+- (void)dealloc;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
++ (CKHttpSessionManager *)defaultManager;
+
+- (CKHttpSession *)obtainSession:(NSString *)sessionId;
+- (void)releaseSession:(CKHttpSession *)session;
+- (CKHttpSession *)createAndOptainSession;
+- (NSString *)sessionIdentifier;
 
 @end

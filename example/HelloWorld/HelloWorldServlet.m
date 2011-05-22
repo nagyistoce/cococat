@@ -15,10 +15,10 @@
 	return self;
 }
 
-- (void)doGet:(HttpServletRequest *)request response:(HttpServletResponse *)response
+- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response
 {
-	HttpServletOutputStream *outputStream = [response outputStream];
-    HttpSession *session = [request session];
+	CKHttpServletOutputStream *outputStream = [response outputStream];
+    CKHttpSession *session = [request session];
 
 
 	//we dont calculate the content size before, so we use no persistent connection
@@ -26,7 +26,7 @@
 	
 	[response setHeaderValue:@"text/plain" forName:@"Content-Type"];
     
-    [response addCookie:[[[Cookie alloc] initWithName:@"TestCookie" withValue:@"This is a hello world test"] autorelease]];
+    [response addCookie:[[[CKCookie alloc] initWithName:@"TestCookie" withValue:@"This is a hello world test"] autorelease]];
 
     [outputStream writeString:@"Hello World\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[NSString stringWithFormat:@"Current Time : %@", [NSDate date]] encoding:NSISOLatin1StringEncoding];

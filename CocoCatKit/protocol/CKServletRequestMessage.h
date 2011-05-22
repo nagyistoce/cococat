@@ -6,14 +6,17 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import "../CKServletRequest.h"
 
-@interface HelloWorldServlet : CKHttpServlet {
+@protocol CKServletRequestMessage <CKServletRequest>
 
-}
-
-- init;
-
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (NSString *)method;
+- (NSString *)requestUri;
+- (NSString *)requestUrl;
+- (NSDictionary *)header;
+- (NSDictionary *)parameters;
+- (NSArray *)cookies;
+- (NSString *)queryString;
+- (BOOL)secure;
 
 @end

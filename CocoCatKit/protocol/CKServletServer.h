@@ -6,14 +6,35 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <CocoCatKit/CocoCatKit.h>
+#import <Foundation/Foundation.h>
 
-@interface HelloWorldServlet : CKHttpServlet {
+@class CKHttpServletManager;
+@class GCDAsyncSocket;
+@class CKServletConnection;
+@class CKHttpSessionManager;
+@protocol CKHttpDefaultPageManagers;
 
+@interface CKServletServer : NSObject 
+{
+ 	GCDAsyncSocket					*socket;
+    dispatch_queue_t				serverQueue;
+	NSMutableArray					*connections;
+    CKHttpServletManager			*servletManager;
+	id<CKHttpDefaultPageManagers>	defaultPageManager;
+    CKHttpSessionManager			*sessionManager;
 }
 
 - init;
+- initWithServletManager:(CKHttpServletManager *)manager;
 
-- (void)doGet:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
+- (void)dealloc;
+
+- (void)setDefaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager;
+- (void)setSessionManager:(CKHttpSessionManager *)aSessionManager;
+
+- (BOOL)listen:(unsigned int)port;
+
+- (void)connectionDidDie:(NSNotification *)notification;
+- (void)addConnection:(CKServletConnection *)connection;
 
 @end
