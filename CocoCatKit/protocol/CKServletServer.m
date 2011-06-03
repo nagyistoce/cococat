@@ -75,6 +75,11 @@
 	return success;
 }
 
+- (void)stop
+{
+    [socket disconnect];
+}
+
 - (void)connectionDidDie:(NSNotification *)notification
 {
 	// Note: This method is called on the connection queue that posted the notification

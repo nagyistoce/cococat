@@ -33,6 +33,7 @@
 - (void)setSessionManager:(CKHttpSessionManager *)aSessionManager;
 
 - (BOOL)listen:(unsigned int)port;
+- (void)stop;
 
 - (void)connectionDidDie:(NSNotification *)notification;
 - (void)addConnection:(CKServletConnection *)connection;
