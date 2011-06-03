@@ -26,7 +26,6 @@
 - (void)setDomain:(NSString *)aDomain;
 - (void)setPath:(NSString *)aPath;
 
-
 - (NSString *)description;
 
 @end

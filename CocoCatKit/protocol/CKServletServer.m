@@ -31,7 +31,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(connectionDidDie:)
-												 name:ServletConnectionDidDieNotification
+												 name:CKServletConnectionDidDieNotification
 											   object:nil];
     
     return self;
@@ -43,6 +43,8 @@
 	[defaultPageManager release];
     [sessionManager release];
     dispatch_release(serverQueue);
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 	[connections release];
 	[socket release];
@@ -61,6 +63,7 @@
     [sessionManager release];
 	sessionManager = [aSessionManager retain];
 }
+
 - (BOOL)listen:(unsigned int)port
 {
     __block BOOL success;
@@ -81,9 +84,7 @@
 }
 
 - (void)connectionDidDie:(NSNotification *)notification
-{
-	// Note: This method is called on the connection queue that posted the notification
-	
+{	
 	@synchronized(connections) {
 		[connections removeObject:[notification object]];
 	}

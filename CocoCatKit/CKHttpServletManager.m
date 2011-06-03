@@ -9,7 +9,6 @@
 #import "CKHttpServletManager.h"
 #import "CKHttpServlet.h"
 
-
 @interface CKHttpServletMapping : NSObject
 {
     CKHttpServlet	*servlet;

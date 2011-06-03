@@ -43,7 +43,7 @@
 
 - (void)die
 {	
-	[[NSNotificationCenter defaultCenter] postNotificationName:ServletConnectionDidDieNotification object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:CKServletConnectionDidDieNotification object:self];
 }
 
 - (void)close

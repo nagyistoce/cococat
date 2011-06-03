@@ -155,6 +155,7 @@
 {
 	return [responseMessage responsePayloadSize];
 }
+
 - (BOOL)isCommitted
 {
 	return [responseMessage isCommitted];

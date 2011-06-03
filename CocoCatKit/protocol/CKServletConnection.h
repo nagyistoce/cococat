@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ServletConnectionDidDieNotification  @"ServletConnectionDidDie"
+#define CKServletConnectionDidDieNotification  @"ServletConnectionDidDie"
 
 @class GCDAsyncSocket;
 @class CKHttpServletManager;
