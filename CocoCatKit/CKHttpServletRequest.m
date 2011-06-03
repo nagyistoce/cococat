@@ -62,6 +62,16 @@
 	return [requestMessage queryString];
 }
 
+- (NSString *)remoteAddr
+{
+    return [requestMessage remoteAddr];
+}
+
+- (NSString *)remoteHost
+{
+    return [requestMessage remoteHost];
+}
+
 - (NSDictionary *)header
 {
 	return [requestMessage header];

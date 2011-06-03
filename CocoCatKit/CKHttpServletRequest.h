@@ -32,6 +32,8 @@
 - (NSString *)requestUri;
 - (NSString *)requestUrl;
 - (NSString *)queryString;
+- (NSString *)remoteAddr;
+- (NSString *)remoteHost;
 
 - (NSDictionary *)header;
 - (NSDictionary *)parameters;

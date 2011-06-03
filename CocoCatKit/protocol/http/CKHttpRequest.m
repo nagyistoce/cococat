@@ -11,7 +11,7 @@
 
 @implementation CKHttpRequest
 
-- initWithData:(NSData *)someData secure:(BOOL)isSecure
+- initWithData:(NSData *)someData secure:(BOOL)isSecure remoteAddr:(NSString *)aRemoteAddr
 {
     NSString	*headerString = [[[NSString alloc]initWithData:someData encoding:NSISOLatin1StringEncoding] autorelease];
 	NSScanner	*scanner = [NSScanner scannerWithString:headerString];
@@ -19,6 +19,7 @@
 	header = [[NSMutableDictionary alloc] init];
 	parameters = [[NSMutableDictionary alloc] init];
     cookies = [[NSMutableArray alloc] init];
+    remoteAddr = [aRemoteAddr retain];
     secure = isSecure;
 
 	if ([scanner scanUpToString:@" " intoString:&method] != YES) {
@@ -109,7 +110,8 @@
 	[header release];
 	[parameters release];
     [queryString release];
-	
+    [remoteAddr release];
+    [remoteHost release];	
 	[super dealloc];
 }
 
@@ -152,6 +154,23 @@
 {
     return queryString;
 }
+
+- (NSString *)remoteAddr
+{
+    return remoteAddr;
+}
+
+- (NSString *)remoteHost
+{
+    if (remoteHost == nil) {
+        remoteHost = [[[NSHost hostWithAddress:remoteAddr] name] retain];
+        if (remoteHost == nil) {
+            remoteHost = [remoteAddr retain];
+        }
+    }
+    return remoteHost;
+}
+
 - (BOOL)secure
 {
     return secure;

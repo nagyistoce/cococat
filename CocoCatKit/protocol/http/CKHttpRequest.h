@@ -18,9 +18,11 @@
     NSMutableArray      *cookies;
     BOOL                secure;
     NSString            *queryString;
+    NSString            *remoteAddr;
+    NSString            *remoteHost;
 }
 
-- initWithData:(NSData *)someData secure:(BOOL)isSecure;
+- initWithData:(NSData *)someData secure:(BOOL)isSecure remoteAddr:(NSString *)aRemoteAddr;
 - (void)dealloc;
 
 - (NSString *)method;
@@ -30,6 +32,8 @@
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
 - (NSString *)queryString;
+- (NSString *)remoteAddr;
+- (NSString *)remoteHost;
 - (BOOL)secure;
 
 - (void)setParameterData:(NSData *)data;

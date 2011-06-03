@@ -178,6 +178,10 @@
 			break;
 		case AJP_FORWARD_REQUEST: {
 			[currentRequest release];
+            NSString	*remoteAddress = [[NSHost hostWithAddress:[sock connectedHost]] name];
+            if (remoteAddress == nil) {
+                remoteAddress = [sock connectedHost];
+            }
 			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data mountPath:mountPath];
 			if (currentRequest == nil) {
 				[self close];

@@ -398,6 +398,23 @@
     return queryString;
 }
 
+- (NSString *)remoteAddr
+{
+    return remoteAddr;
+}
+
+- (NSString *)remoteHost
+{
+    if ([remoteHost length] <= 0) {
+        [remoteHost release];
+        remoteHost = [[[NSHost hostWithAddress:remoteAddr] name] retain];
+        if (remoteHost == nil) {
+            remoteHost = [remoteAddr retain];
+        }
+    }
+    return remoteHost;
+}
+
 - (BOOL)secure
 {
     return secure;

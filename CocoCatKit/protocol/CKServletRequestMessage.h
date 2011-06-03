@@ -17,6 +17,8 @@
 - (NSDictionary *)parameters;
 - (NSArray *)cookies;
 - (NSString *)queryString;
+- (NSString *)remoteAddr;
+- (NSString *)remoteHost;
 - (BOOL)secure;
 
 @end

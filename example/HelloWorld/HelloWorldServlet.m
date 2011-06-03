@@ -56,8 +56,11 @@
 	[outputStream writeString:[request queryString] encoding:NSISOLatin1StringEncoding];
     [outputStream writeString:@"\n\n====== Cookies ======\n" encoding:NSISOLatin1StringEncoding];
 	[outputStream writeString:[[request cookies] description] encoding:NSISOLatin1StringEncoding];
-    
-    
+    [outputStream writeString:@"\n\n====== Remote Host ======\n" encoding:NSISOLatin1StringEncoding];
+    [outputStream writeString:[request remoteHost] encoding:NSISOLatin1StringEncoding];
+    [outputStream writeString:@"\n\n====== Remote Address ======\n" encoding:NSISOLatin1StringEncoding];
+    [outputStream writeString:[request remoteAddr] encoding:NSISOLatin1StringEncoding];
+
 }
 
 @end
