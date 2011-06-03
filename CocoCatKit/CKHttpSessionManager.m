@@ -32,7 +32,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
     sessionIdentifier = [aSessionIdentifier retain];
     sessions = [[NSMutableDictionary alloc] init];
     maxInactiveInterval = aMaxInactiveInterval;
-    cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
+    cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:(aMaxInactiveInterval < 60.0 ? aMaxInactiveInterval : 60.0) target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
         
     return self;
 }
