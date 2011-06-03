@@ -28,7 +28,7 @@
                        sessionManager:aSessionManager];
     secure = isSecure;
     
-    [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
+    [aSocket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:CKHTTP_PACKET_HEADER];
 
 	return self;
 }
@@ -43,7 +43,7 @@
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
 {	
     switch (tag) {
-		case HTTP_PACKET_HEADER: {
+		case CKHTTP_PACKET_HEADER: {
             [currentRequest release];
 
             currentRequest = [[CKHttpRequest alloc] initWithData:data secure:secure remoteAddr:[sock connectedHost]];
@@ -60,7 +60,7 @@
             }
             break;
         }
-        case HTTP_PACKET_PARAMS:
+        case CKHTTP_PACKET_PARAMS:
             [currentRequest setParameterData:data];
             [self processRequest:currentRequest];
             break;
@@ -71,7 +71,7 @@
 
 - (void)sendData:(NSData *)data
 {
-    [socket writeData:data withTimeout:-1 tag:HTTP_SEND_DATA];
+    [socket writeData:data withTimeout:-1 tag:CKHTTP_SEND_DATA];
 }
 
 - (void)readParameterDataWithLength:(unsigned int)length
@@ -80,7 +80,7 @@
                  withTimeout:-1
                       buffer:nil
                 bufferOffset:0
-                         tag:HTTP_PACKET_PARAMS];    
+                         tag:CKHTTP_PACKET_PARAMS];    
 }
 
 //processing http request
@@ -104,7 +104,7 @@
         [self close];
     }
     else {
-        [socket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:HTTP_PACKET_HEADER];
+        [socket readDataToData:[[self class] headerSeparatorData] withTimeout:-1 tag:CKHTTP_PACKET_HEADER];
     }
 }
 

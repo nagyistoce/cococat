@@ -333,21 +333,21 @@
 - (NSString *)method
 {
 	switch (method) {
-		case AJP13_HTTPMETHOD_OPTIONS:
+		case CKAJP13_HTTPMETHOD_OPTIONS:
 			return @"OPTIONS";
-		case AJP13_HTTPMETHOD_GET:
+		case CKAJP13_HTTPMETHOD_GET:
 			return @"GET";
-		case AJP13_HTTPMETHOD_HEAD:
+		case CKAJP13_HTTPMETHOD_HEAD:
 			return @"HEAD";		
-		case AJP13_HTTPMETHOD_POST:
+		case CKAJP13_HTTPMETHOD_POST:
 			return @"POST";
-		case AJP13_HTTPMETHOD_PUT:
+		case CKAJP13_HTTPMETHOD_PUT:
 			return @"PUT";		
-		case AJP13_HTTPMETHOD_DELETE:
+		case CKAJP13_HTTPMETHOD_DELETE:
 			return @"DELETE";		
-		case AJP13_HTTPMETHOD_TRACE:
+		case CKAJP13_HTTPMETHOD_TRACE:
 			return @"TRACE";		
-		case AJP13_HTTPMETHOD_PROPFIND:
+		case CKAJP13_HTTPMETHOD_PROPFIND:
 			return @"PROPFIND";
 		default:
 			return nil;

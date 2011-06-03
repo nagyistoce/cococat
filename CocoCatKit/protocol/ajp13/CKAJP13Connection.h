@@ -10,20 +10,20 @@
 #import "../CKServletConnection.h"
 
 //receiving messages from http server
-#define AJP_PACKET_HEADER	0
-#define AJP_FORWARD_REQUEST 2
-#define AJP_SHUTDOWN		7
-#define AJP_PING			8
-#define AJP_CPING			10
-#define AJP_DATA			-1
+#define CKAJP_PACKET_HEADER     0
+#define CKAJP_FORWARD_REQUEST   2
+#define CKAJP_SHUTDOWN          7
+#define CKAJP_PING              8
+#define CKAJP_CPING             10
+#define CKAJP_DATA              -1
 
 //sending messages to http server
-#define AJP_WRITE_PACKET_HEADER		255
-#define AJP_SEND_BODY_CHUNK			3
-#define AJP_SEND_HEADER				4
-#define AJP_END_RESPONSE			5
-#define AJP_GET_BODY_CHUNK			6
-#define AJP_GET_PARAM_BODY_CHUNK	7
+#define CKAJP_WRITE_PACKET_HEADER		255
+#define CKAJP_SEND_BODY_CHUNK			3
+#define CKAJP_SEND_HEADER				4
+#define CKAJP_END_RESPONSE              5
+#define CKAJP_GET_BODY_CHUNK			6
+#define CKAJP_GET_PARAM_BODY_CHUNK      7
 
 @class CKAJP13ForwardRequest;
 @protocol CKHttpDefaultPageManagers;

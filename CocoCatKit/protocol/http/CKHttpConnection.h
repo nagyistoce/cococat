@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "../CKServletConnection.h"
 
-#define HTTP_PACKET_HEADER	0
-#define HTTP_PACKET_PARAMS	1
+#define CKHTTP_PACKET_HEADER	0
+#define CKHTTP_PACKET_PARAMS	1
 
-#define HTTP_SEND_DATA	2
+#define CKHTTP_SEND_DATA        2
 
-@class CKHttpRequest;
 @protocol CKHttpDefaultPageManagers;
+@class CKHttpRequest;
 @class CKHttpSessionManager;
 
 @interface CKHttpConnection : CKServletConnection {

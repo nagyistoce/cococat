@@ -10,11 +10,10 @@
 
 #define CKServletConnectionDidDieNotification  @"ServletConnectionDidDie"
 
+@protocol CKHttpDefaultPageManagers;
 @class GCDAsyncSocket;
 @class CKHttpServletManager;
-@protocol CKHttpDefaultPageManagers;
 @class CKHttpSessionManager;
-
 
 @interface CKServletConnection : NSObject {
 	GCDAsyncSocket					*socket;

@@ -28,12 +28,12 @@
 
 - (void)writePacketHeader:(unsigned int)length
 {
-	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:AJP_WRITE_PACKET_HEADER];
+	[socket writeData:[NSData dataWithBytes:"AB" length:2] withTimeout:-1 tag:CKAJP_WRITE_PACKET_HEADER];
 	NSMutableData	*lengthData = [NSMutableData data];
     
 	[self addInteger:length data:lengthData];
 	
-	[socket writeData:lengthData withTimeout:-1 tag:AJP_WRITE_PACKET_HEADER];
+	[socket writeData:lengthData withTimeout:-1 tag:CKAJP_WRITE_PACKET_HEADER];
 }
 
 - (void)addInteger:(unsigned int)integer data:(NSMutableData *)data
@@ -106,7 +106,7 @@
 {
 	static NSData *identifier = nil;
 	if (identifier == nil) {
-		unsigned char i = AJP_SEND_BODY_CHUNK;
+		unsigned char i = CKAJP_SEND_BODY_CHUNK;
 		identifier = [[NSData alloc] initWithBytes:&i length:1];
 	}
 	
@@ -131,7 +131,7 @@
     
     [aSocket readDataToLength:5
 			   withTimeout:-1
-					   tag:AJP_PACKET_HEADER];
+					   tag:CKAJP_PACKET_HEADER];
 	return self;
 }
 
@@ -139,6 +139,7 @@
 {	
 	[currentRequest release];
     [mountPath release];
+    
 	[super dealloc];
 }
 
@@ -148,7 +149,7 @@
 	NSUInteger length = [data length];
 	
 	switch (tag) {
-		case AJP_PACKET_HEADER:
+		case CKAJP_PACKET_HEADER:
 			if ([data length] != 5) {
 				NSLog(@"packet header length [%lu] must be 5", length);
 				[self close];
@@ -164,10 +165,10 @@
 			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
 			
 			switch (bytes[4]) {
-				case AJP_FORWARD_REQUEST:
+				case CKAJP_FORWARD_REQUEST:
 					[socket readDataToLength:currentPacketLenght -1
 								 withTimeout:-1
-										 tag:AJP_FORWARD_REQUEST];
+										 tag:CKAJP_FORWARD_REQUEST];
 					break;
 				default:
 					NSLog(@"unknown data code %x", bytes[4]);
@@ -176,7 +177,7 @@
 			}
 			
 			break;
-		case AJP_FORWARD_REQUEST: {
+		case CKAJP_FORWARD_REQUEST: {
 			[currentRequest release];
 			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data mountPath:mountPath];
 			if (currentRequest == nil) {
@@ -190,7 +191,7 @@
             }
 			break;
 		}
-		case AJP_GET_PARAM_BODY_CHUNK: {
+		case CKAJP_GET_PARAM_BODY_CHUNK: {
 			if (length < 4) {
 				NSLog(@"packet header length [%lu] must be 4", length);
 				[self close];
@@ -232,7 +233,7 @@
 	unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
 	[socket readDataToLength:contentLength + 6
 				 withTimeout:-1
-						 tag:AJP_GET_PARAM_BODY_CHUNK];
+						 tag:CKAJP_GET_PARAM_BODY_CHUNK];
 }
 
 //processing ajp request
@@ -255,7 +256,7 @@
         [self close];
     }
     else {
-        [socket readDataToLength:5 withTimeout:-1 tag:AJP_PACKET_HEADER];   
+        [socket readDataToLength:5 withTimeout:-1 tag:CKAJP_PACKET_HEADER];   
     }
 }
 
@@ -266,7 +267,7 @@
                          cookies:(NSArray *)cookies
 {
 	NSMutableData	*data = [NSMutableData data];
-	unsigned char prefixCode = AJP_SEND_HEADER;
+	unsigned char prefixCode = CKAJP_SEND_HEADER;
 	[data appendBytes:&prefixCode length:1];
 	[self addInteger:status data:data];
 	[self addString:message data:data];
@@ -298,7 +299,7 @@
         [self addString:cookieEntry data:data];
     }
 	[self writePacketHeader:[data length]];
-	[socket writeData:data withTimeout:-1 tag:AJP_SEND_HEADER];
+	[socket writeData:data withTimeout:-1 tag:CKAJP_SEND_HEADER];
 
 }
 
@@ -310,10 +311,10 @@
 	[self addInteger:length  data:lengthData];
 
 	[self writePacketHeader:length + 4];
-	[socket writeData:[[self class] sendBodyChunckIdentifierData] withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
-	[socket writeData:lengthData withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
-	[socket writeData:chunk withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
-	[socket writeData:[NSData dataWithBytes:"\x00" length:1] withTimeout:-1 tag:AJP_SEND_BODY_CHUNK];
+	[socket writeData:[[self class] sendBodyChunckIdentifierData] withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
+	[socket writeData:lengthData withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
+	[socket writeData:chunk withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
+	[socket writeData:[NSData dataWithBytes:"\x00" length:1] withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
 }
 
 - (void)sendEndResponse:(BOOL)reuse
@@ -321,10 +322,10 @@
 	[self writePacketHeader:2];
 
 	if(reuse == YES) {
-		[socket writeData:[NSData dataWithBytes:"\x05\x01" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
+		[socket writeData:[NSData dataWithBytes:"\x05\x01" length:2] withTimeout:-1 tag:CKAJP_END_RESPONSE];
 	}
 	else {
-		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:AJP_END_RESPONSE];
+		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:CKAJP_END_RESPONSE];
 	}
 }
 	   

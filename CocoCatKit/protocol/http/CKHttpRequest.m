@@ -112,6 +112,7 @@
     [queryString release];
     [remoteAddr release];
     [remoteHost release];	
+    
 	[super dealloc];
 }
 

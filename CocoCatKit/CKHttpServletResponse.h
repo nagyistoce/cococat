@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/CKServletResponse.h>
 
-@class CKHttpServletOutputStream;
 @protocol CKServletResponseMessage;
+@class CKHttpServletOutputStream;
 @class CKCookie;
 
 @interface CKHttpServletResponse : NSObject <CKServletResponse> {

@@ -48,17 +48,17 @@
 + (NSString *)defaultTextForCode:(unsigned int)code
 {
 	switch(code) {
-		case HTTP_RESPONSE_OK:
+		case CKHTTP_RESPONSE_OK:
 			return @"OK";
-		case HTTP_RESPONSE_NOT_FOUND:
+		case CKHTTP_RESPONSE_NOT_FOUND:
 			return @"Not Found";
-        case HTTP_RESPONSE_FOUND:
+        case CKHTTP_RESPONSE_FOUND:
 			return @"Found";
-		case HTTP_RESPONSE_METHOD_NOT_ALLOWED:
+		case CKHTTP_RESPONSE_METHOD_NOT_ALLOWED:
 			return @"Method Not Allowed";
-		case HTTP_RESPONSE_NOT_IMPLEMENTED:
+		case CKHTTP_RESPONSE_NOT_IMPLEMENTED:
 			return @"Not Implemented";
-        case HTTP_RESPONSE_INTERNAL_SERVER_ERROR:
+        case CKHTTP_RESPONSE_INTERNAL_SERVER_ERROR:
 			return @"Internal Server Error";
 	}
 	return @"Unknown";

@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/CKHttpDefaultPageManagers.h>
 
-#define HTTP_RESPONSE_OK					200
-#define HTTP_RESPONSE_FOUND					302
-#define HTTP_RESPONSE_NOT_FOUND				404
-#define HTTP_RESPONSE_METHOD_NOT_ALLOWED	405
-#define HTTP_RESPONSE_INTERNAL_SERVER_ERROR 500
-#define HTTP_RESPONSE_NOT_IMPLEMENTED		501
+#define CKHTTP_RESPONSE_OK                      200
+#define CKHTTP_RESPONSE_FOUND					302
+#define CKHTTP_RESPONSE_NOT_FOUND				404
+#define CKHTTP_RESPONSE_METHOD_NOT_ALLOWED      405
+#define CKHTTP_RESPONSE_INTERNAL_SERVER_ERROR   500
+#define CKHTTP_RESPONSE_NOT_IMPLEMENTED         501
 
 @interface CKHttpDefaultPageManager : NSObject <CKHttpDefaultPageManagers> {
 

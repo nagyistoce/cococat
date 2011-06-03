@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "../CKServletResponseMessage.h"
 
-@class CKHttpConnection;
 @protocol CKHttpDefaultPageManagers;
+@class CKHttpConnection;
 
 @interface CKHttpResponse : NSObject <CKServletResponseMessage> {
 	CKHttpConnection	*connection;

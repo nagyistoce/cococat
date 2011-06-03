@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol CKHttpDefaultPageManagers;
 @class CKHttpServletManager;
 @class GCDAsyncSocket;
 @class CKServletConnection;
 @class CKHttpSessionManager;
-@protocol CKHttpDefaultPageManagers;
 
 @interface CKServletServer : NSObject 
 {
