@@ -243,7 +243,7 @@
     /*if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 	 keepAlive = YES;
 	 }*/	
-    CKAJP13Response	*ajpResponse = [[CKAJP13Response alloc] initWithConnection:self];
+    CKAJP13Response	*ajpResponse = [[[CKAJP13Response alloc] initWithConnection:self] autorelease];
 	
 	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request 
 													response:ajpResponse 
