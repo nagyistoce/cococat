@@ -71,6 +71,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
         NSComparisonResult  result = [invalidDate compare:[NSDate date]];
         if (result == NSOrderedAscending) {
             [sessions removeObjectForKey:sessionId];
+            [session invalidate];
             [session release];
             session = nil;
         }
