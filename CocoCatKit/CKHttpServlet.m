@@ -61,7 +61,22 @@
 	else if ([upperMethod isEqualToString:@"POST"] == YES) {
 		[self doPost:request response:response];
 	}
-	else {
+	else if ([upperMethod isEqualToString:@"HEAD"] == YES) {
+		[self doHead:request response:response];
+	}	
+	else if ([upperMethod isEqualToString:@"TRACE"] == YES) {
+		[self doTrace:request response:response];
+	}
+    else if ([upperMethod isEqualToString:@"OPTIONS"] == YES) {
+		[self doOptions:request response:response];
+	}
+    else if ([upperMethod isEqualToString:@"PUT"] == YES) {
+		[self doPut:request response:response];
+	}
+    else if ([upperMethod isEqualToString:@"DELETE"] == YES) {
+		[self doDelete:request response:response];
+	}
+    else {
 		[response sendError:405];
 	}
 }
