@@ -14,6 +14,7 @@
     NSDate              *creationTime;
     NSDate              *lastAccessedTime;
     NSMutableDictionary *attributes;
+    BOOL                invalid;
 }
 
 - initWithSessionId:(NSString *)aSessionId maxInactiveInterval:(NSTimeInterval)interval;
@@ -28,5 +29,7 @@
 - (void)setAttribute:(id)attribute forName:(NSString *)name;
 - (id)attributeForName:(NSString *)name;
 - (void)removeAttributeForName:(NSString *)name;
+
+- (void)invalidate;
 
 @end

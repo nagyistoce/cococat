@@ -6,10 +6,10 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import "HttpRequest.h"
-#import "../../Cookie.h"
+#import "CKHttpRequest.h"
+#import "../../CKCookie.h"
 
-@implementation HttpRequest
+@implementation CKHttpRequest
 
 - initWithData:(NSData *)someData secure:(BOOL)isSecure
 {
@@ -87,11 +87,11 @@
         if (range.location != NSNotFound) {
             NSString *name = [cookieString substringToIndex:range.location];
             NSString *value = [cookieString substringFromIndex:range.location + 1];
-            Cookie  *cookie = [[[Cookie alloc] initWithName:name withValue:value] autorelease];
+            CKCookie  *cookie = [[[CKCookie alloc] initWithName:name withValue:value] autorelease];
             [cookies addObject:cookie];
         }
         else {
-            Cookie  *cookie = [[[Cookie alloc] initWithName:cookieString withValue:@""] autorelease];
+            CKCookie  *cookie = [[[CKCookie alloc] initWithName:cookieString withValue:@""] autorelease];
             [cookies addObject:cookie];
         }
     }

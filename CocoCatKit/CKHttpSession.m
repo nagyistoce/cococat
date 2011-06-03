@@ -16,6 +16,11 @@
     lastAccessedTime = [aDate retain];
 }
 
+- (BOOL)isInvalid
+{
+    return invalid;
+}
+
 @end
 
 @implementation CKHttpSession
@@ -83,6 +88,13 @@
 - (void)removeAttributeForName:(NSString *)name
 {
     [attributes removeObjectForKey:name];
+}
+
+- (void)invalidate
+{
+    invalid = YES;
+    [attributes release];
+    attributes = nil;
 }
 
 @end

@@ -21,6 +21,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 @interface CKHttpSession(Private)
 
 - (void)setLastAccessedTime:(NSDate *)aDate;
+- (BOOL)isInvalid;
 
 @end
 
@@ -83,6 +84,11 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 
 - (void)releaseSession:(CKHttpSession *)session
 {
+    if ([session isInvalid] == YES) {
+        @synchronized (sessions) {
+            [sessions removeObjectForKey:[session sessionId]];
+        }
+    }
     [session release];
 }
 
@@ -123,6 +129,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
             NSComparisonResult  result = [invalidDate compare:[NSDate date]];
             
             if (result == NSOrderedAscending) {
+                [session invalidate];
                 [sessions removeObjectForKey:sessionId];
             }
         }
