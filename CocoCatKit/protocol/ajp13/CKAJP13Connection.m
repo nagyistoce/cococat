@@ -10,7 +10,11 @@
 #import "CKAJP13ForwardRequest.h"
 #import "CKAJP13Response.h"
 #import "CKServletRequestDispatcher.h"
+#if CK_USEGCD==1
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#else
+#import "../../Vendor/CocoaAsyncSocket/AsyncSocket.h"
+#endif
 #import "CKHttpSessionManager.h"
 #import "../../CKCookie.h"
 
@@ -117,7 +121,7 @@
 
 @implementation CKAJP13Connection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
@@ -143,7 +147,7 @@
 	[super dealloc];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
+- (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag
 {
 	const unsigned char* bytes = [data bytes];
 	NSUInteger length = [data length];
@@ -240,10 +244,9 @@
 - (void)processForwardRequest:(CKAJP13ForwardRequest *)request
 {	
     BOOL keepAlive = NO;
-   //TODO fix keepAlive
-    /*if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+    if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 	 keepAlive = YES;
-	 }*/	
+    }	
     CKAJP13Response	*ajpResponse = [[[CKAJP13Response alloc] initWithConnection:self] autorelease];
 	
 	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request 

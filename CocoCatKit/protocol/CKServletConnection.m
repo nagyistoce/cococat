@@ -8,31 +8,40 @@
 
 #import "CKServletConnection.h"
 #import "../CKHttpServletManager.h"
+#if CK_USEGCD==1
 #import "../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#else
+#import "../Vendor/CocoaAsyncSocket/AsyncSocket.h"
+#endif
 #import "../CKHttpDefaultPageManagers.h"
 
 @implementation CKServletConnection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
 {
+#if CK_USEGCD==1    
     connectionQueue = dispatch_queue_create("ServletConnection", NULL);
-    
+#endif    
 	socket = [aSocket retain];
     servletManager = [aServletManager retain];
     sessionManager = [aSessionManager retain];
 	defaultPageManager = [aDefaultPageManager retain];
+#if CK_USEGCD==1    
 	[socket setDelegate:self delegateQueue:connectionQueue];
-    
+#else
+    [socket setDelegate:self];
+#endif
     return self;
 }
 
 - (void)dealloc
 {
+#if CK_USEGCD==1    
     dispatch_release(connectionQueue);
-	
+#endif    	
 	[socket release];
     [servletManager release];
     [sessionManager release];
@@ -48,11 +57,15 @@
 
 - (void)close
 {
-	[socket disconnect];
-  //  [socket disconnectAfterReadingAndWriting];
+    [socket setDelegate:nil];
+//#if CK_USEGCD==1    
+    [socket disconnectAfterWriting];
+//#else
+    //[socket disconnectAfterReadingAndWriting];
+//#endif
 }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+- (void)socketDidDisconnect:(CKSOCKET_CLASS *)sock withError:(NSError *)err
 {	
 	[self die];
 }

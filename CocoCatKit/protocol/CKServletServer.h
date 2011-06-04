@@ -8,16 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef CK_USEGCD
+#define CK_USEGCD 1
+#endif
+
+#ifdef CK_USEGCD
+#define CKSOCKET_CLASS GCDAsycSocket
+#else
+#define CKSOCKET_CLASS AsycSocket
+#endif
+
 @protocol CKHttpDefaultPageManagers;
 @class CKHttpServletManager;
-@class GCDAsyncSocket;
+@class CKSOCKET_CLASS;
 @class CKServletConnection;
 @class CKHttpSessionManager;
 
 @interface CKServletServer : NSObject 
 {
- 	GCDAsyncSocket					*socket;
+ 	CKSOCKET_CLASS					*socket;
+#if CK_USEGCD==1
     dispatch_queue_t				serverQueue;
+#endif
 	NSMutableArray					*connections;
     CKHttpServletManager			*servletManager;
 	id<CKHttpDefaultPageManagers>	defaultPageManager;

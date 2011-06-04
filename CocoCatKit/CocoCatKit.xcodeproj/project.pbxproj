@@ -58,6 +58,8 @@
 		217F944B138965E400D408E6 /* CKServletRequestDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9434138965E400D408E6 /* CKServletRequestDispatcher.m */; };
 		217F944C138965E400D408E6 /* CKServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9435138965E400D408E6 /* CKServletResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2197CE2F135F714900B3938F /* CocoCatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2197CE2E135F714900B3938F /* CocoCatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D193FBA41399927A00D2F4CF /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D193FBA21399927A00D2F4CF /* AsyncSocket.h */; };
+		D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +119,8 @@
 		2197CE2E135F714900B3938F /* CocoCatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoCatKit.h; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D193FBA21399927A00D2F4CF /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		D193FBA31399927A00D2F4CF /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -281,6 +285,8 @@
 		2163C267135B63F400AF6544 /* CocoaAsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
+				D193FBA21399927A00D2F4CF /* AsyncSocket.h */,
+				D193FBA31399927A00D2F4CF /* AsyncSocket.m */,
 				2163C268135B63F400AF6544 /* GCDAsyncSocket.h */,
 				2163C269135B63F400AF6544 /* GCDAsyncSocket.m */,
 			);
@@ -328,6 +334,7 @@
 				217F9449138965E400D408E6 /* CKServletRequest.h in Headers */,
 				217F944A138965E400D408E6 /* CKServletRequestDispatcher.h in Headers */,
 				217F944C138965E400D408E6 /* CKServletResponse.h in Headers */,
+				D193FBA41399927A00D2F4CF /* AsyncSocket.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +367,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CocoCatKit" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -414,6 +422,7 @@
 				217F9446138965E400D408E6 /* CKHttpSession.m in Sources */,
 				217F9448138965E400D408E6 /* CKHttpSessionManager.m in Sources */,
 				217F944B138965E400D408E6 /* CKServletRequestDispatcher.m in Sources */,
+				D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

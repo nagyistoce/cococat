@@ -7,24 +7,27 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/Foundation.h>
+#import "CKServletServer.h"
 
 #define CKServletConnectionDidDieNotification  @"ServletConnectionDidDie"
 
 @protocol CKHttpDefaultPageManagers;
-@class GCDAsyncSocket;
+@class CKSOCKET_CLASS;
 @class CKHttpServletManager;
 @class CKHttpSessionManager;
 
 @interface CKServletConnection : NSObject {
-	GCDAsyncSocket					*socket;
+	CKSOCKET_CLASS					*socket;
     CKHttpServletManager			*servletManager;
+#if CK_USEGCD==1    
 	dispatch_queue_t				connectionQueue;
+#endif
 	unsigned int					currentPacketLenght;
 	id<CKHttpDefaultPageManagers>	defaultPageManager;
     CKHttpSessionManager			*sessionManager;
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager;
@@ -34,7 +37,7 @@
 - (void)die;
 - (void)close;
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
+- (void)socketDidDisconnect:(CKSOCKET_CLASS *)sock withError:(NSError *)err;
 
 - (id<CKHttpDefaultPageManagers>)defaultPageManager;
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "../CKServletConnection.h"
+#import "../CKServletServer.h"
 
 //receiving messages from http server
 #define CKAJP_PACKET_HEADER     0
@@ -35,7 +36,7 @@
     NSString                *mountPath;
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
@@ -43,7 +44,7 @@
 
 - (void)dealloc;
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+- (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag;
 - (void)readParameterChunck;
 
 //processing ajp request

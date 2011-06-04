@@ -50,9 +50,7 @@
 	
 	do {
 		NSUInteger thisChunkSize = length - offset > chunkSize ? chunkSize : length - offset;
-		NSData* chunk = [NSData dataWithBytesNoCopy:(void*)[data bytes] + offset
-											 length:thisChunkSize
-									   freeWhenDone:NO];
+		NSData* chunk = [NSData dataWithBytes:(void*)[data bytes] + offset length:thisChunkSize];
 		offset += thisChunkSize;
 		responsePayloadSize += [chunk length];
 		[connection sendBodyChunk:chunk];

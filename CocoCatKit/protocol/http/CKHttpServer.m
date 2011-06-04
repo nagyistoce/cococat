@@ -34,9 +34,9 @@
 	[super dealloc];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+- (void)socket:(CKSOCKET_CLASS *)sock didAcceptNewSocket:(CKSOCKET_CLASS *)newSocket
 {
-	CKHttpConnection *newConnection = [[[CKHttpConnection alloc] initWithAsyncSocket:newSocket 
+    CKHttpConnection *newConnection = [[[CKHttpConnection alloc] initWithAsyncSocket:newSocket 
 																	  servletManager:servletManager 
 																  defaultPageManager:defaultPageManager
 																	  sessionManager:sessionManager

@@ -25,7 +25,7 @@
 
 - (void)dealloc;
 
-- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket;
+- (void)socket:(CKSOCKET_CLASS *)sock didAcceptNewSocket:(CKSOCKET_CLASS *)newSocket;
 
 @end
 

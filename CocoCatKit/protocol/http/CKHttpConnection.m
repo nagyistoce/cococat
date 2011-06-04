@@ -11,12 +11,16 @@
 #import "CKHttpRequest.h"
 #import "CKHttpResponse.h"
 #import "CKServletRequestDispatcher.h"
+#if CK_USEGCD==1
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
+#else
+#import "../../Vendor/CocoaAsyncSocket/AsyncSocket.h"
+#endif
 #import "CKHttpSessionManager.h"
 
 @implementation CKHttpConnection
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
@@ -40,7 +44,7 @@
     [super dealloc];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag
+- (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag
 {	
     switch (tag) {
 		case CKHTTP_PACKET_HEADER: {
@@ -50,7 +54,7 @@
 			if (currentRequest == nil) {
 				[self close];
 			}
-            
+
             if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
                 unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
                 [self readParameterDataWithLength:contentLength];
@@ -58,6 +62,7 @@
             else {
                 [self processRequest:currentRequest];
             }
+
             break;
         }
         case CKHTTP_PACKET_PARAMS:
@@ -89,16 +94,15 @@
     CKHttpResponse	*httpResponse = [[[CKHttpResponse alloc] initWithConnection:self] autorelease];
 
     BOOL keepAlive = NO;
-    //TODO fix keepAlive
-	/*if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
+	if ([[[request header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES) {
 		keepAlive = YES;
-	}*/	
+	}	
     
 	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request 
 													response:httpResponse 
 											  servletManager:servletManager 
 											  sessionManager:sessionManager
-												   keepAlive:&keepAlive];	
+												   keepAlive:&keepAlive];	    
     
     if(keepAlive == NO) {
         [self close];

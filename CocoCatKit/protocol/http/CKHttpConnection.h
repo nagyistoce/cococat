@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "../CKServletConnection.h"
+#import "../CKServletServer.h"
+
 
 #define CKHTTP_PACKET_HEADER	0
 #define CKHTTP_PACKET_PARAMS	1
@@ -24,7 +26,7 @@
     BOOL            secure;
 }
 
-- initWithAsyncSocket:(GCDAsyncSocket *)aSocket 
+- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
     sessionManager:(CKHttpSessionManager *)aSessionManager
@@ -32,7 +34,7 @@
 
 - (void)dealloc;
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData*)data withTag:(long)tag;
+- (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag;
 
 - (void)sendData:(NSData *)data;
 - (void)readParameterDataWithLength:(unsigned int)length;

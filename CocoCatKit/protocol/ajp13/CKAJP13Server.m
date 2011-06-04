@@ -49,7 +49,7 @@
 	[super dealloc];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+- (void)socket:(CKSOCKET_CLASS *)sock didAcceptNewSocket:(CKSOCKET_CLASS *)newSocket
 {
 	CKAJP13Connection *newConnection = [[[CKAJP13Connection alloc] initWithAsyncSocket:newSocket 
 																		servletManager:servletManager 
