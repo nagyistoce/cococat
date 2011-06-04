@@ -12,12 +12,15 @@
 #ifdef WINDOWS
 #import <ws2tcpip.h>
 typedef int socklen_t; 
-typedef UInt8	Byte;
 #else
 #import <sys/socket.h>
 #import <netinet/in.h>
 #import <arpa/inet.h>
 #import <netdb.h>
+#endif
+
+#ifdef __COCOTRON__
+typedef UInt8	Byte;
 #endif
 
 #if TARGET_OS_IPHONE

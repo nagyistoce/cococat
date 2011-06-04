@@ -110,6 +110,57 @@
 		21CFD358139A508B008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD357139A508B008CD904 /* Foundation.framework */; };
 		21CFD371139A51CE008CD904 /* CKSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CFD370139A51CE008CD904 /* CKSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21CFD393139A528D008CD904 /* CKSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CFD370139A51CE008CD904 /* CKSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4BA139A67A5008CD904 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 2163C268135B63F400AF6544 /* GCDAsyncSocket.h */; };
+		21CFD4BB139A67A5008CD904 /* CocoCatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2197CE2E135F714900B3938F /* CocoCatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4BC139A67A5008CD904 /* CKAJP13Connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93C51389657A00D408E6 /* CKAJP13Connection.h */; };
+		21CFD4BD139A67A5008CD904 /* CKAJP13ForwardRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93C71389657A00D408E6 /* CKAJP13ForwardRequest.h */; };
+		21CFD4BE139A67A5008CD904 /* CKAJP13Response.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93C91389657A00D408E6 /* CKAJP13Response.h */; };
+		21CFD4BF139A67A5008CD904 /* CKAJP13Server.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93CB1389657A00D408E6 /* CKAJP13Server.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4C0139A67A5008CD904 /* CKHttpConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93D51389658800D408E6 /* CKHttpConnection.h */; };
+		21CFD4C1139A67A5008CD904 /* CKHttpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93D71389658800D408E6 /* CKHttpRequest.h */; };
+		21CFD4C2139A67A5008CD904 /* CKHttpResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93D91389658800D408E6 /* CKHttpResponse.h */; };
+		21CFD4C3139A67A5008CD904 /* CKHttpServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F93DB1389658800D408E6 /* CKHttpServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4C4139A67A5008CD904 /* CKServletConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9413138965D500D408E6 /* CKServletConnection.h */; };
+		21CFD4C5139A67A5008CD904 /* CKServletRequestMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9415138965D500D408E6 /* CKServletRequestMessage.h */; };
+		21CFD4C6139A67A5008CD904 /* CKServletResponseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9416138965D500D408E6 /* CKServletResponseMessage.h */; };
+		21CFD4C7139A67A5008CD904 /* CKServletServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9417138965D500D408E6 /* CKServletServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4C8139A67A5008CD904 /* CKCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F941F138965E400D408E6 /* CKCookie.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4C9139A67A5008CD904 /* CKHttpDefaultPageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9421138965E400D408E6 /* CKHttpDefaultPageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CA139A67A5008CD904 /* CKHttpDefaultPageManagers.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9423138965E400D408E6 /* CKHttpDefaultPageManagers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CB139A67A5008CD904 /* CKHttpServlet.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9424138965E400D408E6 /* CKHttpServlet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CC139A67A5008CD904 /* CKHttpServletManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9426138965E400D408E6 /* CKHttpServletManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CD139A67A5008CD904 /* CKHttpServletOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9428138965E400D408E6 /* CKHttpServletOutputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CE139A67A5008CD904 /* CKHttpServletRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F942A138965E400D408E6 /* CKHttpServletRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4CF139A67A5008CD904 /* CKHttpServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F942C138965E400D408E6 /* CKHttpServletResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4D0139A67A5008CD904 /* CKHttpSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F942E138965E400D408E6 /* CKHttpSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4D1139A67A5008CD904 /* CKHttpSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9430138965E400D408E6 /* CKHttpSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4D2139A67A5008CD904 /* CKServletRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9432138965E400D408E6 /* CKServletRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4D3139A67A5008CD904 /* CKServletRequestDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9433138965E400D408E6 /* CKServletRequestDispatcher.h */; };
+		21CFD4D4139A67A5008CD904 /* CKServletResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 217F9435138965E400D408E6 /* CKServletResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4D5139A67A5008CD904 /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D193FBA21399927A00D2F4CF /* AsyncSocket.h */; };
+		21CFD4D6139A67A5008CD904 /* CKSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CFD370139A51CE008CD904 /* CKSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CFD4DA139A67A5008CD904 /* CKAJP13Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93C61389657A00D408E6 /* CKAJP13Connection.m */; };
+		21CFD4DB139A67A5008CD904 /* CKAJP13ForwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93C81389657A00D408E6 /* CKAJP13ForwardRequest.m */; };
+		21CFD4DC139A67A5008CD904 /* CKAJP13Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93CA1389657A00D408E6 /* CKAJP13Response.m */; };
+		21CFD4DD139A67A5008CD904 /* CKAJP13Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93CC1389657A00D408E6 /* CKAJP13Server.m */; };
+		21CFD4DE139A67A5008CD904 /* CKHttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93D61389658800D408E6 /* CKHttpConnection.m */; };
+		21CFD4DF139A67A5008CD904 /* CKHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93D81389658800D408E6 /* CKHttpRequest.m */; };
+		21CFD4E0139A67A5008CD904 /* CKHttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93DA1389658800D408E6 /* CKHttpResponse.m */; };
+		21CFD4E1139A67A5008CD904 /* CKHttpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F93DC1389658800D408E6 /* CKHttpServer.m */; };
+		21CFD4E2139A67A5008CD904 /* CKServletConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9414138965D500D408E6 /* CKServletConnection.m */; };
+		21CFD4E3139A67A5008CD904 /* CKServletServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9418138965D500D408E6 /* CKServletServer.m */; };
+		21CFD4E4139A67A5008CD904 /* CKCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9420138965E400D408E6 /* CKCookie.m */; };
+		21CFD4E5139A67A5008CD904 /* CKHttpDefaultPageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9422138965E400D408E6 /* CKHttpDefaultPageManager.m */; };
+		21CFD4E6139A67A5008CD904 /* CKHttpServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9425138965E400D408E6 /* CKHttpServlet.m */; };
+		21CFD4E7139A67A5008CD904 /* CKHttpServletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9427138965E400D408E6 /* CKHttpServletManager.m */; };
+		21CFD4E8139A67A5008CD904 /* CKHttpServletOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9429138965E400D408E6 /* CKHttpServletOutputStream.m */; };
+		21CFD4E9139A67A5008CD904 /* CKHttpServletRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F942B138965E400D408E6 /* CKHttpServletRequest.m */; };
+		21CFD4EA139A67A5008CD904 /* CKHttpServletResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F942D138965E400D408E6 /* CKHttpServletResponse.m */; };
+		21CFD4EB139A67A5008CD904 /* CKHttpSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F942F138965E400D408E6 /* CKHttpSession.m */; };
+		21CFD4EC139A67A5008CD904 /* CKHttpSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9431138965E400D408E6 /* CKHttpSessionManager.m */; };
+		21CFD4ED139A67A5008CD904 /* CKServletRequestDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9434138965E400D408E6 /* CKServletRequestDispatcher.m */; };
+		21CFD4EE139A67A5008CD904 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
+		21CFD4F9139A681E008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD4F8139A681E008CD904 /* Foundation.framework */; };
 		D193FBA41399927A00D2F4CF /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D193FBA21399927A00D2F4CF /* AsyncSocket.h */; };
 		D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 /* End PBXBuildFile section */
@@ -191,6 +242,8 @@
 		21BE7FE8139A4D3800301793 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CFD357139A508B008CD904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Cocotron/1.0/Windows/i386/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		21CFD370139A51CE008CD904 /* CKSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSocket.h; sourceTree = "<group>"; };
+		21CFD4F6139A67A5008CD904 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CFD4F8139A681E008CD904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Cocotron/1.0/Darwin/i386/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D193FBA21399927A00D2F4CF /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
@@ -204,6 +257,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				21CFD358139A508B008CD904 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD4EF139A67A5008CD904 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD4F9139A681E008CD904 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +286,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */,
 				21BE7FE8139A4D3800301793 /* CocoCatKit.framework */,
+				21CFD4F6139A67A5008CD904 /* CocoCatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,6 +303,7 @@
 				2163C23E135B638800AF6544 /* Foundation.framework */,
 				2163C242135B638D00AF6544 /* Security.framework */,
 				21CFD357139A508B008CD904 /* Foundation.framework */,
+				21CFD4F8139A681E008CD904 /* Foundation.framework */,
 			);
 			name = HttpServlet;
 			sourceTree = "<group>";
@@ -424,6 +487,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21CFD4B9139A67A5008CD904 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD4BA139A67A5008CD904 /* GCDAsyncSocket.h in Headers */,
+				21CFD4BB139A67A5008CD904 /* CocoCatKit.h in Headers */,
+				21CFD4BC139A67A5008CD904 /* CKAJP13Connection.h in Headers */,
+				21CFD4BD139A67A5008CD904 /* CKAJP13ForwardRequest.h in Headers */,
+				21CFD4BE139A67A5008CD904 /* CKAJP13Response.h in Headers */,
+				21CFD4BF139A67A5008CD904 /* CKAJP13Server.h in Headers */,
+				21CFD4C0139A67A5008CD904 /* CKHttpConnection.h in Headers */,
+				21CFD4C1139A67A5008CD904 /* CKHttpRequest.h in Headers */,
+				21CFD4C2139A67A5008CD904 /* CKHttpResponse.h in Headers */,
+				21CFD4C3139A67A5008CD904 /* CKHttpServer.h in Headers */,
+				21CFD4C4139A67A5008CD904 /* CKServletConnection.h in Headers */,
+				21CFD4C5139A67A5008CD904 /* CKServletRequestMessage.h in Headers */,
+				21CFD4C6139A67A5008CD904 /* CKServletResponseMessage.h in Headers */,
+				21CFD4C7139A67A5008CD904 /* CKServletServer.h in Headers */,
+				21CFD4C8139A67A5008CD904 /* CKCookie.h in Headers */,
+				21CFD4C9139A67A5008CD904 /* CKHttpDefaultPageManager.h in Headers */,
+				21CFD4CA139A67A5008CD904 /* CKHttpDefaultPageManagers.h in Headers */,
+				21CFD4CB139A67A5008CD904 /* CKHttpServlet.h in Headers */,
+				21CFD4CC139A67A5008CD904 /* CKHttpServletManager.h in Headers */,
+				21CFD4CD139A67A5008CD904 /* CKHttpServletOutputStream.h in Headers */,
+				21CFD4CE139A67A5008CD904 /* CKHttpServletRequest.h in Headers */,
+				21CFD4CF139A67A5008CD904 /* CKHttpServletResponse.h in Headers */,
+				21CFD4D0139A67A5008CD904 /* CKHttpSession.h in Headers */,
+				21CFD4D1139A67A5008CD904 /* CKHttpSessionManager.h in Headers */,
+				21CFD4D2139A67A5008CD904 /* CKServletRequest.h in Headers */,
+				21CFD4D3139A67A5008CD904 /* CKServletRequestDispatcher.h in Headers */,
+				21CFD4D4139A67A5008CD904 /* CKServletResponse.h in Headers */,
+				21CFD4D5139A67A5008CD904 /* AsyncSocket.h in Headers */,
+				21CFD4D6139A67A5008CD904 /* CKSocket.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF500486A6940098B216 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,6 +583,25 @@
 			productReference = 21BE7FE8139A4D3800301793 /* CocoCatKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		21CFD4B8139A67A5008CD904 /* CocoCatKit (Darwin i386) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21CFD4F3139A67A5008CD904 /* Build configuration list for PBXNativeTarget "CocoCatKit (Darwin i386)" */;
+			buildPhases = (
+				21CFD4B9139A67A5008CD904 /* Headers */,
+				21CFD4D7139A67A5008CD904 /* Resources */,
+				21CFD4D8139A67A5008CD904 /* Sources */,
+				21CFD4EF139A67A5008CD904 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CocoCatKit (Darwin i386)";
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = HttpServlet;
+			productReference = 21CFD4F6139A67A5008CD904 /* CocoCatKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS x86_64) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CocoCatKit (MacOS x86_64)" */;
@@ -525,6 +643,7 @@
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* CocoCatKit (MacOS x86_64) */,
+				21CFD4B8139A67A5008CD904 /* CocoCatKit (Darwin i386) */,
 				21BE7FAB139A4D3800301793 /* CocoCatKit (Windows i386) */,
 			);
 		};
@@ -532,6 +651,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		21BE7FC9139A4D3800301793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD4D7139A67A5008CD904 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -573,6 +699,34 @@
 				21BE7FDE139A4D3800301793 /* CKHttpSessionManager.m in Sources */,
 				21BE7FDF139A4D3800301793 /* CKServletRequestDispatcher.m in Sources */,
 				21BE7FE0139A4D3800301793 /* AsyncSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD4D8139A67A5008CD904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD4DA139A67A5008CD904 /* CKAJP13Connection.m in Sources */,
+				21CFD4DB139A67A5008CD904 /* CKAJP13ForwardRequest.m in Sources */,
+				21CFD4DC139A67A5008CD904 /* CKAJP13Response.m in Sources */,
+				21CFD4DD139A67A5008CD904 /* CKAJP13Server.m in Sources */,
+				21CFD4DE139A67A5008CD904 /* CKHttpConnection.m in Sources */,
+				21CFD4DF139A67A5008CD904 /* CKHttpRequest.m in Sources */,
+				21CFD4E0139A67A5008CD904 /* CKHttpResponse.m in Sources */,
+				21CFD4E1139A67A5008CD904 /* CKHttpServer.m in Sources */,
+				21CFD4E2139A67A5008CD904 /* CKServletConnection.m in Sources */,
+				21CFD4E3139A67A5008CD904 /* CKServletServer.m in Sources */,
+				21CFD4E4139A67A5008CD904 /* CKCookie.m in Sources */,
+				21CFD4E5139A67A5008CD904 /* CKHttpDefaultPageManager.m in Sources */,
+				21CFD4E6139A67A5008CD904 /* CKHttpServlet.m in Sources */,
+				21CFD4E7139A67A5008CD904 /* CKHttpServletManager.m in Sources */,
+				21CFD4E8139A67A5008CD904 /* CKHttpServletOutputStream.m in Sources */,
+				21CFD4E9139A67A5008CD904 /* CKHttpServletRequest.m in Sources */,
+				21CFD4EA139A67A5008CD904 /* CKHttpServletResponse.m in Sources */,
+				21CFD4EB139A67A5008CD904 /* CKHttpSession.m in Sources */,
+				21CFD4EC139A67A5008CD904 /* CKHttpSessionManager.m in Sources */,
+				21CFD4ED139A67A5008CD904 /* CKServletRequestDispatcher.m in Sources */,
+				21CFD4EE139A67A5008CD904 /* AsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,6 +919,69 @@
 			};
 			name = Release;
 		};
+		21CFD4F4139A67A5008CD904 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Darwin/i386/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_MODE_FLAG = "og-w,a+rX";
+				INSTALL_PATH = /Developer/CocoCat/1.0/Darwin/i386/Frameworks;
+				OTHER_CFLAGS = "-D__COCOTRON__";
+				PRODUCT_NAME = CocoCatKit;
+				SDKROOT = "";
+				SYMROOT = build/Darwin/i386;
+				VALID_ARCHS = i386;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		21CFD4F5139A67A5008CD904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Darwin/i386/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_MODE_FLAG = "og-w,a+rX";
+				INSTALL_PATH = /Developer/CocoCat/1.0/Darwin/i386/Frameworks;
+				OTHER_CFLAGS = "-D__COCOTRON__";
+				PRODUCT_NAME = CocoCatKit;
+				SDKROOT = "";
+				SYMROOT = build/Darwin/i386;
+				VALID_ARCHS = i386;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -791,6 +1008,15 @@
 			buildConfigurations = (
 				21BE7FE6139A4D3800301793 /* Debug */,
 				21BE7FE7139A4D3800301793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21CFD4F3139A67A5008CD904 /* Build configuration list for PBXNativeTarget "CocoCatKit (Darwin i386)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21CFD4F4139A67A5008CD904 /* Debug */,
+				21CFD4F5139A67A5008CD904 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

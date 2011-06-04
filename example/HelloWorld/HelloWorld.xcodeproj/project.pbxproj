@@ -12,6 +12,10 @@
 		21CFD429139A5E16008CD904 /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
 		21CFD435139A5E72008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD434139A5E72008CD904 /* Foundation.framework */; };
 		21CFD437139A5E84008CD904 /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD436139A5E84008CD904 /* CocoCatKit.framework */; };
+		21CFD50A139A68B1008CD904 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		21CFD50B139A68B1008CD904 /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
+		21CFD515139A68E4008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD514139A68E4008CD904 /* Foundation.framework */; };
+		21CFD517139A68F3008CD904 /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD516139A68F3008CD904 /* CocoCatKit.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		C6FBC505135ED43C00ABB4EF /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
 		C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */; };
@@ -24,6 +28,9 @@
 		21CFD430139A5E16008CD904 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CFD434139A5E72008CD904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Cocotron/1.0/Windows/i386/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		21CFD436139A5E84008CD904 /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/Windows/i386/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
+		21CFD512139A68B1008CD904 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CFD514139A68E4008CD904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Cocotron/1.0/Darwin/i386/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		21CFD516139A68F3008CD904 /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/Darwin/i386/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -40,6 +47,15 @@
 			files = (
 				21CFD435139A5E72008CD904 /* Foundation.framework in Frameworks */,
 				21CFD437139A5E84008CD904 /* CocoCatKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD50C139A68B1008CD904 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD515139A68E4008CD904 /* Foundation.framework in Frameworks */,
+				21CFD517139A68F3008CD904 /* CocoCatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +103,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* HelloWorld.app */,
 				21CFD430139A5E16008CD904 /* HelloWorld.app */,
+				21CFD512139A68B1008CD904 /* HelloWorld.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +120,8 @@
 				217F95CC13896FF800D408E6 /* CocoCatKit.framework */,
 				21CFD434139A5E72008CD904 /* Foundation.framework */,
 				21CFD436139A5E84008CD904 /* CocoCatKit.framework */,
+				21CFD514139A68E4008CD904 /* Foundation.framework */,
+				21CFD516139A68F3008CD904 /* CocoCatKit.framework */,
 			);
 			name = HelloWorld;
 			sourceTree = "<group>";
@@ -153,6 +172,24 @@
 			productReference = 21CFD430139A5E16008CD904 /* HelloWorld.app */;
 			productType = "com.apple.product-type.application";
 		};
+		21CFD507139A68B1008CD904 /* HelloWorld (Darwin i386) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21CFD50F139A68B1008CD904 /* Build configuration list for PBXNativeTarget "HelloWorld (Darwin i386)" */;
+			buildPhases = (
+				21CFD508139A68B1008CD904 /* Resources */,
+				21CFD509139A68B1008CD904 /* Sources */,
+				21CFD50C139A68B1008CD904 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HelloWorld (Darwin i386)";
+			productInstallPath = "$(HOME)/Applications";
+			productName = HelloWorld;
+			productReference = 21CFD512139A68B1008CD904 /* HelloWorld.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* HelloWorld (MacOS x86_64) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "HelloWorld (MacOS x86_64)" */;
@@ -191,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* HelloWorld (MacOS x86_64) */,
+				21CFD507139A68B1008CD904 /* HelloWorld (Darwin i386) */,
 				21CFD425139A5E16008CD904 /* HelloWorld (Windows i386) */,
 			);
 		};
@@ -198,6 +236,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		21CFD426139A5E16008CD904 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD508139A68B1008CD904 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,6 +282,15 @@
 			files = (
 				21CFD428139A5E16008CD904 /* main.m in Sources */,
 				21CFD429139A5E16008CD904 /* HelloWorldServlet.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFD509139A68B1008CD904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD50A139A68B1008CD904 /* main.m in Sources */,
+				21CFD50B139A68B1008CD904 /* HelloWorldServlet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +353,55 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = HelloWorld;
 				SDKROOT = "";
+			};
+			name = Release;
+		};
+		21CFD510139A68B1008CD904 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Darwin/i386/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/Darwin/i386/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-D__COCOTRON__";
+				PRODUCT_NAME = HelloWorld;
+				SDKROOT = "";
+				VALID_ARCHS = i386;
+			};
+			name = Debug;
+		};
+		21CFD511139A68B1008CD904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Darwin/i386/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/Darwin/i386/Frameworks\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-D__COCOTRON__";
+				PRODUCT_NAME = HelloWorld;
+				SDKROOT = "";
+				VALID_ARCHS = i386;
 			};
 			name = Release;
 		};
@@ -377,6 +480,15 @@
 			buildConfigurations = (
 				21CFD42E139A5E16008CD904 /* Debug */,
 				21CFD42F139A5E16008CD904 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21CFD50F139A68B1008CD904 /* Build configuration list for PBXNativeTarget "HelloWorld (Darwin i386)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21CFD510139A68B1008CD904 /* Debug */,
+				21CFD511139A68B1008CD904 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
