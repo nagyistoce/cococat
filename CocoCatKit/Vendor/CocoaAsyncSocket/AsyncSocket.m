@@ -1338,6 +1338,7 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	}
 	else
 	{
+#ifndef WINDOWS
 		NSString *portStr = [NSString stringWithFormat:@"%hu", port];
         
 		struct addrinfo hints, *res, *res0;
@@ -1381,6 +1382,11 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 		}
 		
 		if(!address4 && !address6) return NO;
+#else
+		[NSException raise:AsyncSocketException
+		            format:@"Unsupported in windows."];
+
+#endif
 	}
     
 	// Create the sockets.
@@ -2466,10 +2472,13 @@ Failed:
  **/
 - (NSError *)getSocketError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketCFSocketError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"General CFSocket error", nil);
-	
+#else
+	NSString *errMsg = @"General CFSocket error";
+#endif
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
 	return [NSError errorWithDomain:AsyncSocketErrorDomain code:AsyncSocketCFSocketError userInfo:info];
@@ -2498,10 +2507,13 @@ Failed:
  **/
 - (NSError *)getAbortError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketCanceledError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"Connection canceled", nil);
-	
+#else
+	NSString *errMsg = @"Connection canceled";
+#endif	
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
 	return [NSError errorWithDomain:AsyncSocketErrorDomain code:AsyncSocketCanceledError userInfo:info];
@@ -2512,9 +2524,13 @@ Failed:
  **/
 - (NSError *)getConnectTimeoutError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketConnectTimeoutError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"Attempt to connect to host timed out", nil);
+#else
+	NSString *errMsg = @"Attempt to connect to host timed out";
+#endif	
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
@@ -2526,9 +2542,13 @@ Failed:
  **/
 - (NSError *)getReadMaxedOutError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketReadMaxedOutError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"Read operation reached set maximum length", nil);
+#else
+	NSString *errMsg = @"Read operation reached set maximum length";
+#endif	
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
@@ -2540,9 +2560,13 @@ Failed:
  **/
 - (NSError *)getReadTimeoutError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketReadTimeoutError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"Read operation timed out", nil);
+#else
+	NSString *errMsg = @"Read operation timed out";
+#endif
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
@@ -2554,9 +2578,13 @@ Failed:
  **/
 - (NSError *)getWriteTimeoutError
 {
+#ifndef __COCOTRON__
 	NSString *errMsg = NSLocalizedStringWithDefaultValue(@"AsyncSocketWriteTimeoutError",
 														 @"AsyncSocket", [NSBundle mainBundle],
 														 @"Write operation timed out", nil);
+#else
+	NSString *errMsg = @"Write operation timed out";
+#endif
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
@@ -2577,11 +2605,10 @@ Failed:
 	else if(err.domain == kCFStreamErrorDomainMacOSStatus) {
 		domain = NSOSStatusErrorDomain;
 	}
-#ifndef WINDOWS
+#ifndef __COCOTRON__
 	else if(err.domain == kCFStreamErrorDomainMach) {
 		domain = NSMachErrorDomain;
 	}
-#endif
 	else if(err.domain == kCFStreamErrorDomainNetDB)
 	{
 		domain = @"kCFStreamErrorDomainNetDB";
@@ -2599,7 +2626,7 @@ Failed:
 	else if(err.domain == kCFStreamErrorDomainSSL) {
 		domain = @"kCFStreamErrorDomainSSL";
 	}
-	
+#endif	
 	NSDictionary *info = nil;
 	if(message != nil)
 	{
@@ -3021,18 +3048,23 @@ Failed:
 
 - (NSString *)hostFromAddress4:(struct sockaddr_in *)pSockaddr4
 {
+#ifndef WINDOWS	
 	char addrBuf[INET_ADDRSTRLEN];
-	
 	if(inet_ntop(AF_INET, &pSockaddr4->sin_addr, addrBuf, (socklen_t)sizeof(addrBuf)) == NULL)
 	{
 		[NSException raise:NSInternalInconsistencyException format:@"Cannot convert IPv4 address to string."];
 	}
-	
 	return [NSString stringWithCString:addrBuf encoding:NSASCIIStringEncoding];
+#else
+	return [NSString stringWithCString:inet_ntoa(pSockaddr4->sin_addr) encoding:NSASCIIStringEncoding];
+
+#endif
+	
 }
 
 - (NSString *)hostFromAddress6:(struct sockaddr_in6 *)pSockaddr6
 {
+#ifndef WINDOWS	
 	char addrBuf[INET6_ADDRSTRLEN];
 	
 	if(inet_ntop(AF_INET6, &pSockaddr6->sin6_addr, addrBuf, (socklen_t)sizeof(addrBuf)) == NULL)
@@ -3041,6 +3073,10 @@ Failed:
 	}
 	
 	return [NSString stringWithCString:addrBuf encoding:NSASCIIStringEncoding];
+#else
+	//not supported
+	return nil;
+#endif
 }
 
 - (UInt16)portFromAddress4:(struct sockaddr_in *)pSockaddr4
@@ -3073,8 +3109,13 @@ Failed:
 		CFDataRef peeraddr = CFSocketCopyPeerAddress(theSocket);
 		
 		if (peeraddr == NULL) return nil;
-		
+#ifndef __COCOTRON__		
 		return [(NSData *)NSMakeCollectable(peeraddr) autorelease];
+#else
+		NSData	*d = [NSData dataWithData:peeraddr];
+		CFRelease(peeraddr);
+		return d;
+#endif
 	}
 	
 	// Extract address from CFSocketNativeHandle
@@ -3128,8 +3169,13 @@ Failed:
 		CFDataRef selfaddr = CFSocketCopyAddress(theSocket);
 		
 		if (selfaddr == NULL) return nil;
-		
+#ifndef __COCOTRON__		
 		return [(NSData *)NSMakeCollectable(selfaddr) autorelease];
+#else
+		NSData	*d = [NSData dataWithData:selfaddr];
+		CFRelease(selfaddr);
+		return d;
+#endif		
 	}
 	
 	// Extract address from CFSocketNativeHandle
