@@ -24,3 +24,7 @@
 - (void)doTrace:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
 
 @end
+
+//this function is only needed for windows, 
+//it makes nothing but we need it to force load the dll
+void ckCococatInit();

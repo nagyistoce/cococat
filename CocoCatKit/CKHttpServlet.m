@@ -82,3 +82,7 @@
 }
 
 @end
+
+void ckCococatInit()
+{
+}

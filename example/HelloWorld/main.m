@@ -14,7 +14,7 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
 	//only needed that the cococat dll is loaded on windows (function has no implementation)
-	ckHttpServletInit();
+	ckCococatInit();
 
 	HelloWorldServlet	*servlet = [[[HelloWorldServlet alloc] init] autorelease];
 		
