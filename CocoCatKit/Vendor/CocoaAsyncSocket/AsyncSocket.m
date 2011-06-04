@@ -9,10 +9,16 @@
 //
 
 #import "AsyncSocket.h"
+#ifdef WINDOWS
+#import <ws2tcpip.h>
+typedef int socklen_t; 
+typedef UInt8	Byte;
+#else
 #import <sys/socket.h>
 #import <netinet/in.h>
 #import <arpa/inet.h>
 #import <netdb.h>
+#endif
 
 #if TARGET_OS_IPHONE
 // Note: You may need to add the CFNetwork Framework to your project
@@ -1257,6 +1263,7 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
  * To accept on any interface, pass nil or an empty string.
  * To accept only connections from localhost pass "localhost" or "loopback".
  **/
+
 - (BOOL)acceptOnInterface:(NSString *)interface port:(UInt16)port error:(NSError **)errPtr
 {
 	if (theDelegate == NULL)
@@ -1281,14 +1288,18 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	{
 		// Accept on ANY address
 		struct sockaddr_in nativeAddr4;
+#ifndef WINDOWS
 		nativeAddr4.sin_len         = sizeof(struct sockaddr_in);
+#endif
 		nativeAddr4.sin_family      = AF_INET;
 		nativeAddr4.sin_port        = htons(port);
 		nativeAddr4.sin_addr.s_addr = htonl(INADDR_ANY);
 		memset(&(nativeAddr4.sin_zero), 0, sizeof(nativeAddr4.sin_zero));
 		
 		struct sockaddr_in6 nativeAddr6;
+#ifndef WINDOWS
 		nativeAddr6.sin6_len       = sizeof(struct sockaddr_in6);
+#endif
 		nativeAddr6.sin6_family    = AF_INET6;
 		nativeAddr6.sin6_port      = htons(port);
 		nativeAddr6.sin6_flowinfo  = 0;
@@ -1303,14 +1314,18 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	{
 		// Accept only on LOOPBACK address
 		struct sockaddr_in nativeAddr4;
+#ifndef WINDOWS
 		nativeAddr4.sin_len         = sizeof(struct sockaddr_in);
+#endif
 		nativeAddr4.sin_family      = AF_INET;
 		nativeAddr4.sin_port        = htons(port);
 		nativeAddr4.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 		memset(&(nativeAddr4.sin_zero), 0, sizeof(nativeAddr4.sin_zero));
         
 		struct sockaddr_in6 nativeAddr6;
+#ifndef WINDOWS
 		nativeAddr6.sin6_len       = sizeof(struct sockaddr_in6);
+#endif
 		nativeAddr6.sin6_family    = AF_INET6;
 		nativeAddr6.sin6_port      = htons(port);
 		nativeAddr6.sin6_flowinfo  = 0;
@@ -2562,9 +2577,11 @@ Failed:
 	else if(err.domain == kCFStreamErrorDomainMacOSStatus) {
 		domain = NSOSStatusErrorDomain;
 	}
+#ifndef WINDOWS
 	else if(err.domain == kCFStreamErrorDomainMach) {
 		domain = NSMachErrorDomain;
 	}
+#endif
 	else if(err.domain == kCFStreamErrorDomainNetDB)
 	{
 		domain = @"kCFStreamErrorDomainNetDB";

@@ -10,13 +10,13 @@
 #import "CKHttpConnection.h"
 #import "CKHttpRequest.h"
 #import "CKHttpResponse.h"
-#import "CKServletRequestDispatcher.h"
+#import "../../CKServletRequestDispatcher.h"
 #ifdef CK_USEGCD
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #else
 #import "../../Vendor/CocoaAsyncSocket/AsyncSocket.h"
 #endif
-#import "CKHttpSessionManager.h"
+#import "../../CKHttpSessionManager.h"
 
 @implementation CKHttpConnection
 

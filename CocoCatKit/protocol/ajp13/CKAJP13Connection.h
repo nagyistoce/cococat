@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "../CKServletConnection.h"
-#import "../CKServletServer.h"
+#import "../CKSocket.h"
 
 //receiving messages from http server
 #define CKAJP_PACKET_HEADER     0

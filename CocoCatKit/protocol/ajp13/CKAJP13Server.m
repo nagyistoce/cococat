@@ -8,7 +8,7 @@
 
 #import "CKAJP13Server.h"
 #import "CKAJP13Connection.h"
-#import "CKHttpServletManager.h"
+#import "../../CKHttpServletManager.h"
 
 @implementation CKAJP13Server
 

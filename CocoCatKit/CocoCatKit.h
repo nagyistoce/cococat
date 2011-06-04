@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import <CocoCatKit/CKSocket.h>
 #import <CocoCatKit/CKServletServer.h>
 #import <CocoCatKit/CKHttpServlet.h>
 #import <CocoCatKit/CKHttpServer.h>

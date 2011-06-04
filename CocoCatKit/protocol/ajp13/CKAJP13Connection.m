@@ -9,13 +9,13 @@
 #import "CKAJP13Connection.h"
 #import "CKAJP13ForwardRequest.h"
 #import "CKAJP13Response.h"
-#import "CKServletRequestDispatcher.h"
+#import "../../CKServletRequestDispatcher.h"
 #ifdef CK_USEGCD
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #else
 #import "../../Vendor/CocoaAsyncSocket/AsyncSocket.h"
 #endif
-#import "CKHttpSessionManager.h"
+#import "../../CKHttpSessionManager.h"
 #import "../../CKCookie.h"
 
 @interface CKAJP13Connection(Private)
