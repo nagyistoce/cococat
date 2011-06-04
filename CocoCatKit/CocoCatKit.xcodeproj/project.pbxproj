@@ -788,6 +788,7 @@
 				INSTALL_PATH = /Developer/CocoCat/1.0/MacOS/x86_64/Frameworks;
 				PRODUCT_NAME = CocoCatKit;
 				SYMROOT = build/MacOS/x86_64;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
