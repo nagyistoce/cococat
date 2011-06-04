@@ -23,7 +23,7 @@
        sessionManager:(CKHttpSessionManager *)aSessionManager
 {
 #ifdef CK_USEGCD
-    connectionQueue = dispatch_queue_create("ServletConnection", NULL);
+    connectionQueue = dispatch_queue_create("CKServletConnection", NULL);
 #endif    
 	socket = [aSocket retain];
     servletManager = [aServletManager retain];

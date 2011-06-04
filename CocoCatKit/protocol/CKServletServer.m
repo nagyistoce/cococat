@@ -30,7 +30,7 @@
     sessionManager = [[CKHttpSessionManager defaultManager] retain];
     connections = [[NSMutableArray alloc] init];
 #ifdef CK_USEGCD
-	serverQueue = dispatch_queue_create("ServletServer", NULL);
+	serverQueue = dispatch_queue_create("CKServletServer", NULL);
     socket = [[GCDAsyncSocket alloc] init];
 #else
     socket = [[AsyncSocket alloc] init];
@@ -73,12 +73,12 @@
 }
 
 - (BOOL)listen:(unsigned int)port
-{
-    [socket setDelegate:self 
+{     
 #ifdef CK_USEGCD 
-          delegateQueue:serverQueue
+    [socket setDelegate:self delegateQueue:serverQueue];
+#else
+    [socket setDelegate:self];
 #endif
-     ];
     
 #ifdef CK_USEGCD
     __block BOOL success;
