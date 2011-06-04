@@ -19,7 +19,7 @@
 @interface CKServletConnection : NSObject {
 	CKSOCKET_CLASS					*socket;
     CKHttpServletManager			*servletManager;
-#if CK_USEGCD==1    
+#ifdef CK_USEGCD
 	dispatch_queue_t				connectionQueue;
 #endif
 	unsigned int					currentPacketLenght;

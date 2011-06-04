@@ -8,7 +8,7 @@
 
 #import "CKServletConnection.h"
 #import "../CKHttpServletManager.h"
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
 #import "../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #else
 #import "../Vendor/CocoaAsyncSocket/AsyncSocket.h"
@@ -22,14 +22,14 @@
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
 {
-#if CK_USEGCD==1    
+#ifdef CK_USEGCD
     connectionQueue = dispatch_queue_create("ServletConnection", NULL);
 #endif    
 	socket = [aSocket retain];
     servletManager = [aServletManager retain];
     sessionManager = [aSessionManager retain];
 	defaultPageManager = [aDefaultPageManager retain];
-#if CK_USEGCD==1    
+#ifdef CK_USEGCD
 	[socket setDelegate:self delegateQueue:connectionQueue];
 #else
     [socket setDelegate:self];
@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-#if CK_USEGCD==1    
+#ifdef CK_USEGCD
     dispatch_release(connectionQueue);
 #endif    	
 	[socket release];
@@ -58,11 +58,7 @@
 - (void)close
 {
     [socket setDelegate:nil];
-//#if CK_USEGCD==1    
     [socket disconnectAfterWriting];
-//#else
-    //[socket disconnectAfterReadingAndWriting];
-//#endif
 }
 
 - (void)socketDidDisconnect:(CKSOCKET_CLASS *)sock withError:(NSError *)err

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef CK_USEGCD
-#define CK_USEGCD 1
+#ifndef __COCOTRON__
+#define CK_USEGCD
 #endif
 
 #ifdef CK_USEGCD
@@ -27,7 +27,7 @@
 @interface CKServletServer : NSObject 
 {
  	CKSOCKET_CLASS					*socket;
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
     dispatch_queue_t				serverQueue;
 #endif
 	NSMutableArray					*connections;

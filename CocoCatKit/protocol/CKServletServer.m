@@ -11,7 +11,7 @@
 #import "../CKHttpServletManager.h"
 #import "../CKHttpSessionManager.h"
 #import "../CKHttpDefaultPageManager.h"
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
 #import "../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #else
 #import "../Vendor/CocoaAsyncSocket/AsyncSocket.h"
@@ -29,11 +29,11 @@
 	defaultPageManager = [[CKHttpDefaultPageManager defaultManager] retain];
     sessionManager = [[CKHttpSessionManager defaultManager] retain];
     connections = [[NSMutableArray alloc] init];
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
 	serverQueue = dispatch_queue_create("ServletServer", NULL);
-    socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:serverQueue];
+    socket = [[GCDAsyncSocket alloc] init];
 #else
-    socket = [[AsyncSocket alloc] initWithDelegate:self];
+    socket = [[AsyncSocket alloc] init];
 #endif
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -49,7 +49,7 @@
     [servletManager release];
 	[defaultPageManager release];
     [sessionManager release];
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
     dispatch_release(serverQueue);
 #endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -74,7 +74,13 @@
 
 - (BOOL)listen:(unsigned int)port
 {
-#if CK_USEGCD==1
+    [socket setDelegate:self 
+#ifdef CK_USEGCD 
+          delegateQueue:serverQueue
+#endif
+     ];
+    
+#ifdef CK_USEGCD
     __block BOOL success;
 	dispatch_sync(serverQueue, ^{
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -92,6 +98,7 @@
 
 - (void)stop
 {
+    [socket setDelegate:nil];
     [socket disconnect];
 }
 

@@ -10,7 +10,7 @@
 #import "CKAJP13ForwardRequest.h"
 #import "CKAJP13Response.h"
 #import "CKServletRequestDispatcher.h"
-#if CK_USEGCD==1
+#ifdef CK_USEGCD
 #import "../../Vendor/CocoaAsyncSocket/GCDAsyncSocket.h"
 #else
 #import "../../Vendor/CocoaAsyncSocket/AsyncSocket.h"
