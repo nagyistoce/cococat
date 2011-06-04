@@ -57,7 +57,6 @@
 
 - (void)close
 {
-    [socket setDelegate:nil];
     [socket disconnectAfterWriting];
 }
 
