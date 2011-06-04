@@ -11,9 +11,10 @@
 __declspec(dllimport) int OBJCRegisterDLL(HINSTANCE handle);
 
 int APIENTRY DllMain(HINSTANCE handle,DWORD reason,LPVOID _reserved) {
-	
 	if(reason==DLL_PROCESS_ATTACH)
 		return OBJCRegisterDLL(handle);
 	
 	return TRUE;
 }
+
+

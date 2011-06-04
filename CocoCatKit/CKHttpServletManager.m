@@ -101,3 +101,7 @@
 }
 
 @end
+
+void ckHttpServletInit()
+{
+}

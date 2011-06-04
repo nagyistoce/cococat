@@ -13,7 +13,12 @@
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	[[CKHttpServletManager defaultManager] registerServlet:[[HelloWorldServlet alloc] init] forUrlPattern:@".*"];
+	//only needed that the cococat dll is loaded on windows (function has no implementation)
+	ckHttpServletInit();
+
+	HelloWorldServlet	*servlet = [[[HelloWorldServlet alloc] init] autorelease];
+		
+	[[CKHttpServletManager defaultManager] registerServlet:servlet forUrlPattern:@".*"];
 
 	CKAJP13Server *server = [[[CKAJP13Server alloc] initWithMountPath:@"/cococat"] autorelease];
 	[server listen:8009];

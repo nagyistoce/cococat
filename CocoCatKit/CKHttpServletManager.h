@@ -23,3 +23,8 @@
 - (void)registerServlet:(CKHttpServlet *)servlet forUrlPattern:(NSString *)pattern;
 
 @end
+
+
+//this function is only need for windows, 
+//it makes nothing but we need it to force load the dll
+void ckHttpServletInit();

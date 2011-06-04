@@ -161,7 +161,7 @@
 		21CFD4ED139A67A5008CD904 /* CKServletRequestDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 217F9434138965E400D408E6 /* CKServletRequestDispatcher.m */; };
 		21CFD4EE139A67A5008CD904 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 		21CFD4F9139A681E008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD4F8139A681E008CD904 /* Foundation.framework */; };
-		21CFDB53139A9FAE008CD904 /* dllmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFDB4E139A9F7F008CD904 /* dllmain.m */; };
+		21CFDC6C139AAF67008CD904 /* dllmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFDB4E139A9F7F008CD904 /* dllmain.m */; };
 		D193FBA41399927A00D2F4CF /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D193FBA21399927A00D2F4CF /* AsyncSocket.h */; };
 		D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 /* End PBXBuildFile section */
@@ -702,7 +702,7 @@
 				21BE7FDE139A4D3800301793 /* CKHttpSessionManager.m in Sources */,
 				21BE7FDF139A4D3800301793 /* CKServletRequestDispatcher.m in Sources */,
 				21BE7FE0139A4D3800301793 /* AsyncSocket.m in Sources */,
-				21CFDB53139A9FAE008CD904 /* dllmain.m in Sources */,
+				21CFDC6C139AAF67008CD904 /* dllmain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,7 +858,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
+				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = org.cocotron.1.0.windows.i386.gcc.4.3.1;
@@ -899,7 +899,8 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = org.cocotron.1.0.windows.i386.gcc.4.3.1;
 				INFOPLIST_FILE = Info.plist;
