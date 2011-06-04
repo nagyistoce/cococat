@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		217F95CD13896FF800D408E6 /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217F95CC13896FF800D408E6 /* CocoCatKit.framework */; };
+		21CFD428139A5E16008CD904 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		21CFD429139A5E16008CD904 /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
+		21CFD435139A5E72008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD434139A5E72008CD904 /* Foundation.framework */; };
+		21CFD437139A5E84008CD904 /* CocoCatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD436139A5E84008CD904 /* CocoCatKit.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		C6FBC505135ED43C00ABB4EF /* HelloWorldServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FBC504135ED43C00ABB4EF /* HelloWorldServlet.m */; };
 		C6FBC5AB135ED71A00ABB4EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */; };
@@ -17,6 +21,9 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		217F95CC13896FF800D408E6 /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/MacOS/x86_64/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
+		21CFD430139A5E16008CD904 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CFD434139A5E72008CD904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Cocotron/1.0/Windows/i386/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		21CFD436139A5E84008CD904 /* CocoCatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoCatKit.framework; path = /Developer/CocoCat/1.0/Windows/i386/Frameworks/CocoCatKit.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -27,6 +34,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		21CFD42A139A5E16008CD904 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD435139A5E72008CD904 /* Foundation.framework in Frameworks */,
+				21CFD437139A5E84008CD904 /* CocoCatKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* HelloWorld.app */,
+				21CFD430139A5E16008CD904 /* HelloWorld.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +101,8 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				C6FBC5AA135ED71A00ABB4EF /* Foundation.framework */,
 				217F95CC13896FF800D408E6 /* CocoCatKit.framework */,
+				21CFD434139A5E72008CD904 /* Foundation.framework */,
+				21CFD436139A5E84008CD904 /* CocoCatKit.framework */,
 			);
 			name = HelloWorld;
 			sourceTree = "<group>";
@@ -115,6 +134,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		21CFD425139A5E16008CD904 /* HelloWorld (Windows i386) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21CFD42D139A5E16008CD904 /* Build configuration list for PBXNativeTarget "HelloWorld (Windows i386)" */;
+			buildPhases = (
+				21CFD426139A5E16008CD904 /* Resources */,
+				21CFD427139A5E16008CD904 /* Sources */,
+				21CFD42A139A5E16008CD904 /* Frameworks */,
+				21CFD456139A6137008CD904 /* copy frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HelloWorld (Windows i386)";
+			productInstallPath = "$(HOME)/Applications";
+			productName = HelloWorld;
+			productReference = 21CFD430139A5E16008CD904 /* HelloWorld.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* HelloWorld (MacOS x86_64) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "HelloWorld (MacOS x86_64)" */;
@@ -140,6 +178,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "HelloWorld" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -152,11 +191,19 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* HelloWorld (MacOS x86_64) */,
+				21CFD425139A5E16008CD904 /* HelloWorld (Windows i386) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		21CFD426139A5E16008CD904 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,7 +213,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		21CFD456139A6137008CD904 /* copy frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "copy frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Developer/Cocotron/1.0/bin/retargetBundle  -F \"/Developer/CocoCat/1.0/Windows/i386/Frameworks\"  -framework CocoCatKit -destination $TARGET_BUILD_DIR\"/\"$EXECUTABLE_FOLDER_PATH\n\n/Developer/Cocotron/1.0/bin/retargetBundle  -F \"/Developer/Cocotron/1.0/Windows/i386/Frameworks\" -framework Foundation -destination $TARGET_BUILD_DIR\"/\"$EXECUTABLE_FOLDER_PATH\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		21CFD427139A5E16008CD904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CFD428139A5E16008CD904 /* main.m in Sources */,
+				21CFD429139A5E16008CD904 /* HelloWorldServlet.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,6 +252,56 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		21CFD42E139A5E16008CD904 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Windows";
+				EXECUTABLE_SUFFIX = .exe;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Windows/i386/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/Windows/i386/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = org.cocotron.1.0.windows.i386.gcc.4.3.1;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = HelloWorld;
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		21CFD42F139A5E16008CD904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Windows";
+				EXECUTABLE_SUFFIX = .exe;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(DEVELOPER_DIR)/Cocotron/1.0/Windows/i386/Frameworks\"",
+					"\"$(DEVELOPER_DIR)/CocoCat/1.0/Windows/i386/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = org.cocotron.1.0.windows.i386.gcc.4.3.1;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = HelloWorld;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -249,6 +372,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		21CFD42D139A5E16008CD904 /* Build configuration list for PBXNativeTarget "HelloWorld (Windows i386)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21CFD42E139A5E16008CD904 /* Debug */,
+				21CFD42F139A5E16008CD904 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "HelloWorld (MacOS x86_64)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
