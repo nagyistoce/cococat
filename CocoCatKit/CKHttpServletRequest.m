@@ -89,7 +89,7 @@
         if (session == nil) {
             session = [sessionManager createAndOptainSession];
             
-            CKCookie  *sessionCookie = [[CKCookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]];
+            CKCookie  *sessionCookie = [[[CKCookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]] autorelease];
             [response addCookie:sessionCookie];
         }
     }
