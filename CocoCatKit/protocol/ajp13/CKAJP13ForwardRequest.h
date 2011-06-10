@@ -50,7 +50,7 @@
 	NSMutableDictionary	*attributes;
     NSMutableArray      *cookies;
 	NSData				*data;
-    NSString            *mountPath;
+    NSString            *contextPath;
     BOOL                secure;
     NSString            *queryString;
 	
@@ -62,7 +62,7 @@
 }
 
 //without data prefix code
-- initWithData:(NSData *)someData mountPath:(NSString *)aMountPath;
+- initWithData:(NSData *)someData contextPath:(NSString *)aContextPath;
 - (void)dealloc;
 - (void)setParameterData:(NSData *)someData;
 
@@ -75,5 +75,6 @@
 - (NSString *)remoteAddr;
 - (NSString *)remoteHost;
 - (BOOL)secure;
+- (NSString *)contextPath;
 
 @end

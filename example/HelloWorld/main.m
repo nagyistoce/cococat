@@ -13,19 +13,22 @@
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	//only needed that the cococat dll is loaded on windows (function has no implementation)
+    //only needed that the cococat dll is loaded on windows (function has no implementation)
 	ckCococatInit();
 
 	HelloWorldServlet	*servlet = [[[HelloWorldServlet alloc] init] autorelease];
 		
 	[[CKHttpServletManager defaultManager] registerServlet:servlet forUrlPattern:@".*"];
 
-	CKAJP13Server *server = [[[CKAJP13Server alloc] initWithMountPath:@"/cococat"] autorelease];
-	[server listen:8009];
+	CKAJP13Server *server = [[[CKAJP13Server alloc] initWithContextPath:@"/cococat"] autorelease];
+	if ([server listen:8009] == NO) {
+        NSLog(@"Unable to start AJP13 server on port 8009");
+    }
 	
 	CKHttpServer *httpServer = [[[CKHttpServer alloc] init] autorelease];
-	[httpServer listen:8010];
-		
+	if ([httpServer listen:8010] == NO) {
+        NSLog(@"Unable to start HTTP server on port 8009");
+    }		
 	[[NSRunLoop currentRunLoop] run];
     
 	[pool drain];

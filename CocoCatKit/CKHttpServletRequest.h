@@ -41,4 +41,6 @@
 - (CKHttpSession *)session:(BOOL)create;
 - (NSArray *)cookies;
 - (BOOL)secure;
+- (NSString *)contextPath;
+
 @end

@@ -13,15 +13,15 @@
 
 @interface CKAJP13Server : CKServletServer
 {
-    NSString    *mountPath;
+    NSString    *contextPath;
 }
 
 - init;
-- initWithMountPath:(NSString *)aMountPath;
+- initWithContextPath:(NSString *)aContextPath;
 - initWithServletManager:(CKHttpServletManager *)manager;
-- initWithServletManager:(CKHttpServletManager *)manager mountPath:(NSString *)aMountPath;
+- initWithServletManager:(CKHttpServletManager *)manager contextPath:(NSString *)aContextPath;
 
-- (NSString *)mountPath;
+- (NSString *)contextPath;
 
 - (void)dealloc;
 

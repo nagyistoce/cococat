@@ -35,6 +35,7 @@
 - (NSString *)remoteAddr;
 - (NSString *)remoteHost;
 - (BOOL)secure;
+- (NSString *)contextPath;
 
 - (void)setParameterData:(NSData *)data;
 

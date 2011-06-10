@@ -125,13 +125,13 @@
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
-            mountPath:(NSString *)aMountPath
+            contextPath:(NSString *)aContextPath
 {
 	self = [super initWithAsyncSocket:aSocket 
                        servletManager:aServletManager 
                    defaultPageManager:aDefaultPageManager 
                        sessionManager:aSessionManager];
-    mountPath = [aMountPath retain];
+    contextPath = [aContextPath retain];
     
     [aSocket readDataToLength:5
 			   withTimeout:-1
@@ -142,7 +142,7 @@
 - (void)dealloc
 {	
 	[currentRequest release];
-    [mountPath release];
+    [contextPath release];
     
 	[super dealloc];
 }
@@ -166,11 +166,11 @@
 				break;
 			}
 			
-			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
+			currentPacketLength = (int)bytes[2] << 8 | bytes[3];
 			
 			switch (bytes[4]) {
 				case CKAJP_FORWARD_REQUEST:
-					[socket readDataToLength:currentPacketLenght -1
+					[socket readDataToLength:currentPacketLength -1
 								 withTimeout:-1
 										 tag:CKAJP_FORWARD_REQUEST];
 					break;
@@ -183,7 +183,7 @@
 			break;
 		case CKAJP_FORWARD_REQUEST: {
 			[currentRequest release];
-			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data mountPath:mountPath];
+			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data contextPath:contextPath];
 			if (currentRequest == nil) {
 				[self close];
 			}
@@ -206,7 +206,7 @@
 				[self close];
 				break;
 			}
-			currentPacketLenght = (int)bytes[2] << 8 | bytes[3];
+			currentPacketLength = (int)bytes[2] << 8 | bytes[3];
             unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
 			NSRange range;
 			range.location = 6;

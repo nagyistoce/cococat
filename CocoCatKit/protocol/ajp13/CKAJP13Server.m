@@ -17,10 +17,11 @@
     return [super init];
 }
 
-- initWithMountPath:(NSString *)aMountPath
+- initWithContextPath:(NSString *)aContextPath
 {
     self = [super init];
-    mountPath = [aMountPath retain];
+    contextPath = [aContextPath retain];
+    
     return self;
 }
 
@@ -31,22 +32,24 @@
 	return self;
 }
 
-- initWithServletManager:(CKHttpServletManager *)manager mountPath:(NSString *)aMountPath
+- initWithServletManager:(CKHttpServletManager *)manager contextPath:(NSString *)aContextPath
 {
     self = [self initWithServletManager:manager];
-    mountPath = [aMountPath retain];
+    contextPath = [aContextPath retain];
     
     return self;
 }
 
-- (NSString *)mountPath
+- (NSString *)contextPath
 {
-    return mountPath;
+    return contextPath;
 }
 
 - (void)dealloc
 {
-	[super dealloc];
+	[contextPath release];
+    
+    [super dealloc];
 }
 
 - (void)socket:(CKSOCKET_CLASS *)sock didAcceptNewSocket:(CKSOCKET_CLASS *)newSocket
@@ -55,7 +58,7 @@
 																		servletManager:servletManager 
 																	defaultPageManager:defaultPageManager
 																		sessionManager:sessionManager
-																			 mountPath:mountPath] autorelease];
+																			 contextPath:contextPath] autorelease];
     [super addConnection:newConnection];
 }
 

@@ -33,14 +33,14 @@
 @interface CKAJP13Connection : CKServletConnection 
 {
 	CKAJP13ForwardRequest	*currentRequest;
-    NSString                *mountPath;
+    NSString                *contextPath;
 }
 
 - initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
        sessionManager:(CKHttpSessionManager *)aSessionManager
-            mountPath:(NSString *)aMountPath;
+            contextPath:(NSString *)aContextPath;
 
 - (void)dealloc;
 

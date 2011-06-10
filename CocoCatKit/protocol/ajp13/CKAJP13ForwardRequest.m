@@ -151,7 +151,7 @@
 @implementation CKAJP13ForwardRequest
 
 //without data prefix code
-- initWithData:(NSData *)someData mountPath:(NSString *)aMountPath
+- initWithData:(NSData *)someData contextPath:(NSString *)aContextPath
 {
 	header = [[NSMutableDictionary alloc] init];
 	attributes = [[NSMutableDictionary alloc] init];
@@ -159,9 +159,13 @@
     cookies = [[NSMutableArray alloc] init];
 
 	data = [someData retain];
-    mountPath = [aMountPath retain];
+    contextPath = [aContextPath retain];
 	const unsigned char* bytes = [data bytes];
 	NSUInteger length = [data length];
+    
+    if (contextPath == nil) {
+        contextPath = @"";
+    }
 
 	//last byte must be a request terminator (0xFF)
 	if (bytes[length -1] != 0xFF) {
@@ -303,7 +307,7 @@
 	[attributes release];
 	[parameters release];
     [cookies release];
-    [mountPath release];
+    [contextPath release];
     [queryString release];
 	
 	[super dealloc];
@@ -370,12 +374,7 @@
 
     }
  
-    if (mountPath != nil) {
-        return [NSString stringWithFormat:@"%@%@%@%@", protocolString, [[self header] objectForKey:@"Host"], mountPath, [self requestUri]];
-    }
-    else {
-        return [NSString stringWithFormat:@"%@%@%@", protocolString, [[self header] objectForKey:@"Host"], [self requestUri]];
-    }
+    return [NSString stringWithFormat:@"%@%@%@%@", protocolString, [[self header] objectForKey:@"Host"], contextPath, [self requestUri]];
 }
 
 - (NSDictionary *)header
@@ -418,6 +417,11 @@
 - (BOOL)secure
 {
     return secure;
+}
+
+- (NSString *)contextPath
+{
+    return contextPath;
 }
 
 @end

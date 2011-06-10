@@ -20,5 +20,6 @@
 - (NSString *)remoteAddr;
 - (NSString *)remoteHost;
 - (BOOL)secure;
+- (NSString *)contextPath;
 
 @end

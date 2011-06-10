@@ -177,6 +177,11 @@
     return secure;
 }
 
+- (NSString *)contextPath
+{
+    return @"";
+}
+
 - (void)setParameterData:(NSData *)data
 {
     NSString    *parametersString = [[[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding] autorelease];

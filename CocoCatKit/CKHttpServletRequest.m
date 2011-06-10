@@ -117,4 +117,10 @@
     return [requestMessage secure];
 }
 
+- (NSString *)contextPath
+{
+    return [requestMessage contextPath];
+
+}
+
 @end
