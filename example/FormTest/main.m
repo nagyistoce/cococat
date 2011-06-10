@@ -20,10 +20,14 @@ int main (int argc, const char * argv[]) {
 	[[CKHttpServletManager defaultManager] registerServlet:[[[FormTestServlet alloc] init] autorelease] forUrlPattern:@".*"];
 
 	CKAJP13Server *server = [[[CKAJP13Server alloc] initWithContextPath:@"/cococat"] autorelease];
-	[server listen:8009];
+	if ([server listen:8009] == NO) {
+        NSLog(@"Unable to start AJP13 server on port 8009");
+    }
 	
 	CKHttpServer *httpServer = [[[CKHttpServer alloc] init] autorelease];
-	[httpServer listen:8010];
+	if ([httpServer listen:8010] == NO) {
+        NSLog(@"Unable to start HTTP server on port 8009");
+    }
 		
 	[[NSRunLoop currentRunLoop] run];
     
