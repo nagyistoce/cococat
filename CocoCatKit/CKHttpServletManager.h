@@ -21,5 +21,6 @@
 
 - (CKHttpServlet *)servletForUri:(NSString *)uri;
 - (void)registerServlet:(CKHttpServlet *)servlet forUrlPattern:(NSString *)pattern;
+- (void)unregisterServlet:(CKHttpServlet *)servlet;
 
 @end

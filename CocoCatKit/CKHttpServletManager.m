@@ -100,4 +100,17 @@
     [servletMappings addObject:[[[CKHttpServletMapping alloc] initWithServlet:servlet forPattern:pattern] autorelease]];
 }
 
+- (void)unregisterServlet:(CKHttpServlet *)servlet
+{
+    unsigned int count = [servletMappings count];
+    
+    for (int i = count; i > 0; i--) {
+        CKHttpServletMapping	*mapping = [servletMappings objectAtIndex:i-1];
+        if ([mapping servlet] == servlet) {
+            [servletMappings removeObjectAtIndex:i-1];
+        }
+    }
+}
+
+
 @end

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoCatKit/CKSocket.h>
+#ifdef CK_USEGCD
+#include <dispatch/dispatch.h>
+#endif
 
 @protocol CKHttpDefaultPageManagers;
 @class CKHttpServletManager;
