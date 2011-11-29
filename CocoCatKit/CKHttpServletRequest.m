@@ -13,6 +13,24 @@
 #import "CKHttpSessionManager.h"
 #import "protocol/CKServletRequestMessage.h"
 
+@interface CKHttpServletRequest(Private)
+
+- (void)releaseSession;
+
+@end
+
+@implementation CKHttpServletRequest(Private)
+
+- (void)releaseSession
+{
+    if (session != nil) {
+        [sessionManager releaseSession:session];
+        session = nil;
+    }
+}
+
+@end
+
 @implementation CKHttpServletRequest
 
 - initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
@@ -30,13 +48,10 @@
 
 - (void)dealloc
 {
+    [self releaseSession];
     [requestedSessionId release];
 	[requestMessage release];
-    [response release];
-    
-    if (session != nil) {
-        [sessionManager releaseSession:session];
-    }
+    [response release];    
     [sessionManager release];
 	
 	[super dealloc];

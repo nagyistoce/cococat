@@ -99,6 +99,8 @@
             }
         }
 	}
+    
+    [servletRequest releaseSession];
 	
 	//get keep alive from response again, maybe the servlet modified it
 	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES
