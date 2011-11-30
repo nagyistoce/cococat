@@ -13,17 +13,20 @@
 @class CKHttpSession;
 @class CKHttpSessionManager;
 @class CKHttpServletResponse;
+@class CKHttpServletInputStream;
 
 @interface CKHttpServletRequest : NSObject <CKServletRequest> {
 	id<CKServletRequestMessage>	requestMessage;
     CKHttpSession               *session;
     CKHttpSessionManager        *sessionManager;
+    CKHttpServletInputStream    *inputStream;
     CKHttpServletResponse       *response;
     NSString                    *requestedSessionId;
 }
 
 - initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
              requestedSessionId:(NSString *)aRequestedSessionId 
+                    inputStream:(CKHttpServletInputStream *)aInputStream
                  sessionManager:(CKHttpSessionManager *)aSessionManager
                        response:(CKHttpServletResponse *)aResponse;
 - (void)dealloc;

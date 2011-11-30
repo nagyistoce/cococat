@@ -31,9 +31,9 @@
     connections = [[NSMutableArray alloc] init];
 #ifdef CK_USEGCD
 	serverQueue = dispatch_queue_create("CKServletServer", NULL);
-    socket = [[GCDAsyncSocket alloc] init];
+    socket = (CKSOCKET_CLASS *)[[GCDAsyncSocket alloc] init];
 #else
-    socket = [[AsyncSocket alloc] init];
+    socket = (CKSOCKET_CLASS *)[[AsyncSocket alloc] init];
 #endif
     
     [[NSNotificationCenter defaultCenter] addObserver:self

@@ -57,5 +57,6 @@
                          cookies:(NSArray *)cookies;
 - (void)sendBodyChunk:(NSData *)chunk;
 - (void)sendEndResponse:(BOOL)reuse;
+- (NSData *)readPayload;
 
 @end

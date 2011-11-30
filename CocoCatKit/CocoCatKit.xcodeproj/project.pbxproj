@@ -162,6 +162,12 @@
 		21CFD4EE139A67A5008CD904 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 		21CFD4F9139A681E008CD904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CFD4F8139A681E008CD904 /* Foundation.framework */; };
 		21CFDC6C139AAF67008CD904 /* dllmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CFDB4E139A9F7F008CD904 /* dllmain.m */; };
+		C6BCD99B14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = C6BCD99914865FBE001CE5F2 /* CKHttpServletInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6BCD99C14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = C6BCD99914865FBE001CE5F2 /* CKHttpServletInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6BCD99D14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = C6BCD99914865FBE001CE5F2 /* CKHttpServletInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6BCD99E14865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BCD99A14865FBE001CE5F2 /* CKHttpServletInputStream.m */; };
+		C6BCD99F14865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BCD99A14865FBE001CE5F2 /* CKHttpServletInputStream.m */; };
+		C6BCD9A014865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BCD99A14865FBE001CE5F2 /* CKHttpServletInputStream.m */; };
 		D193FBA41399927A00D2F4CF /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D193FBA21399927A00D2F4CF /* AsyncSocket.h */; };
 		D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D193FBA31399927A00D2F4CF /* AsyncSocket.m */; };
 /* End PBXBuildFile section */
@@ -248,6 +254,8 @@
 		21CFDB4E139A9F7F008CD904 /* dllmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dllmain.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CocoCatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoCatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6BCD99914865FBE001CE5F2 /* CKHttpServletInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKHttpServletInputStream.h; sourceTree = "<group>"; };
+		C6BCD99A14865FBE001CE5F2 /* CKHttpServletInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKHttpServletInputStream.m; sourceTree = "<group>"; };
 		D193FBA21399927A00D2F4CF /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		D193FBA31399927A00D2F4CF /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -337,6 +345,8 @@
 				217F9423138965E400D408E6 /* CKHttpDefaultPageManagers.h */,
 				217F9424138965E400D408E6 /* CKHttpServlet.h */,
 				217F9425138965E400D408E6 /* CKHttpServlet.m */,
+				C6BCD99914865FBE001CE5F2 /* CKHttpServletInputStream.h */,
+				C6BCD99A14865FBE001CE5F2 /* CKHttpServletInputStream.m */,
 				217F9426138965E400D408E6 /* CKHttpServletManager.h */,
 				217F9427138965E400D408E6 /* CKHttpServletManager.m */,
 				217F9428138965E400D408E6 /* CKHttpServletOutputStream.h */,
@@ -353,10 +363,10 @@
 				217F9433138965E400D408E6 /* CKServletRequestDispatcher.h */,
 				217F9434138965E400D408E6 /* CKServletRequestDispatcher.m */,
 				217F9435138965E400D408E6 /* CKServletResponse.h */,
-				210F335D135E324700990051 /* protocol */,
-				2163C266135B63F400AF6544 /* Vendor */,
 				2197CE2E135F714900B3938F /* CocoCatKit.h */,
 				21CFDB4E139A9F7F008CD904 /* dllmain.m */,
+				210F335D135E324700990051 /* protocol */,
+				2163C266135B63F400AF6544 /* Vendor */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -473,6 +483,7 @@
 				21BE7FB9139A4D3800301793 /* CKServletResponseMessage.h in Headers */,
 				21BE7FBA139A4D3800301793 /* CKServletServer.h in Headers */,
 				21BE7FBB139A4D3800301793 /* CKCookie.h in Headers */,
+				C6BCD99D14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */,
 				21BE7FBC139A4D3800301793 /* CKHttpDefaultPageManager.h in Headers */,
 				21BE7FBD139A4D3800301793 /* CKHttpDefaultPageManagers.h in Headers */,
 				21BE7FBE139A4D3800301793 /* CKHttpServlet.h in Headers */,
@@ -504,6 +515,7 @@
 				21CFD4C1139A67A5008CD904 /* CKHttpRequest.h in Headers */,
 				21CFD4C2139A67A5008CD904 /* CKHttpResponse.h in Headers */,
 				21CFD4C3139A67A5008CD904 /* CKHttpServer.h in Headers */,
+				C6BCD99C14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */,
 				21CFD4C4139A67A5008CD904 /* CKServletConnection.h in Headers */,
 				21CFD4C5139A67A5008CD904 /* CKServletRequestMessage.h in Headers */,
 				21CFD4C6139A67A5008CD904 /* CKServletResponseMessage.h in Headers */,
@@ -546,6 +558,7 @@
 				217F941D138965D500D408E6 /* CKServletServer.h in Headers */,
 				217F9436138965E400D408E6 /* CKCookie.h in Headers */,
 				217F9438138965E400D408E6 /* CKHttpDefaultPageManager.h in Headers */,
+				C6BCD99B14865FBF001CE5F2 /* CKHttpServletInputStream.h in Headers */,
 				217F943A138965E400D408E6 /* CKHttpDefaultPageManagers.h in Headers */,
 				217F943B138965E400D408E6 /* CKHttpServlet.h in Headers */,
 				217F943D138965E400D408E6 /* CKHttpServletManager.h in Headers */,
@@ -706,6 +719,7 @@
 				21BE7FDF139A4D3800301793 /* CKServletRequestDispatcher.m in Sources */,
 				21BE7FE0139A4D3800301793 /* AsyncSocket.m in Sources */,
 				21CFDC6C139AAF67008CD904 /* dllmain.m in Sources */,
+				C6BCD9A014865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +748,7 @@
 				21CFD4EC139A67A5008CD904 /* CKHttpSessionManager.m in Sources */,
 				21CFD4ED139A67A5008CD904 /* CKServletRequestDispatcher.m in Sources */,
 				21CFD4EE139A67A5008CD904 /* AsyncSocket.m in Sources */,
+				C6BCD99F14865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,6 +778,7 @@
 				217F9448138965E400D408E6 /* CKHttpSessionManager.m in Sources */,
 				217F944B138965E400D408E6 /* CKServletRequestDispatcher.m in Sources */,
 				D193FBA51399927A00D2F4CF /* AsyncSocket.m in Sources */,
+				C6BCD99E14865FBF001CE5F2 /* CKHttpServletInputStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

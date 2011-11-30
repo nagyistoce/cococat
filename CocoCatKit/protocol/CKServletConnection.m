@@ -70,4 +70,9 @@
 	return defaultPageManager;
 }
 
+- (NSData *)readPayload
+{
+    return nil;
+}
+
 @end

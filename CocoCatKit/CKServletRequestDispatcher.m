@@ -14,6 +14,7 @@
 #import "CKHttpSessionManager.h"
 #import "CKHttpServletRequest.h"
 #import "CKHttpServletResponse.h"
+#import "CKHttpServletInputStream.h"
 #import "CKHttpServlet.h"
 #import "CKCookie.h"
 
@@ -57,7 +58,8 @@
 	return dispatcher;
 }
 
-- (void)dispatch:(id<CKServletRequestMessage>)requestMessage 
+- (void)dispatch:(id<CKServletRequestMessage>)requestMessage
+      connection:(CKServletConnection *)aConnection
         response:(id<CKServletResponseMessage>)responseMessage 
   servletManager:(CKHttpServletManager *)servletManager
   sessionManager:(CKHttpSessionManager *)sessionManager
@@ -74,11 +76,13 @@
             break;
         }
     }
-	CKHttpServletResponse	*servletResponse = [[[CKHttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
-    CKHttpServletRequest	*servletRequest = [[[CKHttpServletRequest alloc] initWithServletRequestMessage:requestMessage 
-																					 requestedSessionId:sessionId
-																						 sessionManager:sessionManager
-																							   response:servletResponse] autorelease];
+    CKHttpServletInputStream    *inputStream = [[[CKHttpServletInputStream alloc] initWithConnection:aConnection] autorelease];
+	CKHttpServletResponse       *servletResponse = [[[CKHttpServletResponse alloc] initWithServletResponseMessage:responseMessage] autorelease];	
+    CKHttpServletRequest        *servletRequest = [[[CKHttpServletRequest alloc] initWithServletRequestMessage:requestMessage
+                                                                                            requestedSessionId:sessionId
+                                                                                                   inputStream:inputStream
+                                                                                                sessionManager:sessionManager
+                                                                                                      response:servletResponse] autorelease];
 	CKHttpServlet *servlet = [servletManager servletForUri:[servletRequest requestUri]];
 	
 	if (*keepAlive == YES) {

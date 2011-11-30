@@ -6,43 +6,23 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <Foundation/Foundation.h>
-#import "../CKServletConnection.h"
-#import "../CKSocket.h"
+#import "CKHttpServletInputStream.h"
+#import "protocol/CKServletRequestMessage.h"
+#import "protocol/CKServletConnection.h"
 
 
-#define CKHTTP_PACKET_HEADER	0
-#define CKHTTP_PACKET_PARAMS	1
+@implementation CKHttpServletInputStream
 
-#define CKHTTP_SEND_DATA        2
-
-@protocol CKHttpDefaultPageManagers;
-@class CKHttpRequest;
-@class CKHttpSessionManager;
-
-@interface CKHttpConnection : CKServletConnection {
+- initWithConnection:(CKServletConnection *)aServletConnection
+{
+    servletConnection = aServletConnection; // not retained
     
-    CKHttpRequest	*currentRequest;
-    BOOL            secure;
+    return self;
 }
 
-- initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
-	   servletManager:(CKHttpServletManager *)aServletManager 
-   defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
-    sessionManager:(CKHttpSessionManager *)aSessionManager
-               secure:(BOOL)isSecure;
-
-- (void)dealloc;
-
-- (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag;
-
-- (void)sendData:(NSData *)data;
-- (void)readParameterDataWithLength:(unsigned int)length;
-
-- (void)processRequest:(CKHttpRequest *)request;
-
-+ (NSData *)headerSeparatorData;
-
-- (NSData *)readPayload;
+- (NSData *)read
+{
+    return [servletConnection readPayload];
+}
 
 @end

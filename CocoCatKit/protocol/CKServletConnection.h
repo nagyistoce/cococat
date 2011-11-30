@@ -36,6 +36,7 @@
 
 - (void)die;
 - (void)close;
+- (NSData *)readPayload;
 
 - (void)socketDidDisconnect:(CKSOCKET_CLASS *)sock withError:(NSError *)err;
 

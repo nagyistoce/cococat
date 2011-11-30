@@ -15,6 +15,7 @@
 #import <CocoCatKit/CKAJP13Server.h>
 #import <CocoCatKit/CKHttpServletManager.h>
 #import <CocoCatKit/CKHttpServletOutputStream.h>
+#import <CocoCatKit/CKHttpServletInputStream.h>
 #import <CocoCatKit/CKHttpServletRequest.h>
 #import <CocoCatKit/CKHttpServletResponse.h>
 #import <CocoCatKit/CKServletRequest.h>

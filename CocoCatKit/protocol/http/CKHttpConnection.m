@@ -98,7 +98,8 @@
 		keepAlive = YES;
 	}	
     
-	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request 
+	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request
+                                                  connection:self
 													response:httpResponse 
 											  servletManager:servletManager 
 											  sessionManager:sessionManager
@@ -115,6 +116,11 @@
 + (NSData *)headerSeparatorData
 {
 	return [NSData dataWithBytes:"\x0D\x0A\x0D\x0A" length:4];
+}
+
+- (NSData *)readPayload
+{
+    return nil;
 }
 
 @end

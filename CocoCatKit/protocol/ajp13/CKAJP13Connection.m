@@ -155,7 +155,7 @@
 	switch (tag) {
 		case CKAJP_PACKET_HEADER:
 			if (length != 5) {
-				NSLog(@"packet header length [%u] must be 5", length);
+				NSLog(@"packet header length [%lu] must be 5", length);
 				[self close];
 				break;
 
@@ -197,7 +197,7 @@
 		}
 		case CKAJP_GET_PARAM_BODY_CHUNK: {
 			if (length < 4) {
-				NSLog(@"packet header length [%u] must be 4", length);
+				NSLog(@"packet header length [%lu] must be 4", length);
 				[self close];
 				break;
 			}
@@ -214,7 +214,7 @@
             NSData  *parameterData = [data subdataWithRange:range];
             if ([parameterData length] != contentLength) {
                 //TODO: send a get body chunk and fill up the parameterData for bigger parameter data
-                NSLog(@"Parameter data size [%d] not supported. Cococat supports only up to [%u]", contentLength, [parameterData length]);
+                NSLog(@"Parameter data size [%d] not supported. Cococat supports only up to [%lu]", contentLength, [parameterData length]);
                 [self close];
             }
             
@@ -249,7 +249,8 @@
     }	
     CKAJP13Response	*ajpResponse = [[[CKAJP13Response alloc] initWithConnection:self] autorelease];
 	
-	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request 
+	[[CKServletRequestDispatcher defaultDispatcher] dispatch:request
+                                                  connection:self
 													response:ajpResponse 
 											  servletManager:servletManager 
 											  sessionManager:sessionManager
@@ -330,6 +331,11 @@
 	else {
 		[socket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:CKAJP_END_RESPONSE];
 	}
+}
+
+- (NSData *)readPayload
+{
+    return nil;
 }
 	   
 @end

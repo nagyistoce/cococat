@@ -12,6 +12,7 @@
 @protocol CKServletRequestMessage;
 @protocol CKServletResponseMessage;
 @class CKHttpSessionManager;
+@class CKServletConnection;
 
 @interface CKServletRequestDispatcher : NSObject {
 
@@ -23,6 +24,7 @@
 + (CKServletRequestDispatcher *)defaultDispatcher;
 
 - (void)dispatch:(id<CKServletRequestMessage>)requestMessage 
+      connection:(CKServletConnection *)aConnection
         response:(id<CKServletResponseMessage>)responseMessage 
   servletManager:(CKHttpServletManager *)servletManager
   sessionManager:(CKHttpSessionManager *)sessionManager

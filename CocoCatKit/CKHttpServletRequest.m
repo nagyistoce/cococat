@@ -34,7 +34,8 @@
 @implementation CKHttpServletRequest
 
 - initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
-             requestedSessionId:(NSString *)aRequestedSessionId 
+             requestedSessionId:(NSString *)aRequestedSessionId
+                    inputStream:(CKHttpServletInputStream *)aInputStream
                  sessionManager:(CKHttpSessionManager *)aSessionManager
                        response:(CKHttpServletResponse *)aResponse
 {
@@ -42,6 +43,7 @@
     sessionManager = [aSessionManager retain];
     response = [aResponse retain];
     requestedSessionId = [aRequestedSessionId retain];
+    inputStream = [aInputStream retain];
     
     return self;
 }
@@ -53,6 +55,7 @@
 	[requestMessage release];
     [response release];    
     [sessionManager release];
+    [inputStream release];
 	
 	[super dealloc];
 }
