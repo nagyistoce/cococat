@@ -23,6 +23,12 @@
 
 @end
 
+@interface CKHttpServletRequest(Private)
+
+- (void)releaseSession;
+
+@end
+
 @interface CKHttpServlet(Private)
 
 - (void)service:(CKHttpServletRequest *)request response:(CKHttpServletResponse *)response;
