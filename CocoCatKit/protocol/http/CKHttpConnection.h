@@ -24,7 +24,7 @@
 - initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
 	   servletManager:(CKHttpServletManager *)aServletManager 
    defaultPageManager:(id<CKHttpDefaultPageManagers>)aDefaultPageManager
-    sessionManager:(CKHttpSessionManager *)aSessionManager
+       sessionManager:(CKHttpSessionManager *)aSessionManager
                secure:(BOOL)isSecure;
 
 - (void)dealloc;
