@@ -21,7 +21,7 @@
 	
 	[response setHeaderValue:@"text/html" forName:@"Content-Type"];
     
-    NSMutableString *string = [NSMutableString stringWithString:@"<html><form name=\"input\" action=\"UploadTestServlet\" method=\"post\">\n"];
+    NSMutableString *string = [NSMutableString stringWithString:@"<html><form name=\"input\" action=\"UploadTestServlet\" method=\"post\" enctype=\"multipart/form-data\">\n"];
     [string appendString:@"File: <input type=\"file\" name=\"name\" />"];
     [string appendString:@"<input type=\"submit\" value=\"Submit\" /></form></html>"];
     NSData  *data = [string dataUsingEncoding:NSISOLatin1StringEncoding];
@@ -37,19 +37,26 @@
 
     [outputStream writeString:[NSString stringWithFormat:@"Hello %@", [[request parameters] objectForKey:@"name"]] encoding:NSISOLatin1StringEncoding];
 	
-    NSMutableData  *fileData = [[NSMutableData alloc] init];
+    NSMutableData  *payload = [[NSMutableData alloc] init];
     
     while (true) {
-    NSData *data = [[request inputStream] read];
-        if (data == nil) {
+    NSData *partial = [[request inputStream] read];
+        if (partial == nil) {
             break;
         }
         else {
-            [fileData appendData:data];
+            [payload appendData:partial];
         }
     }
     
-    [fileData writeToFile:[NSString stringWithFormat:@"/tmp/%@", [[request parameters] objectForKey:@"name"]] atomically:NO];
+    //TODO parse multipart body
+    NSData   *fileData = payload;
+    
+    
+    [outputStream writeString:[NSString stringWithFormat:@"File [%@] with size [%d] uploaded", nil,[fileData length]] encoding:NSISOLatin1StringEncoding];
+
+    
+    [fileData writeToFile:@"/tmp/test" atomically:NO];
 }
 
 

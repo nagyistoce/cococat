@@ -26,7 +26,7 @@ int main (int argc, const char * argv[]) {
 	
 	CKHttpServer *httpServer = [[[CKHttpServer alloc] init] autorelease];
 	if ([httpServer listen:8010] == NO) {
-        NSLog(@"Unable to start HTTP server on port 8009");
+        NSLog(@"Unable to start HTTP server on port 8010");
     }
 		
 	[[NSRunLoop currentRunLoop] run];

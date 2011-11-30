@@ -138,7 +138,11 @@
 - (NSString *)contextPath
 {
     return [requestMessage contextPath];
+}
 
+- (CKHttpServletInputStream *)inputStream
+{
+    return inputStream;
 }
 
 @end

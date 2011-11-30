@@ -10,12 +10,6 @@
 #import "../CKServletConnection.h"
 #import "../CKSocket.h"
 
-
-#define CKHTTP_PACKET_HEADER	0
-#define CKHTTP_PACKET_PARAMS	1
-
-#define CKHTTP_SEND_DATA        2
-
 @protocol CKHttpDefaultPageManagers;
 @class CKHttpRequest;
 @class CKHttpSessionManager;
@@ -24,6 +18,7 @@
     
     CKHttpRequest	*currentRequest;
     BOOL            secure;
+    NSMutableData   *currentPayload;
 }
 
 - initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
@@ -37,7 +32,6 @@
 - (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag;
 
 - (void)sendData:(NSData *)data;
-- (void)readParameterDataWithLength:(unsigned int)length;
 
 - (void)processRequest:(CKHttpRequest *)request;
 

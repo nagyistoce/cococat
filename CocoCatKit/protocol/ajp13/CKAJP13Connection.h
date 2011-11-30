@@ -10,22 +10,6 @@
 #import "../CKServletConnection.h"
 #import "../CKSocket.h"
 
-//receiving messages from http server
-#define CKAJP_PACKET_HEADER     0
-#define CKAJP_FORWARD_REQUEST   2
-#define CKAJP_SHUTDOWN          7
-#define CKAJP_PING              8
-#define CKAJP_CPING             10
-#define CKAJP_DATA              -1
-
-//sending messages to http server
-#define CKAJP_WRITE_PACKET_HEADER		255
-#define CKAJP_SEND_BODY_CHUNK			3
-#define CKAJP_SEND_HEADER				4
-#define CKAJP_END_RESPONSE              5
-#define CKAJP_GET_BODY_CHUNK			6
-#define CKAJP_GET_PARAM_BODY_CHUNK      7
-
 @class CKAJP13ForwardRequest;
 @protocol CKHttpDefaultPageManagers;
 @class CKHttpSessionManager;
@@ -34,6 +18,7 @@
 {
 	CKAJP13ForwardRequest	*currentRequest;
     NSString                *contextPath;
+    NSMutableData           *currentPayload;
 }
 
 - initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
@@ -45,7 +30,6 @@
 - (void)dealloc;
 
 - (void)socket:(CKSOCKET_CLASS *)sock didReadData:(NSData*)data withTag:(long)tag;
-- (void)readParameterChunck;
 
 //processing ajp request
 - (void)processForwardRequest:(CKAJP13ForwardRequest *)request;
@@ -56,6 +40,8 @@
                           header:(NSDictionary *)header 
                          cookies:(NSArray *)cookies;
 - (void)sendBodyChunk:(NSData *)chunk;
+- (void)getBodyChunk:(unsigned int)requestedLength;
+
 - (void)sendEndResponse:(BOOL)reuse;
 - (NSData *)readPayload;
 

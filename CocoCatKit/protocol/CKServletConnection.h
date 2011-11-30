@@ -22,7 +22,6 @@
 #ifdef CK_USEGCD
 	dispatch_queue_t				connectionQueue;
 #endif
-	unsigned int					currentPacketLength;
 	id<CKHttpDefaultPageManagers>	defaultPageManager;
     CKHttpSessionManager			*sessionManager;
 }

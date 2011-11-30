@@ -18,6 +18,12 @@
 #endif
 #import "../../CKHttpSessionManager.h"
 
+#define CKHTTP_PACKET_HEADER	0
+#define CKHTTP_PACKET_PAYLOAD	1
+
+#define CKHTTP_SEND_DATA        2
+
+
 @implementation CKHttpConnection
 
 - initWithAsyncSocket:(CKSOCKET_CLASS *)aSocket 
@@ -40,6 +46,7 @@
 - (void)dealloc
 {	
 	[currentRequest release];
+    [currentPayload release];
     
     [super dealloc];
 }
@@ -54,10 +61,16 @@
 			if (currentRequest == nil) {
 				[self close];
 			}
+            
+            [currentPayload release];
+            currentPayload = [[NSMutableData alloc] init];
 
-            if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
-                unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
-                [self readParameterDataWithLength:contentLength];
+            
+            if([[[currentRequest header] objectForKey:@"Content-Length"] intValue] > 0) {
+                [socket readDataToLength:[[[currentRequest header] objectForKey:@"Content-Length"] intValue]
+                             withTimeout:-1
+                                     tag:CKHTTP_PACKET_PAYLOAD];
+
             }
             else {
                 [self processRequest:currentRequest];
@@ -65,9 +78,20 @@
 
             break;
         }
-        case CKHTTP_PACKET_PARAMS:
+        case CKHTTP_PACKET_PAYLOAD:
+            [currentPayload appendData:data];
             [currentRequest setParameterData:data];
-            [self processRequest:currentRequest];
+            if ([[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
+                [currentRequest setParameterData:currentPayload];
+            }
+            
+            @try {
+                [self processRequest:currentRequest];
+            }
+            @finally {
+                [currentRequest release];
+                currentRequest = nil;
+            }
             break;
         default:
             break;
@@ -77,15 +101,6 @@
 - (void)sendData:(NSData *)data
 {
     [socket writeData:data withTimeout:-1 tag:CKHTTP_SEND_DATA];
-}
-
-- (void)readParameterDataWithLength:(unsigned int)length
-{
-    [socket readDataToLength:length
-                 withTimeout:-1
-                      buffer:nil
-                bufferOffset:0
-                         tag:CKHTTP_PACKET_PARAMS];    
 }
 
 //processing http request
@@ -120,7 +135,9 @@
 
 - (NSData *)readPayload
 {
-    return nil;
+    NSData *data = [[currentPayload retain] autorelease];
+    currentPayload = nil;
+    return data;
 }
 
 @end

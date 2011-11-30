@@ -45,5 +45,6 @@
 - (NSArray *)cookies;
 - (BOOL)secure;
 - (NSString *)contextPath;
+- (CKHttpServletInputStream *)inputStream;
 
 @end

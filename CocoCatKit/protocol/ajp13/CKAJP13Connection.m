@@ -18,6 +18,22 @@
 #import "../../CKHttpSessionManager.h"
 #import "../../CKCookie.h"
 
+//receiving messages from http server
+#define CKAJP_PACKET_HEADER     0
+#define CKAJP_FORWARD_REQUEST   2
+#define CKAJP_SHUTDOWN          7
+#define CKAJP_PING              8
+#define CKAJP_CPING             10
+#define CKAJP_DATA              -1
+
+//sending messages to http server
+#define CKAJP_WRITE_PACKET_HEADER		255
+#define CKAJP_GET_BODY_CHUNCK_SIZE      100
+#define CKAJP_SEND_BODY_CHUNK			3
+#define CKAJP_SEND_HEADER				4
+#define CKAJP_END_RESPONSE              5
+#define CKAJP_GET_BODY_CHUNK			6
+
 @interface CKAJP13Connection(Private)
 
 - (void)addInteger:(unsigned int)integer data:(NSMutableData *)data;
@@ -25,6 +41,7 @@
 - (void)writePacketHeader:(unsigned int)length;
 - (NSNumber *)codeValueForHeaderName:(NSString *)name;
 + (NSData *)sendBodyChunckIdentifierData;
++ (NSData *)getBodyChunckIdentifierData;
 
 @end
 
@@ -117,6 +134,17 @@
 	return identifier;
 }
 
++ (NSData *)getBodyChunckIdentifierData
+{
+	static NSData *identifier = nil;
+	if (identifier == nil) {
+		unsigned char i = CKAJP_GET_BODY_CHUNK;
+		identifier = [[NSData alloc] initWithBytes:&i length:1];
+	}
+	
+	return identifier;
+}
+
 @end
 
 @implementation CKAJP13Connection
@@ -143,6 +171,7 @@
 {	
 	[currentRequest release];
     [contextPath release];
+    [currentPayload release];
     
 	[super dealloc];
 }
@@ -154,90 +183,96 @@
 	
 	switch (tag) {
 		case CKAJP_PACKET_HEADER:
-			if (length != 5) {
-				NSLog(@"packet header length [%lu] must be 5", length);
+			if (length < 4) {
 				[self close];
 				break;
 
 			}
 			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
-				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
 				[self close];
 				break;
 			}
 			
-			currentPacketLength = (int)bytes[2] << 8 | bytes[3];
+			unsigned int currentPacketLength = (int)bytes[2] << 8 | bytes[3];
 			
-			switch (bytes[4]) {
-				case CKAJP_FORWARD_REQUEST:
-					[socket readDataToLength:currentPacketLength -1
-								 withTimeout:-1
-										 tag:CKAJP_FORWARD_REQUEST];
-					break;
-				default:
-					NSLog(@"unknown data code %x", bytes[4]);
-					[self close];
-					break;
-			}
+            if (currentRequest == nil) {
+                switch (bytes[4]) {
+                    case CKAJP_FORWARD_REQUEST:
+                        [socket readDataToLength:currentPacketLength -1
+                                     withTimeout:-1
+                                             tag:CKAJP_FORWARD_REQUEST];
+                        break;
+                    default:
+                        [self close];
+                        break;
+                }
+            }
+            else {
+                //body chunck
+                [socket readDataToLength:currentPacketLength
+                             withTimeout:-1
+                                     tag:CKAJP_GET_BODY_CHUNK];
+            }
 			
 			break;
 		case CKAJP_FORWARD_REQUEST: {
 			[currentRequest release];
-			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data contextPath:contextPath];
-			if (currentRequest == nil) {
+			currentRequest = [[CKAJP13ForwardRequest alloc] initWithData:data contextPath:contextPath];            
+            if (currentRequest == nil) {
 				[self close];
 			}
-			if ([[currentRequest method] isEqualToString:@"POST"] && [[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
-                [self readParameterChunck];
+            
+            [currentPayload release];
+            currentPayload = [[NSMutableData alloc] init];
+            
+            if ([[[currentRequest header] objectForKey:@"Content-Length"] intValue] > 0) {
+                    [socket readDataToLength:4
+                             withTimeout:-1
+                                     tag:CKAJP_PACKET_HEADER];
             }
             else {
-                [self processForwardRequest:currentRequest];
+                @try {
+                    [self processForwardRequest:currentRequest];
+                }
+                @finally {
+                    [currentRequest release];
+                    currentRequest = nil;
+                }
             }
 			break;
 		}
-		case CKAJP_GET_PARAM_BODY_CHUNK: {
-			if (length < 4) {
-				NSLog(@"packet header length [%lu] must be 4", length);
-				[self close];
-				break;
-			}
-			if (bytes[0] != 0x12 || bytes[1] != 0x34) {
-				NSLog(@"unknown header prefix %x%x", bytes[0], bytes[1]);
-				[self close];
-				break;
-			}
-			currentPacketLength = (int)bytes[2] << 8 | bytes[3];
-            unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
-			NSRange range;
-			range.location = 6;
-			range.length = [data length] - 6;
-            NSData  *parameterData = [data subdataWithRange:range];
-            if ([parameterData length] != contentLength) {
-                //TODO: send a get body chunk and fill up the parameterData for bigger parameter data
-                NSLog(@"Parameter data size [%d] not supported. Cococat supports only up to [%lu]", contentLength, [parameterData length]);
-                [self close];
-            }
-            
-			[currentRequest setParameterData:parameterData];
 
-			[self processForwardRequest:currentRequest];
+		case CKAJP_GET_BODY_CHUNK: {
+            //first bytes are the data chunck size
+            [currentPayload appendData:[data subdataWithRange:NSMakeRange(2, [data length] - 2)]];
+
+            unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
+            unsigned int remaining = contentLength - [currentPayload length];
+            if(contentLength > [currentPayload length]) {
+                unsigned int requestedLength  = remaining > 8186 ? 8186 : remaining;
+                [self getBodyChunk:requestedLength];
+            }
+            else {
+                if ([[[currentRequest header] objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"] == YES) {
+                    [currentRequest setParameterData:currentPayload];
+                }
+                @try {
+                    [self processForwardRequest:currentRequest];
+                }
+                @finally {
+                    [currentRequest release];
+                    currentRequest = nil;
+                }
+            }
+			
 			break;
 		}
 
 		default: {
-			NSLog(@"Unknown tag [%ld] read", tag);
             [self close];
             break;
         }
 	}
-}
-
-- (void)readParameterChunck
-{
-	unsigned int contentLength = [[[currentRequest header] objectForKey:@"Content-Length"] intValue];
-	[socket readDataToLength:contentLength + 6
-				 withTimeout:-1
-						 tag:CKAJP_GET_PARAM_BODY_CHUNK];
 }
 
 //processing ajp request
@@ -321,6 +356,22 @@
 	[socket writeData:[NSData dataWithBytes:"\x00" length:1] withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
 }
 
+- (void)getBodyChunk:(unsigned int)requestedLength
+{
+    NSMutableData	*lengthData = [NSMutableData data];    
+    
+	[self addInteger:requestedLength  data:lengthData];
+    
+	[self writePacketHeader:4];
+	[socket writeData:[[self class] getBodyChunckIdentifierData] withTimeout:-1 tag:CKAJP_GET_BODY_CHUNK];
+    [socket writeData:lengthData withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
+    [socket writeData:[NSData dataWithBytes:"\x00" length:1] withTimeout:-1 tag:CKAJP_SEND_BODY_CHUNK];
+
+    [socket readDataToLength:4
+				 withTimeout:-1
+						 tag:CKAJP_PACKET_HEADER];
+}
+
 - (void)sendEndResponse:(BOOL)reuse
 {
 	[self writePacketHeader:2];
@@ -335,7 +386,9 @@
 
 - (NSData *)readPayload
 {
-    return nil;
+    NSData *data = [[currentPayload retain] autorelease];
+    currentPayload = nil;
+    return data;
 }
 	   
 @end
