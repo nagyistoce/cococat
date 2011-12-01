@@ -40,7 +40,7 @@
     NSMutableData  *payload = [[NSMutableData alloc] init];
     
     while (true) {
-    NSData *partial = [[request inputStream] read];
+    NSData *partial = [[request inputStream] readData];
         if (partial == nil) {
             break;
         }

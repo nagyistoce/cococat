@@ -13,14 +13,60 @@
 
 - initWithConnection:(CKServletConnection *)aServletConnection
 {
-    servletConnection = aServletConnection; // not retained
+    servletConnection = [aServletConnection retain];
     
     return self;
 }
 
-- (NSData *)read
+- (void)dealloc
+{
+    [servletConnection release];
+    
+    [super dealloc];
+}
+
+- (NSData *)readData
 {
     return [servletConnection readPayload];
+}
+
+//TODO make it faster with not copy data every time 
+//(especially for small read blocks)
+//use a bufferPosition
+- (unsigned char)read
+{
+    NSData  *data = [self readData:1];
+    
+    if ([data length] == 0) {
+        return EOF;
+    }
+    
+    return ((char *)[data bytes])[0];
+}
+
+- (NSData *)readData:(unsigned int)length
+{
+    
+    while ([buffer length] < length) {
+        NSData  *data = [self readData];
+        if ([data length] == 0) {
+            NSData *returnData = [buffer autorelease];
+            buffer = nil;
+            return returnData;
+        }
+        else {
+            if (buffer == nil) {
+                buffer = [[NSMutableData alloc] init];
+            }
+            [buffer appendData:data];
+        }
+    }
+    
+    NSData  *ret = [buffer subdataWithRange:NSMakeRange(0, length)];
+    [buffer autorelease];
+    buffer = [[buffer subdataWithRange:NSMakeRange(length, [buffer length] - length)] mutableCopy];
+    
+    return ret;
 }
 
 @end

@@ -13,10 +13,14 @@
 @interface CKHttpServletInputStream : NSObject
 {
     CKServletConnection *servletConnection;
+    NSMutableData       *buffer;
 }
 
 - initWithConnection:(CKServletConnection *)aServletConnection;
+- (void)dealloc;
 
-- (NSData *)read;
+- (unsigned char)read;
+- (NSData *)readData;
+- (NSData *)readData:(unsigned int)length;
 
 @end
