@@ -130,7 +130,13 @@
 
 + (NSData *)headerSeparatorData
 {
-	return [NSData dataWithBytes:"\x0D\x0A\x0D\x0A" length:4];
+	static NSData   *headerSeparatorData = nil;
+    
+    if (headerSeparatorData == nil) {
+        headerSeparatorData =  [[NSData alloc] initWithBytes:"\x0D\x0A\x0D\x0A" length:4];
+    }
+    
+    return headerSeparatorData;
 }
 
 - (NSData *)readPayload

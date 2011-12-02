@@ -14,12 +14,14 @@
 {
     CKServletConnection *servletConnection;
     NSMutableData       *buffer;
+    unsigned int        bufferPosition;
 }
 
 - initWithConnection:(CKServletConnection *)aServletConnection;
 - (void)dealloc;
 
 - (unsigned char)read;
+- (unsigned char)peek;
 - (NSData *)readData;
 - (NSData *)readData:(unsigned int)length;
 

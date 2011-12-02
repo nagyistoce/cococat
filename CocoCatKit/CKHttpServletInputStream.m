@@ -9,6 +9,25 @@
 #import "CKHttpServletInputStream.h"
 #import "protocol/CKServletConnection.h"
 
+@interface CKHttpServletInputStream(Private) 
+
+- (void)shrinkBuffer;
+
+@end
+
+@implementation CKHttpServletInputStream(Private) 
+
+- (void)shrinkBuffer
+{
+    if (bufferPosition > 4096) {
+        [buffer autorelease];
+        buffer = [[buffer subdataWithRange:NSMakeRange(bufferPosition, [buffer length] - bufferPosition)] mutableCopy];
+        bufferPosition = 0;
+    }
+}
+
+@end
+
 @implementation CKHttpServletInputStream
 
 - initWithConnection:(CKServletConnection *)aServletConnection
@@ -27,28 +46,51 @@
 
 - (NSData *)readData
 {
-    return [servletConnection readPayload];
-}
-
-//TODO make it faster with not copy data every time 
-//(especially for small read blocks)
-//use a bufferPosition
-- (unsigned char)read
-{
-    NSData  *data = [self readData:1];
-    
-    if ([data length] == 0) {
-        return EOF;
+    NSData  *data;
+    if([buffer length] > bufferPosition) {
+        //there is something in the buffer return the buffer
+        data =[buffer subdataWithRange:NSMakeRange(bufferPosition, [buffer length] - bufferPosition)];
+    }
+    else {
+        data = [servletConnection readPayload];
     }
     
-    return ((char *)[data bytes])[0];
+    [buffer release];
+    buffer = nil;
+    bufferPosition = 0;
+    
+    return data;
+}
+
+- (unsigned char)peek
+{
+    if([buffer length] > bufferPosition) {
+        return ((unsigned char *)[buffer bytes])[bufferPosition];
+    }
+    else {
+        buffer = [[servletConnection readPayload] mutableCopy];
+        bufferPosition = 0;
+        if ([buffer length] == 0) {
+            return EOF;
+        }
+        else {
+            return ((unsigned char *)[buffer bytes])[0];
+        }
+    }
+}
+
+- (unsigned char)read
+{
+    unsigned char b = [self peek];
+    bufferPosition++;
+    return b;
 }
 
 - (NSData *)readData:(unsigned int)length
 {
     
-    while ([buffer length] < length) {
-        NSData  *data = [self readData];
+    while ([buffer length] < length + bufferPosition) {
+        NSData  *data = [servletConnection readPayload];
         if ([data length] == 0) {
             NSData *returnData = [buffer autorelease];
             buffer = nil;
@@ -56,17 +98,21 @@
         }
         else {
             if (buffer == nil) {
-                buffer = [[NSMutableData alloc] init];
+                buffer = [[NSMutableData alloc] initWithData:data];
             }
-            [buffer appendData:data];
+            else {
+                [buffer appendData:data];
+            }
         }
     }
     
-    NSData  *ret = [buffer subdataWithRange:NSMakeRange(0, length)];
-    [buffer autorelease];
-    buffer = [[buffer subdataWithRange:NSMakeRange(length, [buffer length] - length)] mutableCopy];
+    NSData  *data = [buffer subdataWithRange:NSMakeRange(bufferPosition, length)];
     
-    return ret;
+    bufferPosition += length;
+    
+    [self shrinkBuffer];
+    
+    return data;
 }
 
 @end

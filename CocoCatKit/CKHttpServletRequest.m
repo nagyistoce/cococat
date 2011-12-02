@@ -104,6 +104,8 @@
 - (CKHttpSession *)session
 {
     if(session == nil || [session isValid] == NO) {
+        [self releaseSession];
+        
         session = [sessionManager obtainSession:requestedSessionId];
         if (session == nil) {
             session = [sessionManager createAndOptainSession];
