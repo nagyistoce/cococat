@@ -97,4 +97,13 @@
     attributes = nil;
 }
 
+- (BOOL)isValid
+{
+    if (invalid == YES) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end

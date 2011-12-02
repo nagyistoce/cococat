@@ -22,6 +22,7 @@
     CKHttpServletInputStream    *inputStream;
     CKHttpServletResponse       *response;
     NSString                    *requestedSessionId;
+    NSString                    *sessionPath;
 }
 
 - initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
@@ -46,5 +47,7 @@
 - (BOOL)secure;
 - (NSString *)contextPath;
 - (CKHttpServletInputStream *)inputStream;
+
+- (void)setSessionPath:(NSString *)aSessionPath;
 
 @end

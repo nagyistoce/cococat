@@ -330,12 +330,10 @@
     NSEnumerator    *cookieEnumerator = [cookies objectEnumerator];
     CKCookie        *cookie;
     
-    while ((cookie = [cookieEnumerator nextObject]) != nil) {
-        
-        NSString    *cookieEntry = [NSString stringWithFormat:@"%@=%@", [cookie name], [cookie value]];
+    while ((cookie = [cookieEnumerator nextObject]) != nil) {        
         NSNumber	*number = [self codeValueForHeaderName:@"SET-COOKIE"];
         [self addInteger:[number intValue] data:data];
-        [self addString:cookieEntry data:data];
+        [self addString:[cookie description] data:data];
     }
 	[self writePacketHeader:[data length]];
 	[socket writeData:data withTimeout:-1 tag:CKAJP_SEND_HEADER];

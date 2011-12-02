@@ -56,6 +56,7 @@
     [response release];    
     [sessionManager release];
     [inputStream release];
+    [sessionPath release];
 	
 	[super dealloc];
 }
@@ -102,12 +103,25 @@
 
 - (CKHttpSession *)session
 {
-    if(session == nil) {
+    if(session == nil || [session isValid] == NO) {
         session = [sessionManager obtainSession:requestedSessionId];
         if (session == nil) {
             session = [sessionManager createAndOptainSession];
             
             CKCookie  *sessionCookie = [[[CKCookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]] autorelease];
+            if (sessionPath != nil) {
+                [sessionCookie setPath:sessionPath];                
+            }
+            else {
+                NSString    *path = [sessionManager path];
+                //if no path is set the path to the current path
+                if (path == nil) {
+                    [sessionCookie setPath:[self requestUri]];
+                }
+                else {
+                    [sessionCookie setPath:path];
+                }
+            }
             [response addCookie:sessionCookie];
         }
     }
@@ -122,7 +136,6 @@
     }
     
     return session;
-    
 }
 
 - (NSArray *)cookies
@@ -143,6 +156,12 @@
 - (CKHttpServletInputStream *)inputStream
 {
     return inputStream;
+}
+
+- (void)setSessionPath:(NSString *)aSessionPath
+{
+    [sessionPath autorelease];
+    sessionPath = [aSessionPath retain];
 }
 
 @end

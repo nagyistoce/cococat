@@ -31,5 +31,6 @@
 - (void)removeAttributeForName:(NSString *)name;
 
 - (void)invalidate;
+- (BOOL)isValid;
 
 @end

@@ -27,13 +27,22 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 
 @implementation CKHttpSessionManager
 
-- initWithSessionIdentifier:(NSString *)aSessionIdentifier maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier 
+        maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
+{
+    return [self initWithSessionIdentifier:aSessionIdentifier maxInactiveInterval:aMaxInactiveInterval path:nil];
+}
+
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier 
+        maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
+                       path:(NSString*)aPath
 {
     sessionIdentifier = [aSessionIdentifier retain];
+    path = [aPath retain];
     sessions = [[NSMutableDictionary alloc] init];
     maxInactiveInterval = aMaxInactiveInterval;
     cleanupTimer = [[NSTimer scheduledTimerWithTimeInterval:(aMaxInactiveInterval < 60.0 ? aMaxInactiveInterval : 60.0) target:self selector:@selector(_cleanupExpiredSession:) userInfo:nil repeats:YES] retain];
-        
+    
     return self;
 }
 
@@ -69,7 +78,13 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
         NSDate              *lastAccessedTime = [session lastAccessedTime];
         NSDate              *invalidDate = [[[NSDate alloc] initWithTimeInterval:[session maxInactiveInterval] sinceDate:lastAccessedTime] autorelease];
         NSComparisonResult  result = [invalidDate compare:[NSDate date]];
-        if (result == NSOrderedAscending) {
+        if ([session isValid] == NO) {
+            [sessions removeObjectForKey:sessionId];
+            [session release];
+            session = nil;
+
+        }
+        else if (result == NSOrderedAscending) {
             [sessions removeObjectForKey:sessionId];
             [session invalidate];
             [session release];
@@ -107,6 +122,11 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 - (NSString *)sessionIdentifier
 {
     return sessionIdentifier;
+}
+
+- (NSString *)path
+{
+    return path;
 }
 
 + (NSString *)_createSessionId 

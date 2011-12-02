@@ -15,9 +15,14 @@
     NSTimeInterval      maxInactiveInterval;
     NSTimer             *cleanupTimer;
     NSString            *sessionIdentifier;
+    NSString            *path;
 }
 
-- initWithSessionIdentifier:(NSString *)aSessionIdentifier maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval;
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier 
+        maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval;
+- initWithSessionIdentifier:(NSString *)aSessionIdentifier 
+        maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
+                       path:(NSString*)aPath;
 - (void)dealloc;
 
 + (CKHttpSessionManager *)defaultManager;
@@ -26,5 +31,6 @@
 - (void)releaseSession:(CKHttpSession *)session;
 - (CKHttpSession *)createAndOptainSession;
 - (NSString *)sessionIdentifier;
+- (NSString *)path;
 
 @end

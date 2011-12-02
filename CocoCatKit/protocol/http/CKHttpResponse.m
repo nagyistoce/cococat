@@ -66,7 +66,7 @@
     CKCookie		*cookie;
     
     while ((cookie = [cookieEnumerator nextObject]) != nil) {
-        NSString    *cookieEntry = [NSString stringWithFormat:@"Set-Cookie: %@=%@\r\n", [cookie name], [cookie value]];
+        NSString    *cookieEntry = [NSString stringWithFormat:@"Set-Cookie: %@\r\n", [cookie description]];
         [connection sendData:[cookieEntry dataUsingEncoding:NSASCIIStringEncoding]];
     }
     
@@ -75,7 +75,18 @@
 
 - (void)end:(BOOL)keepAlive
 {
-    //nothing todo
+    //we need to read the whole request if connection is keep alive
+    if (keepAlive == YES) {
+        while (true) {
+            NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+            NSData  * data = [connection readPayload];
+            if (data == nil) {
+                [pool release];
+                break;
+            }
+            [pool release];
+        }
+    }
 }
 
 - (id<CKHttpDefaultPageManagers>)defaultPageManager

@@ -58,7 +58,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ = %@", name ,value];
+    NSString    *string = [NSString stringWithFormat:@"%@=%@", name, value];
+    if (domain != nil) {
+        string = [NSString stringWithFormat:@"%@; Domain=%@", string, domain];
+    }
+    if (path != nil) {
+        string = [NSString stringWithFormat:@"%@; Path=%@", string, path];
+    }
+    
+    return string;
 }
 
 @end
