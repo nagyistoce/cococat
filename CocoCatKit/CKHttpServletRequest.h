@@ -22,7 +22,7 @@
     CKHttpServletInputStream    *inputStream;
     CKHttpServletResponse       *response;
     NSString                    *requestedSessionId;
-    NSString                    *sessionPath;
+    NSArray                     *locales;
 }
 
 - initWithServletRequestMessage:(id<CKServletRequestMessage>)aRequestMessage 
@@ -47,7 +47,7 @@
 - (BOOL)secure;
 - (NSString *)contextPath;
 - (CKHttpServletInputStream *)inputStream;
-
-- (void)setSessionPath:(NSString *)aSessionPath;
+- (NSLocale *)locale;
+- (NSArray *)locales;
 
 @end

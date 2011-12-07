@@ -15,6 +15,7 @@
     NSDate              *lastAccessedTime;
     NSMutableDictionary *attributes;
     BOOL                invalid;
+    BOOL                isNew;
 }
 
 - initWithSessionId:(NSString *)aSessionId maxInactiveInterval:(NSTimeInterval)interval;

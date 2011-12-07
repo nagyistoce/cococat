@@ -22,6 +22,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 
 - (void)setLastAccessedTime:(NSDate *)aDate;
 - (BOOL)isInvalid;
+- (void)setIsNew:(BOOL)isNew;
 
 @end
 
@@ -30,7 +31,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
 - initWithSessionIdentifier:(NSString *)aSessionIdentifier 
         maxInactiveInterval:(NSTimeInterval)aMaxInactiveInterval
 {
-    return [self initWithSessionIdentifier:aSessionIdentifier maxInactiveInterval:aMaxInactiveInterval path:nil];
+    return [self initWithSessionIdentifier:aSessionIdentifier maxInactiveInterval:aMaxInactiveInterval path:@""];
 }
 
 - initWithSessionIdentifier:(NSString *)aSessionIdentifier 
@@ -105,6 +106,7 @@ static NSString * const defaultSessionIdentifier = @"COCOCAT-SESSION";
             [sessions removeObjectForKey:[session sessionId]];
         }
     }
+    [session setIsNew:NO];
     [session release];
 }
 

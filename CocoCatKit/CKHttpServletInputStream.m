@@ -62,7 +62,7 @@
     return data;
 }
 
-- (unsigned char)peek
+- (int)peek
 {
     if([buffer length] > bufferPosition) {
         return ((unsigned char *)[buffer bytes])[bufferPosition];
@@ -79,7 +79,7 @@
     }
 }
 
-- (unsigned char)read
+- (int)read
 {
     unsigned char b = [self peek];
     bufferPosition++;

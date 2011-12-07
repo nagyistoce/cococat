@@ -20,8 +20,8 @@
 - initWithConnection:(CKServletConnection *)aServletConnection;
 - (void)dealloc;
 
-- (unsigned char)read;
-- (unsigned char)peek;
+- (int)read;
+- (int)peek;
 - (NSData *)readData;
 - (NSData *)readData:(unsigned int)length;
 

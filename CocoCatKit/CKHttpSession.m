@@ -16,6 +16,11 @@
     lastAccessedTime = [aDate retain];
 }
 
+- (void)setIsNew:(BOOL)yn
+{
+    isNew = yn;
+}
+
 - (BOOL)isInvalid
 {
     return invalid;
@@ -36,6 +41,8 @@
     attributes = [[NSMutableDictionary alloc] init];
 
     maxInactiveInterval = interval;
+    
+    isNew = YES;
     
     return self;
 }
@@ -67,7 +74,7 @@
 
 - (BOOL)isNew
 {
-    return (creationTime == lastAccessedTime ? YES: NO);
+    return isNew;
 }
 
 - (NSString *)sessionId

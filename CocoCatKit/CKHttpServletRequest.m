@@ -13,6 +13,64 @@
 #import "CKHttpSessionManager.h"
 #import "protocol/CKServletRequestMessage.h"
 
+@interface CKHttpAcceptLanguageQuality : NSObject
+{
+    NSString    *identifier;
+    double      quality;
+}
+
+- initWithIdentifier:(NSString *)anIdentifier quality:(double)aQuality;
+- (void)dealloc;
+
+- (NSString *)identifier;
+- (NSString *)description;
+
+- (NSComparisonResult)compare:(CKHttpAcceptLanguageQuality *)otherObject;
+
+@end
+
+@implementation CKHttpAcceptLanguageQuality
+
+- initWithIdentifier:(NSString *)anIdentifier quality:(double)aQuality
+{
+    identifier = [anIdentifier retain];
+    quality = aQuality;
+    
+    return self;
+}
+
+- (void)dealloc
+{
+    [identifier release];
+    [super dealloc];
+}
+
+- (NSString *)identifier
+{
+    return identifier;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ (%f)", identifier, quality];
+}
+
+- (NSComparisonResult)compare:(CKHttpAcceptLanguageQuality *)otherObject 
+{
+    if (quality > otherObject->quality) {
+        return NSOrderedAscending;
+   
+    }
+    else if (quality > otherObject->quality) {
+        return NSOrderedDescending;
+    }
+    else {
+        return NSOrderedSame;
+    }
+}
+
+@end
+
 @interface CKHttpServletRequest(Private)
 
 - (void)releaseSession;
@@ -56,7 +114,7 @@
     [response release];    
     [sessionManager release];
     [inputStream release];
-    [sessionPath release];
+    [locales release];
 	
 	[super dealloc];
 }
@@ -111,19 +169,9 @@
             session = [sessionManager createAndOptainSession];
             
             CKCookie  *sessionCookie = [[[CKCookie alloc] initWithName:[sessionManager sessionIdentifier] withValue:[session sessionId]] autorelease];
-            if (sessionPath != nil) {
-                [sessionCookie setPath:sessionPath];                
-            }
-            else {
-                NSString    *path = [sessionManager path];
-                //if no path is set the path to the current path
-                if (path == nil) {
-                    [sessionCookie setPath:[self requestUri]];
-                }
-                else {
-                    [sessionCookie setPath:path];
-                }
-            }
+            
+            [sessionCookie setPath:[sessionManager path]];
+            
             [response addCookie:sessionCookie];
         }
     }
@@ -160,10 +208,59 @@
     return inputStream;
 }
 
-- (void)setSessionPath:(NSString *)aSessionPath
+- (NSLocale *)locale
 {
-    [sessionPath autorelease];
-    sessionPath = [aSessionPath retain];
+    [self locales]; 
+    
+    if ([locales count] > 0) {
+        return [locales objectAtIndex:0];
+    } else {
+        return [NSLocale systemLocale];
+    }
+}
+
+- (NSArray *)locales
+{
+    if (locales == nil) {
+        locales = [[NSMutableArray alloc] init];
+        NSMutableArray *acceptLanguageQualities = [NSMutableArray array];
+        NSString        *acceptLanguage = [[requestMessage header] objectForKey:@"Accept-Language"];
+        NSArray         *strings = [acceptLanguage componentsSeparatedByString:@","];
+        NSEnumerator    *enumerator = [strings objectEnumerator];
+        NSString        *string;
+        CKHttpAcceptLanguageQuality *current;
+        while ((string = [enumerator nextObject]) != nil) {
+            NSScanner   *alqscanner = [NSScanner scannerWithString:string];
+            NSString    *identifier = nil;
+            double      quality = 1.0;
+            [alqscanner scanUpToString:@";" intoString:&identifier];
+            if ([alqscanner scanString:@";" intoString:NULL] == YES) {
+                if ([alqscanner scanString:@"q" intoString:NULL] == YES) {
+                    if ([alqscanner scanString:@"=" intoString:NULL] == YES) {
+                        [alqscanner scanDouble:&quality];
+                    }
+                }
+            }
+            
+            [acceptLanguageQualities addObject:[[[CKHttpAcceptLanguageQuality alloc] initWithIdentifier:identifier quality:quality] autorelease]];
+        }
+        
+        enumerator = [[acceptLanguageQualities sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+        while ((current = [enumerator nextObject]) != nil) {
+            //de-ch -> de_CH, en -> en
+            NSArray *components = [[current identifier] componentsSeparatedByString:@"-"];
+            NSString    *identifier;
+            if ([components count] > 1) {
+                identifier = [NSString stringWithFormat:@"%@_%@", [components objectAtIndex:0], [[components objectAtIndex:1] uppercaseString]];
+            }
+            else {
+                identifier = [current identifier];
+            }
+            [(NSMutableArray *)locales addObject:[[[NSLocale alloc] initWithLocaleIdentifier:identifier] autorelease]];
+        }
+    }
+    
+    return locales;
 }
 
 @end
