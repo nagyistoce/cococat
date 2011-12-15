@@ -77,7 +77,7 @@
 {
     //we need to read the whole request if connection is keep alive
     if (keepAlive == YES) {
-        while (true) {
+        while (YES) {
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
             NSData  * data = [connection readPayload];
             if (data == nil) {
