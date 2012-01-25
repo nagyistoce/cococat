@@ -56,6 +56,7 @@
     switch (tag) {
 		case CKHTTP_PACKET_HEADER: {
             [currentRequest release];
+            currentRequest = nil;
 
             currentRequest = [[CKHttpRequest alloc] initWithData:data secure:secure remoteAddr:[sock connectedHost]];
 			if (currentRequest == nil) {
