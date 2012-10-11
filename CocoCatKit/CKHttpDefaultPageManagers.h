@@ -10,7 +10,7 @@
 
 @protocol CKHttpDefaultPageManagers <NSObject>
 
-- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(id)contextInfo;
+- (NSData *)errorPageForCode:(unsigned int)code contextInfo:(id)contextInfo;
 - (NSString *)textForCode:(unsigned int)code;
 
 @end

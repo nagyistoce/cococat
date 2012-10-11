@@ -121,7 +121,7 @@
         [[NSException exceptionWithName:@"MessageCommittedException" reason:@"Cannot send header, message already committed" userInfo:nil] raise];
     }
     
-	NSData	*errorPage = [[[responseMessage defaultPageManager] errorPageForCode:error contextInfo:contextInfo] dataUsingEncoding:NSISOLatin1StringEncoding];
+	NSData	*errorPage = [[responseMessage defaultPageManager] errorPageForCode:error contextInfo:contextInfo];
     
     [self setIntHeaderValue:[errorPage length] forName:@"Content-Length"];
     [self setContentType:@"text/html"];
