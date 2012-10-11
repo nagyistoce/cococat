@@ -30,10 +30,10 @@
 	return manager;
 }
 
-- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(NSString *)contextInfo
+- (NSString *)errorPageForCode:(unsigned int)code contextInfo:(id)contextInfo
 {
 	if (contextInfo != nil) {
-        return [NSString stringWithFormat:@"%@ - %@", [self textForCode:code], contextInfo];
+        return [NSString stringWithFormat:@"%@ - %@", [self textForCode:code], [contextInfo description]];
     }
     else {
         return [self textForCode:code];

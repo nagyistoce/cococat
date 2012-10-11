@@ -40,7 +40,7 @@
 
 - (void)sendError:(unsigned int)error;
 - (void)sendError:(unsigned int)error message:(NSString *)message;
-- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(NSString *)contextInfo;
+- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(id)contextInfo;
 - (void)sendRedirect:(NSString *)location;
 
 - (void)writeData:(NSData *)data;

@@ -111,7 +111,7 @@
     [self sendError:error message:message contextInfo:nil];
 }
 
-- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(NSString *)contextInfo
+- (void)sendError:(unsigned int)error message:(NSString *)message contextInfo:(id)contextInfo
 {
     if(message == nil) {
         message = [[responseMessage defaultPageManager] textForCode:error];
