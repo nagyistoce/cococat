@@ -33,7 +33,7 @@
 - (NSData *)errorPageForCode:(unsigned int)code contextInfo:(id)contextInfo
 {
 	if (contextInfo != nil) {
-        return [NSString stringWithFormat:@"%@ - %@", [self textForCode:code], [contextInfo description]];
+        return [[NSString stringWithFormat:@"%@ - %@", [self textForCode:code], [contextInfo description]] dataUsingEncoding:NSASCIIStringEncoding];
     }
     else {
         return [[self textForCode:code] dataUsingEncoding:NSASCIIStringEncoding];
