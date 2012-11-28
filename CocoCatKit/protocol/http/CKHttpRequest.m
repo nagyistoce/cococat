@@ -69,6 +69,15 @@
 		if (range.location != NSNotFound) {
 			NSString *name = [keyValue substringToIndex:range.location];
 			NSString *value = [keyValue substringFromIndex:range.location + 2];
+			
+			//should be a better implementation
+            if ([value length] >= 2 && [value hasPrefix:@"\""] && [value hasSuffix:@"\""]) {
+                NSRange substringRange;
+                substringRange.length = [value length] - 2;
+                substringRange.location = 1;
+                value = [value substringWithRange:substringRange];
+            }
+
 			[header setObject:value forKey:name];
 		}
 		else {
