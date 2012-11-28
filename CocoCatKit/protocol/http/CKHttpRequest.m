@@ -76,7 +76,6 @@
 		}
 		
 	}
-	[httpVersion retain];
     
     NSString        *cookieHeaderString = [header objectForKey:@"Cookie"];
     NSArray         *cookieStrings = [cookieHeaderString componentsSeparatedByString:@"; "];
