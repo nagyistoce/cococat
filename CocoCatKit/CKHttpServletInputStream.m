@@ -92,9 +92,19 @@
     while ([buffer length] < length + bufferPosition) {
         NSData  *data = [servletConnection readPayload];
         if ([data length] == 0) {
-            NSData *returnData = [buffer autorelease];
-            buffer = nil;
-            return returnData;
+            unsigned int remaining = [buffer length] - bufferPosition;
+            unsigned int rangeLength = MIN(remaining, length);
+            if (rangeLength == 0) {
+                [buffer release];
+                buffer = nil;
+                return nil;
+            }
+            else {
+                NSData *returnData = [buffer subdataWithRange:NSMakeRange(bufferPosition, rangeLength)];
+                [buffer release];
+                buffer = nil;
+                return returnData;
+            }
         }
         else {
             if (buffer == nil) {
