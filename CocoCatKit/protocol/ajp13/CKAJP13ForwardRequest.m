@@ -30,7 +30,7 @@
 	unsigned char b2 = bytes[_position++];
     
 	
-	int length = (int)b1 << 8 | b2;
+	short length = (short)b1 << 8 | b2;
 	
 	if (length == -1) {
 		return result;
