@@ -113,12 +113,15 @@
     [servletRequest releaseSession];
 	
 	//get keep alive from response again, maybe the servlet modified it
-	if ([[[servletResponse header] objectForKey:@"Connection"] isEqualToString:@"keep-alive"] == YES
+	if ([[[[servletResponse header] objectForKey:@"Connection"] uppercaseString] isEqualToString:@"KEEP-ALIVE"] == YES
         && [[servletResponse header] objectForKey:@"Content-Length"] != nil) {
 		int contentLength = [[[servletResponse header] objectForKey:@"Content-Length"] intValue];
 		if ([servletResponse responsePayloadSize] >=  contentLength) {
 			*keepAlive = YES;
 		}
+        else if ([[[servletRequest method] uppercaseString] isEqualToString:@"HEAD"] == YES && [servletResponse responsePayloadSize] == 0) {
+            *keepAlive = YES;
+        }
 		else {
 			*keepAlive = NO;
 		}
